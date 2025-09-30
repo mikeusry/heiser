@@ -1,0 +1,113 @@
+---
+// Testimonials Section with Cream Background
+const testimonials = [
+  {
+    quote: "After major remodeling and renovation in our building, it was a disaster. David came in and assessed the situation and sent his two best guys. In one evening, they cleaned the inside of the building completely.",
+    author: "Tom Strossner"
+  },
+  {
+    quote: "The Heiser Group is the only company we use for years now. They are thorough, professional, and always deliver exceptional results. Highly recommended!",
+    author: "Sarah Johnson"
+  },
+  {
+    quote: "Outstanding service! The team was punctual, detail-oriented, and left our office spotless. We couldn't be happier with the results.",
+    author: "Michael Chen"
+  }
+];
+---
+
+<section class="bg-brand-cream py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="relative">
+      <!-- Decorative Elements -->
+      <div class="absolute top-0 left-0 w-32 h-32 bg-brand-navy rounded-full -translate-x-16 -translate-y-16 opacity-10"></div>
+      <div class="absolute bottom-0 right-0 w-40 h-40 bg-brand-orange rounded-full translate-x-20 translate-y-20 opacity-10"></div>
+
+      <!-- Testimonial Slider -->
+      <div class="testimonial-slider">
+        {testimonials.map((testimonial, index) => (
+          <div class="testimonial-slide text-center px-4 md:px-12" data-index={index}>
+            <blockquote class="text-2xl md:text-3xl font-heading text-brand-navy leading-relaxed mb-8 italic">
+              "{testimonial.quote}"
+            </blockquote>
+            <cite class="text-xl text-gray-700 font-semibold not-italic">
+              — {testimonial.author}
+            </cite>
+          </div>
+        ))}
+      </div>
+
+      <!-- Navigation Arrows -->
+      <div class="flex justify-center gap-4 mt-12">
+        <button id="prev-testimonial" class="w-12 h-12 rounded-full bg-white hover:bg-brand-orange hover:text-white transition-colors flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button id="next-testimonial" class="w-12 h-12 rounded-full bg-white hover:bg-brand-orange hover:text-white transition-colors flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-slider {
+    position: relative;
+    min-height: 300px;
+  }
+
+  .testimonial-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+  }
+
+  .testimonial-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const totalSlides = slides.length;
+
+  function showSlide(index: number) {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    showSlide(currentIndex);
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    showSlide(currentIndex);
+  }
+
+  // Initialize
+  showSlide(0);
+
+  // Event listeners
+  document.getElementById('next-testimonial')?.addEventListener('click', nextSlide);
+  document.getElementById('prev-testimonial')?.addEventListener('click', prevSlide);
+
+  // Auto-rotate every 6 seconds
+  setInterval(nextSlide, 6000);
+</script>

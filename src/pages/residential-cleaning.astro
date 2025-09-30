@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import CTASection from '../components/CTASection.astro';
+import { getImagesByKeyword } from '../lib/images';
+
+const images = getImagesByKeyword('cleaning');
+---
+
+<BaseLayout title="Residential Cleaning Services - The Heiser Group" description="Professional residential cleaning services in Chicago and Lake County Illinois. Hassle-free home cleaning with flat-rate pricing.">
+	<!-- Hero Section -->
+	<section class="relative bg-brand-navy text-white py-40 px-6 overflow-hidden">
+		<div class="max-w-6xl mx-auto relative z-10">
+			<div class="grid lg:grid-cols-2 gap-12 items-center">
+				<div>
+					<p class="text-white text-lg font-semibold mb-4 uppercase tracking-wide">RESIDENTIAL CLEANING</p>
+					<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 leading-tight">
+						Hassle-Free Home Cleaning Services
+					</h1>
+					<p class="text-xl text-white leading-relaxed">
+						Come home to a sparkling clean house without lifting a finger. Our professional residential cleaning services deliver exceptional results every time.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Included -->
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-16">What's Included</h2>
+			<div class="grid md:grid-cols-2 gap-8">
+				<div class="flex gap-4">
+					<svg class="w-8 h-8 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Kitchen Cleaning</h3>
+						<p class="text-gray-600">Countertops, sinks, appliances (exterior), floors, and cabinets (exterior)</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<svg class="w-8 h-8 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Bathroom Cleaning</h3>
+						<p class="text-gray-600">Toilets, sinks, showers, tubs, mirrors, floors, and fixtures</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<svg class="w-8 h-8 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Living Areas</h3>
+						<p class="text-gray-600">Dusting, vacuuming, mopping, and general tidying of all living spaces</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<svg class="w-8 h-8 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Bedrooms</h3>
+						<p class="text-gray-600">Dusting, vacuuming, making beds, and organizing</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<svg class="w-8 h-8 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">All Supplies Provided</h3>
+						<p class="text-gray-600">We bring all necessary cleaning products and equipment</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<svg class="w-8 h-8 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Flat-Rate Pricing</h3>
+						<p class="text-gray-600">Simple, transparent pricing based on the size of your home</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Cleaning Options -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-4">Flexible Cleaning Schedules</h2>
+			<p class="text-xl text-gray-600 text-center mb-16">Choose the service that fits your lifestyle</p>
+			<div class="grid md:grid-cols-3 gap-8">
+				<a href="/bi-weekly-cleaning" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow group">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Bi-Weekly Cleaning</h3>
+					<p class="text-gray-600 mb-6">Our most popular option. Keep your home consistently clean with service every two weeks.</p>
+					<span class="text-brand-orange font-semibold group-hover:underline">Learn More →</span>
+				</a>
+
+				<a href="/monthly-cleaning-service" class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow group">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Monthly Cleaning</h3>
+					<p class="text-gray-600 mb-6">Perfect for maintaining a tidy home with once-a-month deep cleaning service.</p>
+					<span class="text-brand-orange font-semibold group-hover:underline">Learn More →</span>
+				</a>
+
+				<div class="bg-white p-8 rounded-xl shadow-lg">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">One-Time Cleaning</h3>
+					<p class="text-gray-600 mb-6">Need a deep clean for a special occasion? We've got you covered with our one-time service.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Benefits -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-16">Why Choose Our Residential Cleaning</h2>
+			<div class="space-y-8">
+				<div class="flex gap-6">
+					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
+						<span class="text-white font-bold text-2xl">1</span>
+					</div>
+					<div>
+						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Thorough & Professional</h3>
+						<p class="text-gray-600 text-lg">Our experienced team follows a comprehensive checklist to ensure no detail is missed.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-6">
+					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
+						<span class="text-white font-bold text-2xl">2</span>
+					</div>
+					<div>
+						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Hassle-Free Experience</h3>
+						<p class="text-gray-600 text-lg">Easy online booking, flexible scheduling, and we provide all supplies. You just sit back and relax!</p>
+					</div>
+				</div>
+
+				<div class="flex gap-6">
+					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
+						<span class="text-white font-bold text-2xl">3</span>
+					</div>
+					<div>
+						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Trusted & Reliable</h3>
+						<p class="text-gray-600 text-lg">As one of the highest-rated cleaning services in the Chicago area, our reputation speaks for itself.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<CTASection
+		title="Ready for a Sparkling Clean Home?"
+		subtitle="Experience the difference with The Heiser Group's residential cleaning services. Book your first cleaning today!"
+		buttonText="Get Your Free Quote"
+		buttonLink="/contact"
+	/>
+</BaseLayout>

@@ -1,16 +1,124 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import CoreValues from '../components/CoreValues.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { featuredImages } from '../lib/images';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="The Heiser Group - Professional Cleaning Services Chicago & Lake County">
+	<!-- Hero Section -->
+	<section class="min-h-screen flex items-center justify-center bg-gray-50 px-6 pt-24">
+		<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+			<div>
+				<p class="text-brand-orange text-lg font-semibold mb-4 uppercase tracking-wide">SEEING IS BELIEVING</p>
+				<h1 class="text-5xl md:text-7xl font-heading text-brand-navy mb-6 font-bold leading-tight">
+					You Won't Believe The <span class="text-brand-orange">Difference</span>
+				</h1>
+				<p class="text-xl text-gray-600 mb-8 leading-relaxed">
+					We know you're busy, and the last thing you need is to come home to a dirty house. That's why we're offering <strong>high-quality</strong>, <strong>thorough</strong>, and <strong>hassle-free home cleaning services</strong> in Lake County Illinois including North Shore, Buffalo Grove, North Chicago, Libertyville, Waukegan, Lake Forest and Kenosha WI.
+				</p>
+				<a
+					href="/contact"
+					class="inline-block bg-brand-orange text-white px-10 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all duration-300 hover:shadow-2xl hover:scale-105"
+				>
+					Get Started
+				</a>
+			</div>
+
+			{featuredImages.commercialCleaning && (
+				<div class="relative">
+					<div class="absolute -top-8 -right-8 w-full h-full bg-brand-orange rounded-3xl opacity-10 -z-10"></div>
+					<CloudinaryImage
+						publicId={featuredImages.commercialCleaning.publicId}
+						alt="Professional Commercial Cleaning Services"
+						width={700}
+						height={500}
+						class="rounded-2xl shadow-2xl"
+					/>
+				</div>
+			)}
+		</div>
+	</section>
+
+	<!-- Introduction -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<p class="text-2xl text-gray-700 leading-relaxed">
+				The Heiser Group is one of the the highest-rated home cleaning and maid service in Chicago area. Our core principles of honesty, integrity, with great service and thorough quality means you'll love the results every time.
+			</p>
+		</div>
+	</section>
+
+	<!-- Core Values -->
+	<CoreValues />
+
+	<!-- Services Preview Section -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center mb-16">
+				<h2 class="text-5xl font-heading text-brand-navy font-bold mb-4">Our Services</h2>
+				<p class="text-xl text-gray-600">Professional cleaning solutions for every need</p>
+			</div>
+			<div class="grid md:grid-cols-3 gap-8">
+				{featuredImages.biWeeklyCleaning && (
+					<a href="/residential-cleaning" class="group block">
+						<div class="relative overflow-hidden rounded-xl mb-4">
+							<CloudinaryImage
+								publicId={featuredImages.biWeeklyCleaning.publicId}
+								alt="Residential Cleaning Services"
+								width={400}
+								height={300}
+								class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+							/>
+						</div>
+						<h3 class="text-2xl font-heading text-brand-navy mb-2 font-bold">Residential Cleaning</h3>
+						<p class="text-gray-600 mb-4">Professional home cleaning services with flat-rate pricing</p>
+						<span class="text-brand-orange font-semibold group-hover:underline">Learn More →</span>
+					</a>
+				)}
+
+				{featuredImages.commercialCleaning && (
+					<a href="/commercial-cleaning" class="group block">
+						<div class="relative overflow-hidden rounded-xl mb-4">
+							<CloudinaryImage
+								publicId={featuredImages.commercialCleaning.publicId}
+								alt="Commercial Cleaning Services"
+								width={400}
+								height={300}
+								class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+							/>
+						</div>
+						<h3 class="text-2xl font-heading text-brand-navy mb-2 font-bold">Commercial Cleaning</h3>
+						<p class="text-gray-600 mb-4">Office and business cleaning for a professional environment</p>
+						<span class="text-brand-orange font-semibold group-hover:underline">Learn More →</span>
+					</a>
+				)}
+
+				{featuredImages.carpetCleaning && (
+					<a href="/specialty-cleaning" class="group block">
+						<div class="relative overflow-hidden rounded-xl mb-4">
+							<CloudinaryImage
+								publicId={featuredImages.carpetCleaning.publicId}
+								alt="Carpet Cleaning Chicago"
+								width={400}
+								height={300}
+								class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+							/>
+						</div>
+						<h3 class="text-2xl font-heading text-brand-navy mb-2 font-bold">Specialty Cleaning</h3>
+						<p class="text-gray-600 mb-4">Carpet, tile, and deep cleaning services</p>
+						<span class="text-brand-orange font-semibold group-hover:underline">Learn More →</span>
+					</a>
+				)}
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials -->
+	<TestimonialSection />
+
+	<!-- CTA Section -->
+	<CTASection />
+</BaseLayout>

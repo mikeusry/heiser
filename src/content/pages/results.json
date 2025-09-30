@@ -1,0 +1,51 @@
+{
+  "slug": "results",
+  "url": "https://www.heisergroup.com/results",
+  "title": "Results",
+  "description": "",
+  "markdown": "# Results\n\n## How We Work\n\nEvaluation & Customization\n\nThe Heiser Group evaluates your facility, tailoring our approach to each client’s individual cleaning needs. We then assemble a customized cleaning schedule to meet our customer’s cleaning and financial requirements as it pertains to their home or facility. During this process, our team is adamant about providing professional expertise, honestly, and integrity. We have a no-nonsense approach so the person that customizes your cleaning schedule is your main contact throughout our entire working relationship\n\nImplementation\n\nThe Heiser Group obtains both proper equipment and the right employees to satisfy your customized cleaning schedule. We provide environmentally safe cleaning chemicals that achieve impressive cleaning results for your facility. Our route supervisors directly train our employees on-site to ensure they follow the correct cleaning schedule for optimal results.\n\nSatisfaction\n\nThe Heiser Group takes pride in our average customer retention rate of 7.5 years while all other janitorial services lose 55% of their accounts on an annual basis. We provide the highest level of customer service with rapid response times. Along with our on-site supervision both the Owner and General Manager perform quarterly audits of each facility to ensure nothing is being overlooked and to guarantee 100% satisfaction day in and day out.\n\nThe Results\n\nOur Customers Know Best\n\nDon't just take our word for it.  What do the other families and business owners say?",
+  "text": "Results\nHow We Work\nEvaluation & Customization\nThe Heiser Group evaluates your facility, tailoring our approach to each client’s individual cleaning needs. We then assemble a customized cleaning schedule to meet our customer’s cleaning and financial requirements as it pertains to their home or facility. During this process, our team is adamant about providing professional expertise, honestly, and integrity. We have a no-nonsense approach so the person that customizes your cleaning schedule is your main contact throughout our entire working relationship\nImplementation\nThe Heiser Group obtains both proper equipment and the right employees to satisfy your customized cleaning schedule. We provide environmentally safe cleaning chemicals that achieve impressive cleaning results for your facility. Our route supervisors directly train our employees on-site to ensure they follow the correct cleaning schedule for optimal results.\nSatisfaction\nThe Heiser Group takes pride in our average customer retention rate of 7.5 years while all other janitorial services lose 55% of their accounts on an annual basis. We provide the highest level of customer service with rapid response times. Along with our on-site supervision both the Owner and General Manager perform quarterly audits of each facility to ensure nothing is being overlooked and to guarantee 100% satisfaction day in and day out.\nThe Results\nOur Customers Know Best\nDon't just take our word for it. What do the other families and business owners say?",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-results-3be3c6f1.jpg"
+}

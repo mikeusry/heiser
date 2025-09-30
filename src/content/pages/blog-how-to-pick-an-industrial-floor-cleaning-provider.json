@@ -1,0 +1,51 @@
+{
+  "slug": "blog-how-to-pick-an-industrial-floor-cleaning-provider",
+  "url": "https://www.heisergroup.com/blog/how-to-pick-an-industrial-floor-cleaning-provider",
+  "title": "How to Pick an Industrial Floor Cleaning Provider",
+  "description": "If you own or help to manage an office space or a factory, you might want to consider outsourcing your floor cleaning to an industrial services provider. An industrial cleaner will be able to wash, rinse, and polish your floors much more quickly and thoroughly than a one-man crew or an intern with a mop.Moreover, qualified and professional industrial cleaners will have the expertise and tools necessary to ensure that they’ll leave your floors as clean as the day your business opened.It’s easy to see why you’d want to hire an industrial floor cleaner, but where can you find a great provider of industrial floor cleaning services? When doing your research for a new commercial cleaning company that can make a good partner, there are two primary qualities to look for.",
+  "markdown": "# How to Pick an Industrial Floor Cleaning Provider\n\n## How to Pick an Industrial Floor Cleaning Provider\n\nIf you own or help to manage an office space or a factory, you might want to consider outsourcing your floor cleaning to an industrial services provider. An industrial cleaner will be able to wash, rinse, and polish your floors much more quickly and thoroughly than a one-man crew or an intern with a mop.\n\nMoreover, qualified and professional industrial cleaners will have the expertise and tools necessary to ensure that they’ll leave your floors as clean as the day your business opened.\n\nIt’s easy to see why you’d want to hire an industrial floor cleaner, but where can you find a great provider of industrial floor cleaning services? When doing your research for a new commercial cleaning company that can make a good partner, there are two primary qualities to look for.\n\n### INTERNET PRESENCE\n\nIn 2019, a professional, friendly internet presence is no longer optional. An experienced industrial cleaning company is highly likely to have some sort of internet presence, be it on [Google](https://goo.gl/maps/aaQfJdBjksFGqzSH7), [Facebook](https://www.facebook.com/theheisergroup/reviews/), or another platform entirely.\n\nCheck out these pages for reviews and to see how the business responds to customer inquiries and comments. You’ll want to choose an industrial floor cleaning provider who addresses feedback, has a history of excellent reviews, and conducts business in a professional manner.\n\nNot only that, but this type of consumer feedback can offer insight into the pros and cons of partnering up with them.\n\n1.  Are they on time for appointments?\n2.  Do they offer power washing?\n3.  Is the process convenient, yet thorough?\n\n### RECEPTIVENESS\n\nAnother good sign for your next industrial floor cleaning partner is their receptiveness to customer questions. To ensure you’re conducting your due diligence, don’t be afraid to inquire into their methodology.\n\nJust a few items worth asking about include:\n\n*   Which cleaning solutions the provider uses\n*   Which chemicals those solutions rely upon\n*   What sort of machinery the provider uses\n*   How much time the provider will need to dedicate to ensure a thorough cleaning\n\nMake sure whatever answers you receive meet your organization’s needs and that your questions are answered politely and promptly. If not, continue your search for another commercial cleaning company.\n\nNow that you know where and how to look for qualified industrial floor cleaners, take the initiative to hire one of these valuable service providers! You’ll love having cleaner floors and your employees will be thankful for the better-looking workspace.\n\nTo leave your floors looking immaculate, send us a message at [**HeiserGroup.com**](https://www.heisergroup.com/contact).\n\n‍",
+  "text": "How to Pick an Industrial Floor Cleaning Provider\nHow to Pick an Industrial Floor Cleaning Provider\nIf you own or help to manage an office space or a factory, you might want to consider outsourcing your floor cleaning to an industrial services provider. An industrial cleaner will be able to wash, rinse, and polish your floors much more quickly and thoroughly than a one-man crew or an intern with a mop.\nMoreover, qualified and professional industrial cleaners will have the expertise and tools necessary to ensure that they’ll leave your floors as clean as the day your business opened.\nIt’s easy to see why you’d want to hire an industrial floor cleaner, but where can you find a great provider of industrial floor cleaning services? When doing your research for a new commercial cleaning company that can make a good partner, there are two primary qualities to look for.\nINTERNET PRESENCE\nIn 2019, a professional, friendly internet presence is no longer optional. An experienced industrial cleaning company is highly likely to have some sort of internet presence, be it on Google, Facebook, or another platform entirely.\nCheck out these pages for reviews and to see how the business responds to customer inquiries and comments. You’ll want to choose an industrial floor cleaning provider who addresses feedback, has a history of excellent reviews, and conducts business in a professional manner.\nNot only that, but this type of consumer feedback can offer insight into the pros and cons of partnering up with them.\nAre they on time for appointments?\nDo they offer power washing?\nIs the process convenient, yet thorough?\nRECEPTIVENESS\nAnother good sign for your next industrial floor cleaning partner is their receptiveness to customer questions. To ensure you’re conducting your due diligence, don’t be afraid to inquire into their methodology.\nJust a few items worth asking about include:\nWhich cleaning solutions the provider uses\nWhich chemicals those solutions rely upon\nWhat sort of machinery the provider uses\nHow much time the provider will need to dedicate to ensure a thorough cleaning\nMake sure whatever answers you receive meet your organization’s needs and that your questions are answered politely and promptly. If not, continue your search for another commercial cleaning company.\nNow that you know where and how to look for qualified industrial floor cleaners, take the initiative to hire one of these valuable service providers! You’ll love having cleaner floors and your employees will be thankful for the better-looking workspace.\nTo leave your floors looking immaculate, send us a message at HeiserGroup.com.\n‍",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-blog-how-to-pick-an-industrial-floor-cleaning-provider-6fd0d76b.jpg"
+}

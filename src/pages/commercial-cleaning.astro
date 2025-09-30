@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import CTASection from '../components/CTASection.astro';
+import { featuredImages } from '../lib/images';
+---
+
+<BaseLayout title="Commercial Cleaning Services - The Heiser Group" description="Professional commercial cleaning services in Chicago and Lake County Illinois. Office cleaning, janitorial services, and more.">
+	<section class="relative bg-brand-navy text-white py-40 px-6">
+		<div class="max-w-6xl mx-auto">
+			<p class="text-white text-lg font-semibold mb-4 uppercase tracking-wide">COMMERCIAL CLEANING</p>
+			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">
+				Professional Office & Commercial Cleaning
+			</h1>
+			<p class="text-xl text-white max-w-3xl">
+				Create a clean, healthy, and professional environment for your employees and clients with our comprehensive commercial cleaning services.
+			</p>
+		</div>
+	</section>
+
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-16">Our Commercial Services</h2>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{[
+					{ title: "Office Cleaning", desc: "Daily or weekly office cleaning services" },
+					{ title: "Restroom Sanitization", desc: "Complete restroom cleaning and disinfection" },
+					{ title: "Floor Care", desc: "Vacuuming, mopping, and floor maintenance" },
+					{ title: "Window Cleaning", desc: "Interior and exterior window washing" },
+					{ title: "Break Room Cleaning", desc: "Kitchen and break room sanitation" },
+					{ title: "Trash Removal", desc: "Daily waste management and recycling" }
+				].map(service => (
+					<div class="p-6 bg-gray-50 rounded-xl">
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">{service.title}</h3>
+						<p class="text-gray-600">{service.desc}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<CTASection
+		title="Elevate Your Workplace"
+		subtitle="Professional commercial cleaning services tailored to your business needs."
+		buttonText="Request a Quote"
+		buttonLink="/contact"
+	/>
+</BaseLayout>

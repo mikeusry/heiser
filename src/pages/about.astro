@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import CoreValues from '../components/CoreValues.astro';
+import CTASection from '../components/CTASection.astro';
+---
+
+<BaseLayout title="About Us - The Heiser Group" description="Learn about The Heiser Group's history, mission, and commitment to providing exceptional cleaning services in Chicago and Lake County Illinois.">
+	<!-- Hero Section -->
+	<section class="bg-brand-navy text-white py-40 px-6">
+		<div class="max-w-4xl mx-auto text-center">
+			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">Our History</h1>
+			<p class="text-xl text-white">
+				Generations of trust, quality, and exceptional service
+			</p>
+		</div>
+	</section>
+
+	<!-- Our Story -->
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<div class="grid md:grid-cols-2 gap-12 items-center">
+				<div>
+					<h2 class="text-4xl font-heading font-bold text-brand-navy mb-8">The Heiser Group Story</h2>
+					<div class="prose prose-lg max-w-none">
+						<p class="text-xl text-gray-700 leading-relaxed mb-6">
+							For generations, The Heiser Group has been serving the Chicago area and Lake County Illinois with professional cleaning services that exceed expectations. Our commitment to <strong>honesty</strong>, <strong>integrity</strong>, <strong>quality</strong>, and <strong>service</strong> has made us one of the highest-rated cleaning companies in the region.
+						</p>
+						<p class="text-xl text-gray-700 leading-relaxed mb-6">
+							We understand that your time is valuable, and the last thing you need is to worry about cleaning. That's why we've built our business on providing hassle-free, thorough cleaning services with simple flat-rate pricing and easy online booking.
+						</p>
+						<p class="text-xl text-gray-700 leading-relaxed">
+							From residential homes to commercial offices, from real estate properties to specialty cleaning needs, The Heiser Group has the experience and expertise to deliver outstanding results every single time.
+						</p>
+					</div>
+				</div>
+				<div>
+					<CloudinaryImage
+						publicId="heiser/heiser/62cc7921cb19c9f729dbc81f_AdobeStock_321262289"
+						alt="Professional cleaning team providing exceptional service"
+						width={800}
+						height={600}
+						class="rounded-lg shadow-lg"
+					/>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Family Tradition -->
+	<section class="py-20 bg-brand-cream">
+		<div class="max-w-6xl mx-auto px-6">
+			<div class="text-center mb-12">
+				<h2 class="text-4xl font-heading font-bold text-brand-navy mb-6">Three Generations of Excellence</h2>
+				<p class="text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+					Founded on May 5th, 1978, The Heiser Group is a family-owned and operated business in its third generation of "Heiser". David's grandfather and father believed that any company can clean a building, but going the extra mile can separate a normal janitorial company from a great one.
+				</p>
+			</div>
+			<div class="grid md:grid-cols-3 gap-8">
+				<div class="text-center">
+					<img
+						src="https://res.cloudinary.com/southland-organics/image/upload/w_400,h_600,c_fill,g_face/heiser/heiser/The-Heiser-Group-Our-Story-Grandpa.jpg"
+						alt="Heiser Group Founder - Grandfather"
+						width="400"
+						height="600"
+						class="rounded-lg shadow-lg mb-4 mx-auto"
+					/>
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">The Founder</h3>
+					<p class="text-gray-700">Established the company in 1978 with a commitment to honesty and integrity.</p>
+				</div>
+				<div class="text-center">
+					<img
+						src="https://res.cloudinary.com/southland-organics/image/upload/w_400,h_600,c_fill,g_face/heiser/heiser/The-Heiser-Group-Our-Story-Father.jpg"
+						alt="Second Generation - Father"
+						width="400"
+						height="600"
+						class="rounded-lg shadow-lg mb-4 mx-auto"
+					/>
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Second Generation</h3>
+					<p class="text-gray-700">Built upon the foundation with dedication to quality and service excellence.</p>
+				</div>
+				<div class="text-center">
+					<img
+						src="https://res.cloudinary.com/southland-organics/image/upload/w_400,h_600,c_fill,g_face/heiser/heiser/The-Heiser-Group-Our-Story-David.jpg"
+						alt="David Heiser - Third Generation Owner"
+						width="400"
+						height="600"
+						class="rounded-lg shadow-lg mb-4 mx-auto"
+					/>
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">David Heiser</h3>
+					<p class="text-gray-700">Third generation leader continuing the family tradition of exceptional cleaning services.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Core Values -->
+	<CoreValues />
+
+	<!-- Why Choose Us -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-16">Why Choose The Heiser Group</h2>
+			<div class="grid md:grid-cols-2 gap-12">
+				<div class="flex gap-4">
+					<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+						<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Highest-Rated Service</h3>
+						<p class="text-gray-600">One of the top-rated cleaning services in the Chicago area, trusted by hundreds of satisfied customers.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+						<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Flat-Rate Pricing</h3>
+						<p class="text-gray-600">Simple, transparent pricing with no hidden fees or surprises. You know exactly what you're paying upfront.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+						<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Easy Online Booking</h3>
+						<p class="text-gray-600">Schedule your cleaning service online at your convenience. It's quick, easy, and hassle-free.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+						<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">We Provide All Supplies</h3>
+						<p class="text-gray-600">All cleaning products and supplies are provided by us. Just sit back and relax!</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+						<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Experienced Team</h3>
+						<p class="text-gray-600">Our professional cleaning team is trained, experienced, and dedicated to delivering exceptional results.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
+						<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Fully Insured</h3>
+						<p class="text-gray-600">We're fully insured for your peace of mind and protection.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Service Area -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy mb-6">Serving the Greater Chicago Area</h2>
+			<p class="text-xl text-gray-700 leading-relaxed mb-8">
+				We proudly serve <strong>Lake County Illinois</strong> and surrounding areas, including:
+			</p>
+			<div class="grid md:grid-cols-3 gap-4 text-lg text-gray-600">
+				<div>North Shore</div>
+				<div>Buffalo Grove</div>
+				<div>North Chicago</div>
+				<div>Libertyville</div>
+				<div>Waukegan</div>
+				<div>Lake Forest</div>
+				<div>Kenosha, WI</div>
+				<div>Highland Park</div>
+				<div>Deerfield</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<CTASection
+		title="Ready to Experience the Difference?"
+		subtitle="Join hundreds of satisfied customers who trust The Heiser Group for their cleaning needs."
+		buttonText="Get Your Free Quote"
+		buttonLink="/contact"
+	/>
+</BaseLayout>

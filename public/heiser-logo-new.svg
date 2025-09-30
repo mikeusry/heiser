@@ -1,0 +1,22 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- THE text at top -->
+  <text x="68" y="100" font-family="'Playfair Display', serif" font-size="72" font-weight="700" fill="#1A2B3D" letter-spacing="8">THE</text>
+
+  <!-- Large H in orange -->
+  <path d="M 68 130 L 68 540 L 128 540 L 128 360 L 320 360 L 320 540 L 380 540 L 380 130 L 320 130 L 320 300 L 128 300 L 128 130 Z" fill="#D1623C"/>
+
+  <!-- EISER text (orange) -->
+  <text x="468" y="250" font-family="'Playfair Display', serif" font-size="96" font-weight="400" fill="#D1623C" letter-spacing="4">EISER</text>
+
+  <!-- Large G in navy (curved path for authenticity) -->
+  <path d="M 520 510 C 520 520 518 530 515 540 C 460 620 320 620 265 540 C 220 475 220 350 265 285 C 320 205 460 205 515 285 C 518 295 520 305 520 315 L 520 400 L 380 400 L 380 340 L 460 340 L 460 320 C 460 310 455 300 448 292 C 420 265 370 265 342 292 C 320 315 320 410 342 433 C 370 460 420 460 448 433 C 455 425 460 415 460 405 L 520 405 Z" fill="#1A2B3D"/>
+
+  <!-- ROUP text (navy) -->
+  <text x="540" y="530" font-family="'Playfair Display', serif" font-size="96" font-weight="400" fill="#1A2B3D" letter-spacing="4">ROUP</text>
+</svg>

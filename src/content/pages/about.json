@@ -1,0 +1,51 @@
+{
+  "slug": "about",
+  "url": "https://www.heisergroup.com/about",
+  "title": "About Us",
+  "description": "The Heiser Group is a janitorial services and industrial cleaning business based in Buffalo, Illinois. The Heiser Group is a family-owned and operated.",
+  "markdown": "# About Us\n\nThe Heiser Group is a janitorial services and industrial cleaning business based in Buffalo Grove, Illinois. Founded on May 5th, 1978, The Heiser Group is a family-owned and operated business in its third generation of “Heiser”.\n\nSince the company’s inception, the Heiser family has implemented four key pillars that set us apart from the competition: Honesty, Integrity, Quality, & Service.\n\nDavid’s grandfather and father believed that any company can clean a building, but going the extra mile can separate a normal janitorial company from a great one.\n\nWe pride ourselves on doing just that, offering commercial and residential cleaning with a personal touch.",
+  "text": "About Us\nThe Heiser Group is a janitorial services and industrial cleaning business based in Buffalo Grove, Illinois. Founded on May 5th, 1978, The Heiser Group is a family-owned and operated business in its third generation of “Heiser”.\nSince the company’s inception, the Heiser family has implemented four key pillars that set us apart from the competition: Honesty, Integrity, Quality, & Service.\nDavid’s grandfather and father believed that any company can clean a building, but going the extra mile can separate a normal janitorial company from a great one.\nWe pride ourselves on doing just that, offering commercial and residential cleaning with a personal touch.",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-about-7ebb5201.jpg"
+}

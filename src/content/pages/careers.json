@@ -1,0 +1,51 @@
+{
+  "slug": "careers",
+  "url": "https://www.heisergroup.com/careers",
+  "title": "Careers - Job Openings in Chicago",
+  "description": "The Heiser Group is looking for individuals who are trustworthy employees, take pride in providing an excellent cleaning service and cooperate well with others.",
+  "markdown": "# Careers - Job Openings in Chicago\n\n## **We Are Hiring!**\n\nThe Heiser Group has been providing families and individuals with dependable, flexible and supportive jobs for over 44 years. As a Heiser Group employee, you will find our values of honesty, integrity, quality and service are essential in how we treat our employees. We prioritize flexible schedules and appropriately paid positions for all of our staff members. Our full-service janitorial company cleans residential, commercial and realty buildings around Lake County Illinois and beyond! \n\nWe are looking for individuals who are trustworthy employees, take pride in providing an excellent cleaning service and cooperate well with others. Working for The Heiser Group offers paid training shifts, overtime pay for full-time staff, paid vacations and an opportunity for raises based on quality work. \n\nAll of our employees are expected to show up on time with reliable transportation and excited to do a great job. You are required to clean designated and desired areas of the client’s space. After each cleaning, you are responsible for collecting your belongings and locking up the building.\n\n**Job openings include:**\n\n*   Janitor Positions\n*   Day Porter Positions\n*   Residential Cleaning Crew\n*   Commercial Cleaning Crew\n*   Realty Cleaning Crew\n*   Specialty Cleaning Crew\n\n## **Part-Time Janitor Position**\n\nRequires traveling to different places within the Lake County area. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\n\n**Schedule:** Flexible Hours / 10-20 hours per week\n\n**Benefits:** Paid Training & Paid Vacation\n\n**Pay:** Starts at $13/hr\n\n## **Full-Time Janitor Position**\n\nRequires traveling to different places within the Lake County area. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\n\n**Schedule:** Work Daily / 30-40 hours per week \n\n**Benefits:** Overtime Pay, Opportunity for Raise & Paid Vacation\n\n**Pay:** Starts at $13/hr\n\n## **Day Porter Position**\n\nRequires traveling to different places within the Lake County area. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\n\n**Schedule:** Day Shift / 9AM - 2 PM \n\n**Benefits:** Paid Training & Paid Vacation\n\n**Pay:** Starts at $15/hr\n\n## **Residential Cleaning Crew**\n\nRequires traveling to different homes within the Lake County area. Must bring provided supplies to clean designated areas. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\n\n**Schedule:** Flexible Hours / 15-25 hours per week\n\n**Benefits:** Paid Training & Paid Vacation\n\n**Pay:** Starts at $18/hr",
+  "text": "Careers - Job Openings in Chicago\nWe Are Hiring!\nThe Heiser Group has been providing families and individuals with dependable, flexible and supportive jobs for over 44 years. As a Heiser Group employee, you will find our values of honesty, integrity, quality and service are essential in how we treat our employees. We prioritize flexible schedules and appropriately paid positions for all of our staff members. Our full-service janitorial company cleans residential, commercial and realty buildings around Lake County Illinois and beyond! \nWe are looking for individuals who are trustworthy employees, take pride in providing an excellent cleaning service and cooperate well with others. Working for The Heiser Group offers paid training shifts, overtime pay for full-time staff, paid vacations and an opportunity for raises based on quality work. \nAll of our employees are expected to show up on time with reliable transportation and excited to do a great job. You are required to clean designated and desired areas of the client’s space. After each cleaning, you are responsible for collecting your belongings and locking up the building.\nJob openings include:\nJanitor Positions\nDay Porter Positions\nResidential Cleaning Crew\nCommercial Cleaning Crew\nRealty Cleaning Crew\nSpecialty Cleaning Crew\nPart-Time Janitor Position\nRequires traveling to different places within the Lake County area. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\nSchedule: Flexible Hours / 10-20 hours per week\nBenefits: Paid Training & Paid Vacation\nPay: Starts at $13/hr\nFull-Time Janitor Position\nRequires traveling to different places within the Lake County area. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\nSchedule: Work Daily / 30-40 hours per week \nBenefits: Overtime Pay, Opportunity for Raise & Paid Vacation\nPay: Starts at $13/hr\nDay Porter Position\nRequires traveling to different places within the Lake County area. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\nSchedule: Day Shift / 9AM - 2 PM \nBenefits: Paid Training & Paid Vacation\nPay: Starts at $15/hr\nResidential Cleaning Crew\nRequires traveling to different homes within the Lake County area. Must bring provided supplies to clean designated areas. Sweeping, mopping, vacuuming, dusting, sanitizing, removing trash and spot-cleaning glass are some of the tasks required.\nSchedule: Flexible Hours / 15-25 hours per week\nBenefits: Paid Training & Paid Vacation\nPay: Starts at $18/hr",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-careers-a8174fba.jpg"
+}

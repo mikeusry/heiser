@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/CTASection.astro';
+---
+
+<BaseLayout title="Bi-Weekly Cleaning Services - The Heiser Group" description="Bi-weekly home cleaning services in Chicago. Our most popular residential cleaning option.">
+	<section class="bg-brand-navy text-white py-40 px-6">
+		<div class="max-w-4xl mx-auto">
+			<p class="text-white text-lg font-semibold mb-4 uppercase tracking-wide">BI-WEEKLY CLEANING</p>
+			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">
+				Our Most Popular Service
+			</h1>
+			<p class="text-xl text-white">
+				Keep your home consistently clean with professional cleaning every two weeks.
+			</p>
+		</div>
+	</section>
+
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy mb-8">Why Bi-Weekly Cleaning?</h2>
+			<div class="space-y-6 text-lg text-gray-700">
+				<p>
+					Bi-weekly cleaning strikes the perfect balance between maintaining a consistently clean home and managing your budget. With service every two weeks, your home never has a chance to get too messy, making each cleaning session more efficient and effective.
+				</p>
+				<p>
+					This is our most popular service option for busy families, working professionals, and anyone who wants to enjoy a clean home without the hassle of frequent deep cleans.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-4xl mx-auto px-6">
+			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-12">Benefits</h2>
+			<div class="grid md:grid-cols-2 gap-8">
+				<div class="bg-white p-6 rounded-xl shadow-lg">
+					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Consistent Cleanliness</h3>
+					<p class="text-gray-600">Your home stays clean year-round without effort</p>
+				</div>
+				<div class="bg-white p-6 rounded-xl shadow-lg">
+					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Cost-Effective</h3>
+					<p class="text-gray-600">Regular service means each visit is more efficient</p>
+				</div>
+				<div class="bg-white p-6 rounded-xl shadow-lg">
+					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Priority Scheduling</h3>
+					<p class="text-gray-600">Regular clients get priority booking times</p>
+				</div>
+				<div class="bg-white p-6 rounded-xl shadow-lg">
+					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Healthier Home</h3>
+					<p class="text-gray-600">Regular cleaning reduces allergens and bacteria</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<CTASection
+		title="Start Your Bi-Weekly Service"
+		subtitle="Experience the most popular cleaning option in Chicago. Book your first bi-weekly cleaning today!"
+		buttonLink="/contact"
+	/>
+</BaseLayout>

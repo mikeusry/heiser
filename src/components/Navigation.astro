@@ -1,0 +1,273 @@
+---
+// Navigation component with orange background and white logo box
+---
+
+<nav class="bg-brand-orange fixed top-0 left-0 right-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo with white background -->
+      <a href="/" class="bg-white px-6 py-3 rounded-lg hover:shadow-xl transition-shadow duration-300">
+        <img
+          src="/heiser-logo.png"
+          alt="The Heiser Group"
+          class="h-12 w-auto"
+        />
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-2">
+        <a href="/" class="nav-link">Home</a>
+
+        <!-- Services Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-trigger">
+            Services
+            <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="/residential-cleaning" class="dropdown-item">Residential Cleaning</a>
+            <a href="/commercial-cleaning" class="dropdown-item">Commercial Cleaning</a>
+            <a href="/realty-cleaning" class="dropdown-item">Realty Cleaning</a>
+            <a href="/specialty-cleaning" class="dropdown-item">Specialty Cleaning</a>
+            <a href="/bi-weekly-cleaning" class="dropdown-item">Bi-Weekly Cleaning</a>
+            <a href="/monthly-cleaning-service" class="dropdown-item">Monthly Cleaning</a>
+          </div>
+        </div>
+
+        <!-- Engage Us Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-trigger">
+            Engage Us
+            <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="/results" class="dropdown-item">Results</a>
+            <a href="/contact" class="dropdown-item">Get Quote</a>
+          </div>
+        </div>
+
+        <!-- About Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-trigger">
+            About
+            <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="/about" class="dropdown-item">Our History</a>
+            <a href="/careers" class="dropdown-item">Careers</a>
+          </div>
+        </div>
+
+        <!-- Contact Dropdown -->
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-trigger">
+            Contact
+            <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="/contact" class="dropdown-item">Get in Touch</a>
+            <a href="tel:7735455200" class="dropdown-item">(773) 545-5200</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="lg:hidden text-white p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4">
+      <div class="flex flex-col space-y-2">
+        <a href="/" class="mobile-nav-link">Home</a>
+
+        <div class="mobile-dropdown">
+          <button class="mobile-nav-link mobile-dropdown-trigger">
+            Services
+            <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mobile-dropdown-menu">
+            <a href="/residential-cleaning" class="mobile-dropdown-item">Residential Cleaning</a>
+            <a href="/commercial-cleaning" class="mobile-dropdown-item">Commercial Cleaning</a>
+            <a href="/realty-cleaning" class="mobile-dropdown-item">Realty Cleaning</a>
+            <a href="/specialty-cleaning" class="mobile-dropdown-item">Specialty Cleaning</a>
+            <a href="/bi-weekly-cleaning" class="mobile-dropdown-item">Bi-Weekly Cleaning</a>
+            <a href="/monthly-cleaning-service" class="mobile-dropdown-item">Monthly Cleaning</a>
+          </div>
+        </div>
+
+        <a href="/results" class="mobile-nav-link">Results</a>
+        <a href="/about" class="mobile-nav-link">About</a>
+        <a href="/careers" class="mobile-nav-link">Careers</a>
+        <a href="/contact" class="mobile-nav-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Spacer to prevent content from going under fixed nav -->
+<div class="h-24"></div>
+
+<style>
+  /* Navigation Links */
+  .nav-link {
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Dropdown Container */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .dropdown-trigger {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Dropdown Menu */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    min-width: 220px;
+    overflow: hidden;
+    transform: translateY(-10px);
+  }
+
+  .nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-item {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: #1f2937;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+  }
+
+  .dropdown-item:hover {
+    background-color: #D1623C;
+    color: white;
+  }
+
+  /* Mobile Navigation */
+  .mobile-nav-link {
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .mobile-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-dropdown {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-dropdown-menu {
+    display: none;
+    flex-direction: column;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .mobile-dropdown-menu.active {
+    display: flex;
+  }
+
+  .mobile-dropdown-item {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+    font-size: 0.875rem;
+  }
+
+  .mobile-dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Mobile dropdown toggles
+  document.querySelectorAll('.mobile-dropdown-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const dropdown = trigger.parentElement;
+      const menu = dropdown?.querySelector('.mobile-dropdown-menu');
+      menu?.classList.toggle('active');
+
+      // Rotate arrow
+      const arrow = trigger.querySelector('svg');
+      arrow?.classList.toggle('rotate-180');
+    });
+  });
+
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.mobile-nav-link:not(.mobile-dropdown-trigger)').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>

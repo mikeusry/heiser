@@ -1,0 +1,33 @@
+---
+// Call-to-Action Section with Orange Background
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+const {
+  title = "Less Mess. Less Stress.",
+  subtitle = '"Good enough" is not an option for us! For a professional cleaning service in Chicagoland that gets the job done right, contact The Heiser Group today.',
+  buttonText = "Contact Us",
+  buttonLink = "/contact"
+} = Astro.props;
+---
+
+<section class="bg-brand-orange py-20">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="text-5xl md:text-6xl font-heading text-white mb-6 font-bold leading-tight">
+      {title}
+    </h2>
+    <p class="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto">
+      {subtitle}
+    </p>
+    <a
+      href={buttonLink}
+      class="inline-block bg-white text-brand-orange px-10 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 hover:shadow-2xl hover:scale-105"
+    >
+      {buttonText}
+    </a>
+  </div>
+</section>

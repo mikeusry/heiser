@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pages = [
+  { name: 'Home', url: '/', status: 'completed' },
+  { name: 'About', url: '/about', status: 'needs-design' },
+  { name: 'Contact', url: '/contact', status: 'needs-design' },
+  { name: 'Results', url: '/results', status: 'needs-design' },
+  { name: 'Careers', url: '/careers', status: 'needs-design' },
+  { name: 'Residential Cleaning', url: '/residential-cleaning', status: 'needs-design' },
+  { name: 'Commercial Cleaning', url: '/commercial-cleaning', status: 'needs-design' },
+  { name: 'Realty Cleaning', url: '/realty-cleaning', status: 'needs-design' },
+  { name: 'Specialty Cleaning', url: '/specialty-cleaning', status: 'needs-design' },
+  { name: 'Bi-Weekly Cleaning', url: '/bi-weekly-cleaning', status: 'needs-design' },
+  { name: 'Monthly Cleaning', url: '/monthly-cleaning-service', status: 'needs-design' },
+  { name: '404 Page', url: '/404', status: 'needs-design' },
+];
+---
+
+<BaseLayout title="Admin - Page Review Checklist">
+  <section class="py-20 bg-gray-50 min-h-screen">
+    <div class="max-w-5xl mx-auto px-6">
+      <h1 class="text-5xl font-heading font-bold text-brand-navy mb-4">Page Review Checklist</h1>
+      <p class="text-xl text-gray-600 mb-12">Track design progress for all pages</p>
+
+      <div class="bg-white rounded-2xl shadow-xl p-12">
+        <div class="mb-10">
+          <div class="flex items-center gap-6 text-base">
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+              <span>Completed</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
+              <span>Needs Design</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 bg-gray-300 rounded-full"></div>
+              <span>Not Started</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          {pages.map(page => (
+            <div class="page-item flex items-center justify-between p-6 rounded-xl hover:bg-gray-50 transition-colors border-2 border-gray-200" data-status={page.status}>
+              <div class="flex items-center gap-6 flex-1">
+                <input
+                  type="checkbox"
+                  id={page.url}
+                  class="page-checkbox w-7 h-7 rounded border-2 border-gray-300 text-brand-orange focus:ring-brand-orange cursor-pointer"
+                  data-page-url={page.url}
+                  checked={page.status === 'completed'}
+                />
+                <label for={page.url} class="flex-1 cursor-pointer">
+                  <span class="text-xl font-semibold text-gray-900">{page.name}</span>
+                </label>
+              </div>
+
+              <div class="flex items-center gap-6">
+                <div class={`status-indicator w-4 h-4 rounded-full ${
+                  page.status === 'completed' ? 'bg-green-500' :
+                  page.status === 'needs-design' ? 'bg-yellow-500' :
+                  'bg-gray-300'
+                }`}></div>
+                <a
+                  href={page.url}
+                  target="_blank"
+                  class="text-brand-orange hover:text-brand-orange-dark font-semibold flex items-center gap-2 text-lg"
+                >
+                  View
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-12 pt-12 border-t-2 border-gray-200">
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center p-8 bg-green-50 rounded-xl">
+              <div class="text-5xl font-bold text-green-600 mb-3" id="completed-count">1</div>
+              <div class="text-gray-600 text-lg">Completed</div>
+            </div>
+            <div class="text-center p-8 bg-yellow-50 rounded-xl">
+              <div class="text-5xl font-bold text-yellow-600 mb-3" id="needs-design-count">11</div>
+              <div class="text-gray-600 text-lg">Needs Design</div>
+            </div>
+            <div class="text-center p-8 bg-gray-50 rounded-xl">
+              <div class="text-5xl font-bold text-brand-orange mb-3" id="progress-percent">8%</div>
+              <div class="text-gray-600 text-lg">Complete</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <div class="bg-gray-200 rounded-full h-5 overflow-hidden">
+            <div id="progress-bar" class="bg-brand-orange h-full transition-all duration-500" style="width: 8%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 p-8 bg-blue-50 rounded-xl">
+        <h3 class="text-xl font-semibold text-blue-900 mb-3">💡 Note</h3>
+        <p class="text-blue-800 text-lg">
+          Check off pages as you review and approve them. Progress is saved in your browser's local storage.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Load saved state from localStorage
+  function loadState() {
+    const savedState = localStorage.getItem('heiser-page-status');
+    if (savedState) {
+      const state = JSON.parse(savedState);
+      Object.entries(state).forEach(([url, status]) => {
+        const checkbox = document.querySelector(`input[data-page-url="${url}"]`) as HTMLInputElement;
+        const pageItem = checkbox?.closest('.page-item');
+        if (checkbox && pageItem) {
+          checkbox.checked = status === 'completed';
+          pageItem.setAttribute('data-status', status);
+
+          // Update indicator
+          const indicator = pageItem.querySelector('.status-indicator');
+          if (indicator) {
+            indicator.className = `status-indicator w-3 h-3 rounded-full ${
+              status === 'completed' ? 'bg-green-500' :
+              status === 'needs-design' ? 'bg-yellow-500' :
+              'bg-gray-300'
+            }`;
+          }
+        }
+      });
+      updateStats();
+    }
+  }
+
+  // Save state to localStorage
+  function saveState() {
+    const state: Record<string, string> = {};
+    document.querySelectorAll('.page-checkbox').forEach(checkbox => {
+      const input = checkbox as HTMLInputElement;
+      const url = input.getAttribute('data-page-url');
+      if (url) {
+        state[url] = input.checked ? 'completed' : 'needs-design';
+      }
+    });
+    localStorage.setItem('heiser-page-status', JSON.stringify(state));
+  }
+
+  // Update statistics
+  function updateStats() {
+    const checkboxes = document.querySelectorAll('.page-checkbox') as NodeListOf<HTMLInputElement>;
+    const total = checkboxes.length;
+    let completed = 0;
+    let needsDesign = 0;
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        completed++;
+      } else {
+        needsDesign++;
+      }
+    });
+
+    const percent = Math.round((completed / total) * 100);
+
+    // Update counters
+    const completedCount = document.getElementById('completed-count');
+    const needsDesignCount = document.getElementById('needs-design-count');
+    const progressPercent = document.getElementById('progress-percent');
+    const progressBar = document.getElementById('progress-bar');
+
+    if (completedCount) completedCount.textContent = completed.toString();
+    if (needsDesignCount) needsDesignCount.textContent = needsDesign.toString();
+    if (progressPercent) progressPercent.textContent = `${percent}%`;
+    if (progressBar) progressBar.style.width = `${percent}%`;
+  }
+
+  // Handle checkbox changes
+  document.querySelectorAll('.page-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const input = e.target as HTMLInputElement;
+      const pageItem = input.closest('.page-item');
+      const indicator = pageItem?.querySelector('.status-indicator');
+
+      if (pageItem && indicator) {
+        const newStatus = input.checked ? 'completed' : 'needs-design';
+        pageItem.setAttribute('data-status', newStatus);
+        indicator.className = `status-indicator w-3 h-3 rounded-full ${
+          newStatus === 'completed' ? 'bg-green-500' : 'bg-yellow-500'
+        }`;
+      }
+
+      saveState();
+      updateStats();
+    });
+  });
+
+  // Initialize
+  loadState();
+</script>
+
+<style>
+  .page-checkbox:checked {
+    background-color: #D1623C;
+    border-color: #D1623C;
+  }
+</style>

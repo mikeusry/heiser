@@ -1,0 +1,51 @@
+{
+  "slug": "home",
+  "url": "https://www.heisergroup.com/",
+  "title": "The Heiser Group",
+  "description": "",
+  "markdown": "# The Heiser Group\n\nSeeing Is Believing\n\n## You Won't Believe The Difference\n\nWe know you’re busy, and the last thing you need is to come home to a dirty house. That’s why we’re offering **high-quality**, **thorough,** and **hassle-free home cleaning services** in Lake County Illinois including North Shore, Buffalo Grove, North Chicago, Libertyville, Waukegan, Lake Forest and Kenosha WI. We do everything with simple flat-rate pricing and easy online booking.  \n‍  \nThe Heiser Group is one of the the highest-rated home cleaning and maid service in Chicago area. Our core principles of honesty, integrity, with great service and thorough quality means you’ll love the results every time.  \n‍  \nAll you have to do it provide us with an idea of how many rooms there are in your property, then sit back and relax. We'll handle the heavy lifting so that your home is sparkling clean. It's really simple, isn't it?  \nWe also provide all our own products and cleaning supplies. Give us a shot and book today. You have nothing to lose!\n\n[Get started](https://www.heisergroup.com/contact)",
+  "text": "The Heiser Group\nSeeing Is Believing\nYou Won't Believe The Difference\nWe know you’re busy, and the last thing you need is to come home to a dirty house. That’s why we’re offering high-quality, thorough, and hassle-free home cleaning services in Lake County Illinois including North Shore, Buffalo Grove, North Chicago, Libertyville, Waukegan, Lake Forest and Kenosha WI. We do everything with simple flat-rate pricing and easy online booking.\n‍\nThe Heiser Group is one of the the highest-rated home cleaning and maid service in Chicago area. Our core principles of honesty, integrity, with great service and thorough quality means you’ll love the results every time.\n‍\nAll you have to do it provide us with an idea of how many rooms there are in your property, then sit back and relax. We'll handle the heavy lifting so that your home is sparkling clean. It's really simple, isn't it?\nWe also provide all our own products and cleaning supplies. Give us a shot and book today. You have nothing to lose!\nGet started",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com--6696ef97.jpg"
+}

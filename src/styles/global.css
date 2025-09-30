@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Base Typography */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+/* Heading Styles - Modern Slab Serif */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Zilla Slab', serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Brand Color Utilities */
+.text-brand-orange { color: #D1623C; }
+.text-brand-navy { color: #1A2B3D; }
+.bg-brand-orange { background-color: #D1623C; }
+.bg-brand-navy { background-color: #1A2B3D; }
+.bg-brand-cream { background-color: #FDF5ED; }

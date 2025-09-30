@@ -1,0 +1,51 @@
+{
+  "slug": "blog-how-airlines-are-using-electrostatic-disinfectant-sprays",
+  "url": "https://www.heisergroup.com/blog/how-airlines-are-using-electrostatic-disinfectant-sprays",
+  "title": "How Airlines Are Using Electrostatic Disinfectant Sprays",
+  "description": "In a business that moves as quickly as air travel, finding the time to fully clean a plane in between trips is difficult without delaying flights and causing frustration among travelers. But, with the events of today, it became an absolute must.So, airlines found a solution: electrostatic disinfectant spraying.",
+  "markdown": "# How Airlines Are Using Electrostatic Disinfectant Sprays\n\n## How Airlines Are Using Electrostatic Disinfectant Sprays\n\nIn a business that moves as quickly as air travel, finding the time to fully clean a plane in between trips is difficult without delaying flights and causing frustration among travelers. But, with the events of today, it became an absolute must.\n\nSo, airlines found a solution: electrostatic disinfectant spraying.\n\n## Quick, Effective Cleaning\n\nElectrostatic disinfectant spraying has a lot of benefits for airlines. Firstly, it’s a quick way to perform a top-to-bottom cleaning of an aircraft that won’t get in the way of schedules and doesn’t require an immense amount of manpower to perform. Just a few spray guns, a walk down the aisle, and the electrically charged particles will find every surface and cling to them.\n\nThe solution can fight most tough germs, covers surfaces evenly (no need to wipe it around), and is safe to touch immediately after being used so travelers don’t have to wait long after it’s used.\n\nThe second main benefit, and the reason it works in the first place, is that it’s a highly effective way to disinfect large areas. The charged particles in the spray seek out and cling to surfaces which means it’s able to completely disinfect seats, arm rests, tray tables, doors, bathrooms, and galleys.\n\n## How Does Electrostatic Disinfectant Spray Work?\n\nThe disinfectant solution becomes charged when it leaves the nozzle. These charged particles then cling to surfaces—and resist each other—so they cover the most surface area. The particles not only cling but will wrap around and completely cover whatever surface it lands on.\n\nThis evenly and completely covers all surfaces and takes away the risk of missing surfaces that happens with manual cleaning—not to mention it takes significantly less manpower and time.\n\nElectrostatic Disinfectant spray has become a must-have part of every airline’s health strategy in recent months. Along with masks and general hygiene practices by crew and passengers, airlines can successfully fight the spread and sanitize their planes before departure.\n\nTo schedule an electrostatic disinfectant spray service for your facility, [reach out to the commercial cleaning specialists at The Heiser Group.](https://www.heisergroup.com/contact)\n\n‍",
+  "text": "How Airlines Are Using Electrostatic Disinfectant Sprays\nHow Airlines Are Using Electrostatic Disinfectant Sprays\nIn a business that moves as quickly as air travel, finding the time to fully clean a plane in between trips is difficult without delaying flights and causing frustration among travelers. But, with the events of today, it became an absolute must.\nSo, airlines found a solution: electrostatic disinfectant spraying.\nQuick, Effective Cleaning\nElectrostatic disinfectant spraying has a lot of benefits for airlines. Firstly, it’s a quick way to perform a top-to-bottom cleaning of an aircraft that won’t get in the way of schedules and doesn’t require an immense amount of manpower to perform. Just a few spray guns, a walk down the aisle, and the electrically charged particles will find every surface and cling to them.\nThe solution can fight most tough germs, covers surfaces evenly (no need to wipe it around), and is safe to touch immediately after being used so travelers don’t have to wait long after it’s used.\nThe second main benefit, and the reason it works in the first place, is that it’s a highly effective way to disinfect large areas. The charged particles in the spray seek out and cling to surfaces which means it’s able to completely disinfect seats, arm rests, tray tables, doors, bathrooms, and galleys.\nHow Does Electrostatic Disinfectant Spray Work?\nThe disinfectant solution becomes charged when it leaves the nozzle. These charged particles then cling to surfaces—and resist each other—so they cover the most surface area. The particles not only cling but will wrap around and completely cover whatever surface it lands on.\nThis evenly and completely covers all surfaces and takes away the risk of missing surfaces that happens with manual cleaning—not to mention it takes significantly less manpower and time.\nElectrostatic Disinfectant spray has become a must-have part of every airline’s health strategy in recent months. Along with masks and general hygiene practices by crew and passengers, airlines can successfully fight the spread and sanitize their planes before departure.\nTo schedule an electrostatic disinfectant spray service for your facility, reach out to the commercial cleaning specialists at The Heiser Group.\n‍",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": ""
+}

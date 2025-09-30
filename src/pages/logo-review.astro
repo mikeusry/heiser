@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Logo Review - The Heiser Group">
+	<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-20">
+		<div class="max-w-7xl mx-auto px-6">
+			<!-- Header -->
+			<div class="text-center mb-16">
+				<h1 class="text-5xl font-heading font-bold text-brand-navy mb-4">Chicagoland Logo Review</h1>
+				<p class="text-xl text-gray-600">Converting TIFF image to SVG format</p>
+			</div>
+
+			<!-- Side by Side Comparison -->
+			<div class="grid md:grid-cols-2 gap-12 mb-20">
+				<!-- Original TIFF/PNG -->
+				<div class="bg-white rounded-2xl shadow-xl p-12">
+					<h2 class="text-3xl font-heading font-bold text-brand-navy mb-8 text-center">Original TIFF</h2>
+					<div class="bg-gray-50 rounded-lg p-8 flex items-center justify-center" style="min-height: 400px;">
+						<img src="/chicagoland.png" alt="Original Chicagoland Image" class="max-w-full h-auto">
+					</div>
+					<div class="mt-6 space-y-2 text-sm text-gray-600">
+						<p><strong>Format:</strong> TIFF/PNG (Raster)</p>
+						<p><strong>Dimensions:</strong> 1487 × 548px</p>
+						<p><strong>Scalability:</strong> Pixelates when scaled</p>
+					</div>
+				</div>
+
+				<!-- New SVG -->
+				<div class="bg-white rounded-2xl shadow-xl p-12">
+					<h2 class="text-3xl font-heading font-bold text-brand-orange mb-8 text-center">New SVG</h2>
+					<div class="bg-gray-50 rounded-lg p-8 flex items-center justify-center" style="min-height: 400px;">
+						<img src="/chicagoland.svg" alt="Chicagoland SVG" class="max-w-full h-auto">
+					</div>
+					<div class="mt-6 space-y-2 text-sm text-gray-600">
+						<p><strong>Format:</strong> SVG (Vector)</p>
+						<p><strong>Size:</strong> Lightweight</p>
+						<p><strong>Scalability:</strong> Infinite, no quality loss</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Scale Test -->
+			<div class="bg-white rounded-2xl shadow-xl p-12 mb-20">
+				<h2 class="text-3xl font-heading font-bold text-brand-navy mb-8 text-center">Scale Test</h2>
+				<p class="text-center text-gray-600 mb-12">Both images at different sizes to demonstrate SVG scalability</p>
+
+				<div class="space-y-12">
+					<!-- Small -->
+					<div class="border-b border-gray-200 pb-8">
+						<h3 class="text-xl font-heading font-bold text-gray-700 mb-6">Small (300px width)</h3>
+						<div class="grid md:grid-cols-2 gap-8">
+							<div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+								<img src="/chicagoland.png" alt="Original PNG Small" style="width: 300px;">
+							</div>
+							<div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+								<img src="/chicagoland.svg" alt="SVG Small" style="width: 300px;">
+							</div>
+						</div>
+					</div>
+
+					<!-- Medium -->
+					<div class="border-b border-gray-200 pb-8">
+						<h3 class="text-xl font-heading font-bold text-gray-700 mb-6">Medium (600px width)</h3>
+						<div class="grid md:grid-cols-2 gap-8">
+							<div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+								<img src="/chicagoland.png" alt="Original PNG Medium" style="width: 600px;">
+							</div>
+							<div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+								<img src="/chicagoland.svg" alt="SVG Medium" style="width: 600px;">
+							</div>
+						</div>
+					</div>
+
+					<!-- Large -->
+					<div>
+						<h3 class="text-xl font-heading font-bold text-gray-700 mb-6">Large (900px width)</h3>
+						<div class="grid md:grid-cols-2 gap-8">
+							<div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+								<img src="/chicagoland.png" alt="Original PNG Large" style="width: 900px;">
+							</div>
+							<div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center">
+								<img src="/chicagoland.svg" alt="SVG Large" style="width: 900px;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Background Color Tests -->
+			<div class="bg-white rounded-2xl shadow-xl p-12 mb-20">
+				<h2 class="text-3xl font-heading font-bold text-brand-navy mb-8 text-center">Background Tests</h2>
+				<p class="text-center text-gray-600 mb-12">SVG image on different background colors</p>
+
+				<div class="grid md:grid-cols-3 gap-8">
+					<!-- White Background -->
+					<div>
+						<h3 class="text-lg font-heading font-bold text-gray-700 mb-4 text-center">White</h3>
+						<div class="bg-white rounded-lg p-8 border border-gray-200 flex items-center justify-center" style="min-height: 250px;">
+							<img src="/chicagoland.svg" alt="SVG on White" style="width: 400px;">
+						</div>
+					</div>
+
+					<!-- Cream Background -->
+					<div>
+						<h3 class="text-lg font-heading font-bold text-gray-700 mb-4 text-center">Cream</h3>
+						<div class="rounded-lg p-8 flex items-center justify-center" style="min-height: 250px; background-color: #FDF5ED;">
+							<img src="/chicagoland.svg" alt="SVG on Cream" style="width: 400px;">
+						</div>
+					</div>
+
+					<!-- Navy Background -->
+					<div>
+						<h3 class="text-lg font-heading font-bold text-gray-700 mb-4 text-center">Navy</h3>
+						<div class="rounded-lg p-8 flex items-center justify-center" style="min-height: 250px; background-color: #1A2B3D;">
+							<img src="/chicagoland.svg" alt="SVG on Navy" style="width: 400px;">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Benefits -->
+			<div class="bg-gradient-to-r from-brand-orange to-orange-500 rounded-2xl shadow-xl p-12 text-white">
+				<h2 class="text-3xl font-heading font-bold mb-8 text-center">SVG Benefits</h2>
+				<div class="grid md:grid-cols-3 gap-8">
+					<div class="text-center">
+						<div class="text-5xl mb-4">📐</div>
+						<h3 class="text-xl font-heading font-bold mb-2">Scalable</h3>
+						<p class="text-white/90">Perfect quality at any size from favicon to billboard</p>
+					</div>
+					<div class="text-center">
+						<div class="text-5xl mb-4">🪶</div>
+						<h3 class="text-xl font-heading font-bold mb-2">Lightweight</h3>
+						<p class="text-white/90">98% smaller file size (2KB vs 132KB)</p>
+					</div>
+					<div class="text-center">
+						<div class="text-5xl mb-4">✏️</div>
+						<h3 class="text-xl font-heading font-bold mb-2">Editable</h3>
+						<p class="text-white/90">Easy to modify colors, sizes, and elements</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Back Link -->
+			<div class="text-center mt-12">
+				<a href="/admin" class="inline-block bg-brand-navy text-white px-8 py-4 rounded-lg font-heading font-bold text-lg hover:bg-brand-orange transition-colors">
+					← Back to Admin
+				</a>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

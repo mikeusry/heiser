@@ -1,0 +1,51 @@
+{
+  "slug": "specialty-cleaning",
+  "url": "https://www.heisergroup.com/specialty-cleaning",
+  "title": "Specialty Cleaning",
+  "description": "",
+  "markdown": "# Specialty Cleaning\n\nElectrostatic Disinfectant Sprays for Gyms\n\nElectrostatic disinfectant spray has become a game-changer for gyms and fitness centers. With every company looking for ways to safely allow their customers and members back, gyms have found it particularly tough. So tough that staples in the industry, like Gold’s Gym, are being forced to file for bankruptcy. When patrons are covered in sweat and touching every piece of equipment, what can be done to disinfect the gym environment safely and quickly? Many gyms are turning to electrostatic disinfection as the answer.",
+  "text": "Specialty Cleaning\nElectrostatic Disinfectant Sprays for Gyms\nElectrostatic disinfectant spray has become a game-changer for gyms and fitness centers. With every company looking for ways to safely allow their customers and members back, gyms have found it particularly tough. So tough that staples in the industry, like Gold’s Gym, are being forced to file for bankruptcy. When patrons are covered in sweat and touching every piece of equipment, what can be done to disinfect the gym environment safely and quickly? Many gyms are turning to electrostatic disinfection as the answer.",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-specialty-cleaning-c6993c27.jpg"
+}

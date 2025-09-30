@@ -1,0 +1,51 @@
+{
+  "slug": "services-realty-cleaning",
+  "url": "https://www.heisergroup.com/services/realty-cleaning",
+  "title": "Realty Cleaning",
+  "description": "The Heiser Group provides Realty Cleaning in Buffalo Grove and all of Chicagoland.",
+  "markdown": "# Realty Cleaning\n\nWe serve the all of the Chicagoland area, providing professional cleaning services to homeowners and renters alike. Whether you live in the heart of downtown or the surrounding suburbs, we are here to cater to your cleaning needs. With our local presence and expertise, you can trust that we understand the unique cleaning requirements of the Chicagoland area. Sit back, relax, and let us take care of your cleaning needs, leaving your home clean, fresh, and inviting.\n\n‍",
+  "text": "Realty Cleaning\nWe serve the all of the Chicagoland area, providing professional cleaning services to homeowners and renters alike. Whether you live in the heart of downtown or the surrounding suburbs, we are here to cater to your cleaning needs. With our local presence and expertise, you can trust that we understand the unique cleaning requirements of the Chicagoland area. Sit back, relax, and let us take care of your cleaning needs, leaving your home clean, fresh, and inviting.\n‍",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": ""
+}

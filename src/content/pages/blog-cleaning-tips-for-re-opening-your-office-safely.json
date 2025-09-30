@@ -1,0 +1,51 @@
+{
+  "slug": "blog-cleaning-tips-for-re-opening-your-office-safely",
+  "url": "https://www.heisergroup.com/blog/cleaning-tips-for-re-opening-your-office-safely",
+  "title": "Cleaning Tips for Re-Opening Your Office Safely",
+  "description": "As many people are coming back to work and to a little bit of normalcy, they are arriving at office spaces that are anything but normal. New protocols, cleaning plans, spacing, and much more are becoming an office norm and the CDC has presented a huge list of things to consider. One of them is how an office goes about its general cleaning practices. Now more than ever you’ll need everyone on your team to do their part to maintain a clean and safe office. Here are a few tips to help you build a strategy and keep your workers healthy.",
+  "markdown": "# Cleaning Tips for Re-Opening Your Office Safely\n\n## Cleaning Tips for Re-Opening Your Office Safely\n\nAs many people are coming back to work and to a little bit of normalcy, they are arriving at office spaces that are anything but normal. New protocols, cleaning plans, spacing, and much more are becoming an office norm and the [CDC has presented a huge list of things to consider.](https://www.cdc.gov/coronavirus/2019-ncov/community/office-buildings.html)\n\nOne of them is how an office goes about its general cleaning practices. Now more than ever you’ll need everyone on your team to do their part to [maintain a clean and safe office](https://robinpowered.com/blog/tips-office-safety/). Here are a few tips to help you build a strategy and keep your workers healthy.\n\n## DISINFECT AS OFTEN AS POSSIBLE\n\nObviously, you have heard it over and over in the past few months, but make sure everyone in your office space is disinfecting a lot. Especially public office features like refrigerators, microwaves, doorknobs, elevator buttons, cabinets, and anything else that will get used by nearly everyone on a daily basis.\n\nDo what you can to encourage your team to clean up after themselves and always be thinking about what they have touched and what they need to disinfect.\n\n## PROVIDING TOOLS FOR EVERYDAY CLEANING\n\nThe best way to encourage your team to stay clean during this time is to make sure they have everything they need. This means providing tissues, face masks, disinfectants at their desks, plenty of options for washing hands, ample space between desks, and general access to the cleaning supplies they need.\n\nA quick list of supplies you should have readily available would include:\n\n*   Hand Sanitizer\n\n*   Hand Soap\n\n*   Disinfectant Wipes and Spray\n\n*   Tissues\n*   Face Masks\n*   Cleaning Gloves\n*   Paper towels\n\n## HIRE A REGULAR CLEANING STAFF\n\nIn times like these, cleaning is not something you can put off as a once or twice a week occurrence and if everyone is not on board, certain tasks slip through the cracks and can put everyone at risk.\n\nThe [CDC recommends constant cleaning](https://www.cdc.gov/coronavirus/2019-ncov/community/disinfecting-building-facility.html) and the easiest way to do that is to hire a professional team to come in and regularly maintain the space. This way you have that coveted peace of mind that every time you and your co-workers come into the office, you are arriving at a safe and healthy space.\n\nAs we all get back to work, it is important to consider how you will need to change your cleaning plans and consider how to enlist the help of everyone at the office to keep things clean. But, when in doubt, it is always a good idea to bring in professionals to make sure everything is as safe as possible.\n\n‍",
+  "text": "Cleaning Tips for Re-Opening Your Office Safely\nCleaning Tips for Re-Opening Your Office Safely\nAs many people are coming back to work and to a little bit of normalcy, they are arriving at office spaces that are anything but normal. New protocols, cleaning plans, spacing, and much more are becoming an office norm and the CDC has presented a huge list of things to consider.\nOne of them is how an office goes about its general cleaning practices. Now more than ever you’ll need everyone on your team to do their part to maintain a clean and safe office. Here are a few tips to help you build a strategy and keep your workers healthy.\nDISINFECT AS OFTEN AS POSSIBLE\nObviously, you have heard it over and over in the past few months, but make sure everyone in your office space is disinfecting a lot. Especially public office features like refrigerators, microwaves, doorknobs, elevator buttons, cabinets, and anything else that will get used by nearly everyone on a daily basis. \nDo what you can to encourage your team to clean up after themselves and always be thinking about what they have touched and what they need to disinfect.\nPROVIDING TOOLS FOR EVERYDAY CLEANING\nThe best way to encourage your team to stay clean during this time is to make sure they have everything they need. This means providing tissues, face masks, disinfectants at their desks, plenty of options for washing hands, ample space between desks, and general access to the cleaning supplies they need.\nA quick list of supplies you should have readily available would include:\nHand Sanitizer\nHand Soap\nDisinfectant Wipes and Spray\nTissues\nFace Masks\nCleaning Gloves\nPaper towels\nHIRE A REGULAR CLEANING STAFF\nIn times like these, cleaning is not something you can put off as a once or twice a week occurrence and if everyone is not on board, certain tasks slip through the cracks and can put everyone at risk. \nThe CDC recommends constant cleaning and the easiest way to do that is to hire a professional team to come in and regularly maintain the space. This way you have that coveted peace of mind that every time you and your co-workers come into the office, you are arriving at a safe and healthy space.\nAs we all get back to work, it is important to consider how you will need to change your cleaning plans and consider how to enlist the help of everyone at the office to keep things clean. But, when in doubt, it is always a good idea to bring in professionals to make sure everything is as safe as possible. \n‍",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": ""
+}

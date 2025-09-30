@@ -1,0 +1,51 @@
+{
+  "slug": "contact",
+  "url": "https://www.heisergroup.com/contact",
+  "title": "Contact",
+  "description": "",
+  "markdown": "# Contact\n\n## Customer Love\n\nDon't just take our word for it. See what our happy customers and long term clients have to say!\n\n“After major remodeling and renovation in our building, it was a disaster. David came in and assessed the situation and sent his two best guys. In one evening, they cleaned the inside of the building completely. ”\n\n![](https://cdn.prod.website-files.com/60b80a86a8a100622af4963a/62d6cb143f4da174e2d0123e_Arrow%20Left.svg)\n\n![](https://cdn.prod.website-files.com/60b80a86a8a100622af4963a/62d6cb143f4da10078d01243_Arrow%20Right%20(1).svg)\n\n![](https://cdn.prod.website-files.com/60b80a86a8a100622af4963a/62d6cb143f4da1d2ded01244_Accent%2007.svg)",
+  "text": "Contact\nCustomer Love\nDon't just take our word for it. See what our happy customers and long term clients have to say!\n“After major remodeling and renovation in our building, it was a disaster. David came in and assessed the situation and sent his two best guys. In one evening, they cleaned the inside of the building completely. ”",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-contact-cf0f848c.jpg"
+}

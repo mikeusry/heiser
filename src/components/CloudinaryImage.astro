@@ -1,0 +1,84 @@
+---
+/**
+ * Cloudinary Image Component
+ * Automatically optimized images from Cloudinary CDN
+ *
+ * Props:
+ * - publicId: Cloudinary public ID (e.g., "heiser/heiser/image-name")
+ * - alt: Alt text for accessibility
+ * - width: Optional width for responsive images
+ * - height: Optional height
+ * - class: Optional CSS classes
+ * - loading: "lazy" | "eager" (default: lazy)
+ * - quality: "auto" | number (default: auto)
+ * - format: "auto" | "webp" | "jpg" etc (default: auto)
+ */
+
+interface Props {
+  publicId: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  quality?: 'auto' | number;
+  format?: 'auto' | 'webp' | 'jpg' | 'png';
+}
+
+const {
+  publicId,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  quality = 'auto',
+  format = 'auto',
+} = Astro.props;
+
+const cloudName = import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME || 'southland-organics';
+
+// Build transformation parameters
+const transformations: string[] = [];
+
+if (width) transformations.push(`w_${width}`);
+if (height) transformations.push(`h_${height}`);
+if (quality) transformations.push(`q_${quality}`);
+if (format) transformations.push(`f_${format}`);
+
+// Default optimizations
+transformations.push('c_fill'); // Crop/fill mode
+transformations.push('g_auto'); // Auto gravity/focus
+
+const transformString = transformations.join(',');
+
+// Build Cloudinary URL
+const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/${transformString}/${publicId}`;
+
+// Generate srcset for responsive images
+const generateSrcset = () => {
+  if (!width) return undefined;
+
+  const sizes = [0.5, 1, 1.5, 2];
+  return sizes
+    .map(multiplier => {
+      const w = Math.round(width * multiplier);
+      const url = `https://res.cloudinary.com/${cloudName}/image/upload/w_${w},q_${quality},f_${format},c_fill,g_auto/${publicId} ${w}w`;
+      return url;
+    })
+    .join(', ');
+};
+
+const srcset = generateSrcset();
+---
+
+<img
+  src={imageUrl}
+  srcset={srcset}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  class={className}
+  decoding="async"
+/>

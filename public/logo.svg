@@ -1,0 +1,16 @@
+<svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- THE -->
+  <text x="40" y="20" font-family="Playfair Display, serif" font-size="12" font-weight="400" fill="#D1623C" letter-spacing="1">THE</text>
+
+  <!-- HEISER (in orange) -->
+  <text x="80" y="20" font-family="Playfair Display, serif" font-size="12" font-weight="400" fill="#D1623C" letter-spacing="1">HEISER</text>
+
+  <!-- Large H -->
+  <text x="15" y="65" font-family="Playfair Display, serif" font-size="52" font-weight="700" fill="#D1623C">H</text>
+
+  <!-- Large G -->
+  <text x="85" y="65" font-family="Playfair Display, serif" font-size="52" font-weight="700" fill="#1A2B3D">G</text>
+
+  <!-- GROUP (in navy) -->
+  <text x="140" y="65" font-family="Playfair Display, serif" font-size="16" font-weight="400" fill="#1A2B3D" letter-spacing="2">ROUP</text>
+</svg>

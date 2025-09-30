@@ -1,0 +1,51 @@
+{
+  "slug": "blog-christmas-home-cleaning",
+  "url": "https://www.heisergroup.com/blog/christmas-home-cleaning",
+  "title": "Christmas Home Cleaning",
+  "description": "As we prepare for the busy holiday season, make sure your kitchen is in working order to help you prepare feasts and host guests during this year's festivities.",
+  "markdown": "# Christmas Home Cleaning\n\n## Christmas Home Cleaning\n\nAs we prepare for this holiday season, Christmas home cleaning requests have seen their annual spike.\n\nWhether you have guests or not, Christmas time still has its own nuances when it comes to maintaining a clean home.\n\n## Keep Your Christmas Tree Neat and Tidy When Conducting Your Christmas Home Cleaning\n\nAs much as we all love pulling out and setting up our Christmas trees, they can be a major source of dirt, dust, and more if you are not cleaning them daily. This is especially true if you choose to go with a live tree over a synthetic one.\n\n### CLEANING YOUR LIVE TREE\n\nLive trees drop a lot of needles onto the ground over the course of their lifespan as your home tree. Try to sweep up as many as possible using a broom and dustpan before resorting to the vacuum because these little needles can harm your vacuum.\n\nSecond, watch out for fallen sap that could harm your floor if left alone too long. Most trees will not drop very much but it is known to happen, especially from the base when you first set it up at home.\n\n### CARING FOR A FAKE TREE\n\nSynthetic trees are much easier to clean. Most just need some touching up after you take them out of the box they have been staying in for the past 11 months. A simple dusting usually does the trick, but you may need to run a wet rag over some branches to remove any buildup. Try to do this outside to avoid filling your house with dust!\n\n## Remember to Clean Your Carpet When Conducting Your Christmas Home Cleaning\n\nWith all that happens during the holidays—gift shopping, having friends and family over, decorating, eating, and more—it can be easy to forget that your carpet goes through a lot of wear and tear during this time.\n\nWith constant foot traffic, mud, snow, water, salt, ice, and more being dropped on it, you need to clean it fairly often to make sure nothing gets set in and becomes hard to remove.\n\n## Prepare Your Kitchen for Family Meals When Conducting Your Christmas Home Cleaning\n\nThanksgiving is just the start of the family feasting season for many of us which means you need to get your kitchen in tip-top shape.\n\nFirst, be sure the inside of your oven is clean of any dropped foods that could cause bad smells or smoking. Also, clean off your stovetop of any caked-on messes on the burners.\n\nSecond, it is time to clean and polish your silverware, plates, bowls, cups, and more to make sure they are spotless for your guests.\n\nAnd lastly, make sure the inside of your refrigerator is clean and ready to store leftovers, pies, drinks, and more during your holiday parties.\n\nChristmas time, for many, is truly the greatest time of the year but it does bring lots of cleaning with it. Make sure you follow these tips to keep your kitchen clean and ready to host during the holidays.\n\nFor help with your Christmas home cleaning, [**get in touch with the residential cleaning specialists at The Heiser Group.**](https://www.heisergroup.com/contact)",
+  "text": "Christmas Home Cleaning\nChristmas Home Cleaning\nAs we prepare for this holiday season, Christmas home cleaning requests have seen their annual spike.\nWhether you have guests or not, Christmas time still has its own nuances when it comes to maintaining a clean home.\nKeep Your Christmas Tree Neat and Tidy When Conducting Your Christmas Home Cleaning\nAs much as we all love pulling out and setting up our Christmas trees, they can be a major source of dirt, dust, and more if you are not cleaning them daily. This is especially true if you choose to go with a live tree over a synthetic one.\nCLEANING YOUR LIVE TREE\nLive trees drop a lot of needles onto the ground over the course of their lifespan as your home tree. Try to sweep up as many as possible using a broom and dustpan before resorting to the vacuum because these little needles can harm your vacuum.\nSecond, watch out for fallen sap that could harm your floor if left alone too long. Most trees will not drop very much but it is known to happen, especially from the base when you first set it up at home.\nCARING FOR A FAKE TREE\nSynthetic trees are much easier to clean. Most just need some touching up after you take them out of the box they have been staying in for the past 11 months. A simple dusting usually does the trick, but you may need to run a wet rag over some branches to remove any buildup. Try to do this outside to avoid filling your house with dust!\nRemember to Clean Your Carpet When Conducting Your Christmas Home Cleaning\nWith all that happens during the holidays—gift shopping, having friends and family over, decorating, eating, and more—it can be easy to forget that your carpet goes through a lot of wear and tear during this time.\nWith constant foot traffic, mud, snow, water, salt, ice, and more being dropped on it, you need to clean it fairly often to make sure nothing gets set in and becomes hard to remove.\nPrepare Your Kitchen for Family Meals When Conducting Your Christmas Home Cleaning\nThanksgiving is just the start of the family feasting season for many of us which means you need to get your kitchen in tip-top shape.\nFirst, be sure the inside of your oven is clean of any dropped foods that could cause bad smells or smoking. Also, clean off your stovetop of any caked-on messes on the burners.\nSecond, it is time to clean and polish your silverware, plates, bowls, cups, and more to make sure they are spotless for your guests.\nAnd lastly, make sure the inside of your refrigerator is clean and ready to store leftovers, pies, drinks, and more during your holiday parties.\nChristmas time, for many, is truly the greatest time of the year but it does bring lots of cleaning with it. Make sure you follow these tips to keep your kitchen clean and ready to host during the holidays.\nFor help with your Christmas home cleaning, get in touch with the residential cleaning specialists at The Heiser Group.",
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Heiser Group",
+      "image": "https://assets.website-files.com/60b80a86a8a100622af4963a/62c032a09c2589e43a3d8f2d_The-Heiser-Group-Logo-p-500.png",
+      "@id": "",
+      "url": "https://www.heisergroup.com/",
+      "telephone": "(773) 545-5200",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1567 BARCLAY BLVD",
+        "addressLocality": "BUFFALO GROVE",
+        "addressRegion": "IL",
+        "postalCode": "60089",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.17914529999999,
+        "longitude": -87.9341247
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.facebook.com/theheisergroup",
+        "https://www.facebook.com/theheisergroup",
+        "https://www.instagram.com/theheisergroup"
+      ]
+    }
+  ],
+  "screenshotUrl": "https://api.apify.com/v2/key-value-stores/cUzd1GXomJrt5WlqH/records/SCREENSHOT-www-heisergroup-com-blog-christmas-home-cleaning-f2613fcb.jpg"
+}

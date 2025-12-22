@@ -1,5 +1,7 @@
 ---
 // Navigation component with orange background and white logo box
+import { navServices } from '../lib/services';
+import { contact } from '../lib/contact';
 ---
 
 <nav class="bg-brand-orange fixed top-0 left-0 right-0 z-50 shadow-lg">
@@ -8,7 +10,7 @@
       <!-- Logo with white background -->
       <a href="/" class="bg-white px-6 py-3 rounded-lg hover:shadow-xl transition-shadow duration-300">
         <img
-          src="/heiser-logo.png"
+          src="/heiser-logo-original.png"
           alt="The Heiser Group"
           class="h-12 w-auto"
         />
@@ -27,12 +29,9 @@
             </svg>
           </button>
           <div class="dropdown-menu">
-            <a href="/residential-cleaning" class="dropdown-item">Residential Cleaning</a>
-            <a href="/commercial-cleaning" class="dropdown-item">Commercial Cleaning</a>
-            <a href="/realty-cleaning" class="dropdown-item">Realty Cleaning</a>
-            <a href="/specialty-cleaning" class="dropdown-item">Specialty Cleaning</a>
-            <a href="/bi-weekly-cleaning" class="dropdown-item">Bi-Weekly Cleaning</a>
-            <a href="/monthly-cleaning-service" class="dropdown-item">Monthly Cleaning</a>
+            {navServices.map(service => (
+              <a href={service.url} class="dropdown-item">{service.name}</a>
+            ))}
           </div>
         </div>
 
@@ -46,6 +45,7 @@
           </button>
           <div class="dropdown-menu">
             <a href="/results" class="dropdown-item">Results</a>
+            <a href="/real-estate-agents" class="dropdown-item">For Real Estate Agents</a>
             <a href="/contact" class="dropdown-item">Get Quote</a>
           </div>
         </div>
@@ -74,7 +74,7 @@
           </button>
           <div class="dropdown-menu">
             <a href="/contact" class="dropdown-item">Get in Touch</a>
-            <a href="tel:7735455200" class="dropdown-item">(773) 545-5200</a>
+            <a href={contact.phone.href} class="dropdown-item">{contact.phone.display}</a>
           </div>
         </div>
       </div>
@@ -100,16 +100,14 @@
             </svg>
           </button>
           <div class="mobile-dropdown-menu">
-            <a href="/residential-cleaning" class="mobile-dropdown-item">Residential Cleaning</a>
-            <a href="/commercial-cleaning" class="mobile-dropdown-item">Commercial Cleaning</a>
-            <a href="/realty-cleaning" class="mobile-dropdown-item">Realty Cleaning</a>
-            <a href="/specialty-cleaning" class="mobile-dropdown-item">Specialty Cleaning</a>
-            <a href="/bi-weekly-cleaning" class="mobile-dropdown-item">Bi-Weekly Cleaning</a>
-            <a href="/monthly-cleaning-service" class="mobile-dropdown-item">Monthly Cleaning</a>
+            {navServices.map(service => (
+              <a href={service.url} class="mobile-dropdown-item">{service.name}</a>
+            ))}
           </div>
         </div>
 
         <a href="/results" class="mobile-nav-link">Results</a>
+        <a href="/real-estate-agents" class="mobile-nav-link">For Realtors</a>
         <a href="/about" class="mobile-nav-link">About</a>
         <a href="/careers" class="mobile-nav-link">Careers</a>
         <a href="/contact" class="mobile-nav-link">Contact</a>

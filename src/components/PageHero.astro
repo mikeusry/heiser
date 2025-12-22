@@ -1,0 +1,71 @@
+---
+/**
+ * PageHero Component
+ * Reusable hero section with navy background for service/interior pages
+ *
+ * Props:
+ * - title: Main heading text (required)
+ * - subtitle: Description text below the title
+ * - eyebrow: Small uppercase label above the title
+ * - centered: Whether to center text (default: false for service pages)
+ * - size: 'default' | 'large' | 'compact' - controls padding
+ * - pattern: Whether to show subtle dot pattern overlay (default: true)
+ * - subtitleWidth: 'full' | 'narrow' - controls subtitle max-width
+ *
+ * Slot: Use default slot to add CTA buttons or other content below subtitle
+ */
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  eyebrow?: string;
+  centered?: boolean;
+  size?: 'default' | 'large' | 'compact';
+  pattern?: boolean;
+  subtitleWidth?: 'full' | 'narrow';
+}
+
+const {
+  title,
+  subtitle,
+  eyebrow,
+  centered = false,
+  size = 'default',
+  pattern = true,
+  subtitleWidth = 'full',
+} = Astro.props;
+
+const containerClass = centered ? 'text-center' : '';
+const maxWidth = centered ? 'max-w-4xl' : 'max-w-4xl';
+const subtitleMaxWidth = subtitleWidth === 'narrow' ? 'max-w-xl' : 'max-w-2xl';
+
+const paddingClasses = {
+  compact: 'py-16 md:py-20',
+  default: 'py-24 md:py-32',
+  large: 'py-32 md:py-40',
+};
+---
+
+<section class={`bg-brand-navy text-white ${paddingClasses[size]} px-6 relative overflow-hidden`}>
+  {pattern && (
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+  )}
+  <div class={`${maxWidth} mx-auto ${containerClass} relative`}>
+    {eyebrow && (
+      <p class="text-brand-orange text-sm font-semibold mb-6 uppercase tracking-widest">
+        {eyebrow}
+      </p>
+    )}
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-8 text-white leading-[1.1]">
+      {title}
+    </h1>
+    {subtitle && (
+      <p class={`text-xl text-white/70 ${subtitleMaxWidth} leading-relaxed ${centered ? 'mx-auto' : ''} ${Astro.slots.has('default') ? 'mb-12' : ''}`}>
+        {subtitle}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

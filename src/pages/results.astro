@@ -1,42 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import StatCard from '../components/StatCard.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
 import TestimonialSection from '../components/TestimonialSection.astro';
 import CTASection from '../components/CTASection.astro';
+import { additionalTestimonials, stats } from '../lib/testimonials';
 ---
 
 <BaseLayout title="Results & Testimonials - The Heiser Group" description="See what our customers say about The Heiser Group's cleaning services in Chicago and Lake County Illinois.">
-	<section class="bg-brand-navy text-white py-40 px-6">
-		<div class="max-w-4xl mx-auto text-center">
-			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">Our Results Speak for Themselves</h1>
-			<p class="text-xl text-white">
-				See why we're one of the highest-rated cleaning services in the Chicago area
-			</p>
-		</div>
-	</section>
+	<PageHero
+		title="Our Results Speak for Themselves"
+		subtitle="See why we're one of the highest-rated cleaning services in the Chicago area"
+		centered
+	/>
 
-	<!-- Testimonials -->
+	<!-- Testimonials Carousel -->
 	<TestimonialSection />
 
 	<!-- Stats Section -->
 	<section class="py-20 bg-white">
 		<div class="max-w-6xl mx-auto px-6">
-			<div class="grid md:grid-cols-4 gap-8 text-center">
-				<div>
-					<div class="text-5xl font-heading font-bold text-brand-orange mb-2">1000+</div>
-					<div class="text-gray-600 text-lg">Happy Customers</div>
-				</div>
-				<div>
-					<div class="text-5xl font-heading font-bold text-brand-orange mb-2">15+</div>
-					<div class="text-gray-600 text-lg">Years Experience</div>
-				</div>
-				<div>
-					<div class="text-5xl font-heading font-bold text-brand-orange mb-2">5★</div>
-					<div class="text-gray-600 text-lg">Average Rating</div>
-				</div>
-				<div>
-					<div class="text-5xl font-heading font-bold text-brand-orange mb-2">100%</div>
-					<div class="text-gray-600 text-lg">Satisfaction Guaranteed</div>
-				</div>
+			<div class="grid md:grid-cols-4 gap-8">
+				{stats.map(stat => (
+					<StatCard value={stat.value} label={stat.label} />
+				))}
 			</div>
 		</div>
 	</section>
@@ -44,26 +33,13 @@ import CTASection from '../components/CTASection.astro';
 	<!-- More Testimonials -->
 	<section class="py-20 bg-gray-50">
 		<div class="max-w-4xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-16">What Our Clients Say</h2>
+			<SectionHeader title="What Our Clients Say" />
 			<div class="space-y-8">
-				{[
-					{
-						quote: "The Heiser Group has been cleaning our home for over 3 years now. They are always on time, professional, and do an excellent job. Highly recommend!",
-						author: "Jennifer M."
-					},
-					{
-						quote: "Best cleaning service we've ever used. The team is thorough, trustworthy, and our house always looks amazing after they visit.",
-						author: "Robert K."
-					},
-					{
-						quote: "As a real estate agent, I rely on The Heiser Group for all my property turnovers. They never disappoint and always deliver on time.",
-						author: "Amanda S."
-					}
-				].map(testimonial => (
-					<div class="bg-white p-8 rounded-xl shadow-lg">
-						<p class="text-xl text-gray-700 mb-4 italic">"{testimonial.quote}"</p>
-						<p class="text-brand-orange font-semibold">— {testimonial.author}</p>
-					</div>
+				{additionalTestimonials.map(testimonial => (
+					<TestimonialCard
+						quote={testimonial.quote}
+						author={testimonial.author}
+					/>
 				))}
 			</div>
 		</div>

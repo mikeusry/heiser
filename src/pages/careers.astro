@@ -1,108 +1,105 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import CTASection from '../components/CTASection.astro';
+
+// JobPosting Schema
+const jobPostingSchema = {
+	"@context": "https://schema.org",
+	"@type": "JobPosting",
+	"title": "Professional House Cleaner",
+	"description": "Join The Heiser Group team as a professional house cleaner. We're looking for trustworthy, detail-oriented individuals to provide excellent residential and commercial cleaning services in Lake County, IL. No experience necessary - full training provided. Competitive pay, flexible scheduling, and a great team environment.",
+	"datePosted": "2024-12-01",
+	"validThrough": "2025-12-31",
+	"employmentType": ["FULL_TIME", "PART_TIME"],
+	"hiringOrganization": {
+		"@type": "LocalBusiness",
+		"@id": "https://heisergroup.com/#localbusiness",
+		"name": "The Heiser Group",
+		"sameAs": "https://heisergroup.com",
+		"logo": "https://heisergroup.com/logo.png"
+	},
+	"jobLocation": {
+		"@type": "Place",
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "Lake County",
+			"addressRegion": "IL",
+			"addressCountry": "US"
+		}
+	},
+	"baseSalary": {
+		"@type": "MonetaryAmount",
+		"currency": "USD",
+		"value": {
+			"@type": "QuantitativeValue",
+			"minValue": 15,
+			"maxValue": 22,
+			"unitText": "HOUR"
+		}
+	},
+	"jobBenefits": "Flexible scheduling, competitive pay, training provided, team environment",
+	"qualifications": "Reliable transportation, ability to pass background check, detail-oriented, positive attitude",
+	"responsibilities": "Residential and commercial cleaning, following cleaning checklists, maintaining high quality standards",
+	"skills": "Attention to detail, time management, customer service"
+};
+
+const benefits = [
+	{ title: "Great Team Environment", description: "Work with a supportive team that values your contribution and helps you succeed.", icon: "team" as const },
+	{ title: "Competitive Compensation", description: "We offer competitive wages and opportunities for advancement.", icon: "dollar" as const },
+	{ title: "Flexible Scheduling", description: "We work with you to create a schedule that fits your lifestyle.", icon: "calendar" as const },
+	{ title: "Training & Support", description: "Full training provided. No experience necessary!", icon: "shield" as const },
+];
+
+const requirements = [
+	"Trustworthy individuals with a strong work ethic",
+	"Detail-oriented and takes pride in their work",
+	"Cooperates well with others and maintains a positive attitude",
+	"Reliable transportation",
+	"Ability to pass a background check",
+];
 ---
 
-<BaseLayout title="Careers - Join The Heiser Group Team" description="Join The Heiser Group team. We're looking for trustworthy, hardworking individuals to provide excellent cleaning services.">
-	<section class="bg-brand-navy text-white py-40 px-6">
-		<div class="max-w-4xl mx-auto text-center">
-			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">Join Our Team</h1>
-			<p class="text-xl text-white">
-				Looking for trustworthy employees who take pride in providing excellent cleaning service
-			</p>
-		</div>
-	</section>
+<BaseLayout title="Cleaning Jobs Lake County IL | Careers at The Heiser Group" description="Now hiring professional house cleaners in Lake County, IL. Competitive pay $15-22/hr, flexible scheduling, full training provided. Join a family-owned company with 45+ years of excellence.">
+	<script type="application/ld+json" set:html={JSON.stringify(jobPostingSchema)} />
+
+	<PageHero
+		title="Join Our Team"
+		subtitle="Looking for trustworthy employees who take pride in providing excellent cleaning service"
+		centered
+	/>
 
 	<section class="py-20 bg-white">
 		<div class="max-w-4xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy mb-8">Why Work With Us?</h2>
+			<SectionHeader title="Why Work With Us?" centered={false} />
 			<div class="space-y-8">
-				<div class="flex gap-6">
-					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Great Team Environment</h3>
-						<p class="text-gray-600 text-lg">Work with a supportive team that values your contribution and helps you succeed.</p>
-					</div>
-				</div>
-
-				<div class="flex gap-6">
-					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Competitive Compensation</h3>
-						<p class="text-gray-600 text-lg">We offer competitive wages and opportunities for advancement.</p>
-					</div>
-				</div>
-
-				<div class="flex gap-6">
-					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Flexible Scheduling</h3>
-						<p class="text-gray-600 text-lg">We work with you to create a schedule that fits your lifestyle.</p>
-					</div>
-				</div>
-
-				<div class="flex gap-6">
-					<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center flex-shrink-0">
-						<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-						</svg>
-					</div>
-					<div>
-						<h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">Training & Support</h3>
-						<p class="text-gray-600 text-lg">Full training provided. No experience necessary!</p>
-					</div>
-				</div>
+				{benefits.map(benefit => (
+					<FeatureCard
+						title={benefit.title}
+						description={benefit.description}
+						icon={benefit.icon}
+						iconSize="lg"
+					/>
+				))}
 			</div>
 		</div>
 	</section>
 
 	<section class="py-20 bg-gray-50">
 		<div class="max-w-4xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy mb-8">What We're Looking For</h2>
+			<SectionHeader title="What We're Looking For" centered={false} />
 			<div class="bg-white p-8 rounded-2xl shadow-lg">
 				<ul class="space-y-4 text-lg text-gray-700">
-					<li class="flex items-start gap-3">
-						<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-						</svg>
-						<span>Trustworthy individuals with a strong work ethic</span>
-					</li>
-					<li class="flex items-start gap-3">
-						<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-						</svg>
-						<span>Detail-oriented and takes pride in their work</span>
-					</li>
-					<li class="flex items-start gap-3">
-						<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-						</svg>
-						<span>Cooperates well with others and maintains a positive attitude</span>
-					</li>
-					<li class="flex items-start gap-3">
-						<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-						</svg>
-						<span>Reliable transportation</span>
-					</li>
-					<li class="flex items-start gap-3">
-						<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-						</svg>
-						<span>Ability to pass a background check</span>
-					</li>
+					{requirements.map(req => (
+						<li class="flex items-start gap-3">
+							<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
+								<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+							</svg>
+							<span>{req}</span>
+						</li>
+					))}
 				</ul>
 			</div>
 		</div>

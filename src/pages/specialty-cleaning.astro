@@ -1,75 +1,228 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import AreaCard from '../components/AreaCard.astro';
+import UseCaseCard from '../components/UseCaseCard.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import PricingCard from '../components/PricingCard.astro';
+import TrustBadge from '../components/TrustBadge.astro';
+import FAQItem from '../components/FAQItem.astro';
 import CTASection from '../components/CTASection.astro';
+
+// What's Included - addressing Sarah's need to understand exactly what she's getting
+const includedAreas = [
+	{ title: "Kitchen", items: ["Inside and outside of all appliances", "Cabinet fronts and drawer pulls", "Backsplash and range hood degreasing", "Sink and fixtures polished"] },
+	{ title: "Bathrooms", items: ["Tile and grout scrubbing", "Shower doors and tracks", "Behind toilets and under sinks", "Mirrors and fixtures spotless"] },
+	{ title: "Living Areas", items: ["Baseboards, door frames, light switches", "Ceiling fan blades and light fixtures", "Window sills and blinds dusted", "Furniture surfaces vacuumed"] },
+	{ title: "Bedrooms", items: ["Under and behind furniture", "Closet floors and shelving", "Mattress vacuuming available", "All surfaces dusted and wiped"] },
+];
+
+// Process steps
+const processSteps = [
+	{ title: "Consultation", description: "Tell us about your home and specific needs." },
+	{ title: "Clear Quote", description: "Detailed estimate. No surprises." },
+	{ title: "Deep Clean", description: "Systematic, thorough, no corners cut." },
+	{ title: "Walkthrough", description: "We address anything before we leave." },
+];
+
+// Use cases with icons
+const useCases = [
+	{ title: "Pre-Event", description: "Get your home guest-ready for graduations, holidays, or celebrations.", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+	{ title: "Move-In / Move-Out", description: "Leave a rental spotless or start fresh in your new home.", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" },
+	{ title: "Seasonal Reset", description: "Spring cleaning or post-winter refresh. That annual deep clean.", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
+	{ title: "Post-Construction", description: "We handle the fine dust and debris contractors leave behind.", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
+];
+
+// Pricing tiers
+const pricingTiers = [
+	{ label: "1-2 Bedroom", priceMin: 200, priceMax: 350 },
+	{ label: "3 Bedroom", priceMin: 300, priceMax: 500, featured: true, badge: "Most Common" },
+	{ label: "4+ Bedroom", priceMin: 450, priceMax: 700 },
+];
+
+// Trust signals
+const trustSignals = [
+	{ title: "Background-Checked", subtitle: "Insured team", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
+	{ title: "Since 2008", subtitle: "Lake County local", icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" },
+	{ title: "Before/After Photos", subtitle: "See real results", icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" },
+	{ title: "Satisfaction Guarantee", subtitle: "We make it right", icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" },
+];
+
+// FAQ
+const faqs = [
+	{ question: "What's the difference between deep cleaning and regular cleaning?", answer: "Regular cleaning maintains a home. Deep cleaning reaches areas that don't get attention weekly—inside appliances, behind furniture, grout lines, and detailed surfaces." },
+	{ question: "How long does a deep clean take?", answer: "Most specialty cleanings take 3-6 hours depending on home size and condition. We'll give you a time estimate with your quote." },
+	{ question: "Do I need to be home?", answer: "It's up to you. Many clients prefer to be away and return to a clean home. Others like to do a walkthrough before we leave." },
+	{ question: "What if I'm not satisfied?", answer: "Tell us during the walkthrough and we'll address it immediately. Your satisfaction is guaranteed." },
+];
 ---
 
-<BaseLayout title="Specialty Cleaning Services - The Heiser Group" description="Carpet cleaning, tile cleaning, and deep cleaning services in Chicago and Lake County Illinois.">
-	<section class="bg-brand-navy text-white py-40 px-6">
-		<div class="max-w-4xl mx-auto">
-			<p class="text-white text-lg font-semibold mb-4 uppercase tracking-wide">SPECIALTY CLEANING</p>
-			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">
-				Carpet, Tile & Deep Cleaning
-			</h1>
-			<p class="text-xl text-white">
-				Professional specialty cleaning services for those tough jobs that need extra attention.
-			</p>
+<BaseLayout
+	title="Deep Cleaning Service Lake County IL | Specialty Cleaning - The Heiser Group"
+	description="Professional deep cleaning for life's important moments. One-time specialty cleaning services in Lake County, IL. Move-in/out, pre-event, post-construction cleaning."
+>
+	<!-- Hero -->
+	<PageHero
+		eyebrow="Specialty Cleaning"
+		title="Professional Deep Cleaning for Life's Important Moments"
+		subtitle="One-time specialty cleaning in Lake County, IL. Thorough, detailed cleaning when you need it most."
+		subtitleWidth="narrow"
+	>
+		<div class="flex flex-col sm:flex-row gap-4">
+			<Button href="/contact" variant="primary" size="lg">Get Your Free Estimate</Button>
+			<Button href="tel:8475550123" variant="white" size="lg">Call (847) 555-0123</Button>
 		</div>
-	</section>
+	</PageHero>
 
-	<section class="py-20 bg-white">
-		<div class="max-w-6xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-16">Specialty Services</h2>
-			<div class="grid md:grid-cols-2 gap-12">
-				<div>
-					<h3 class="text-3xl font-heading font-bold text-brand-navy mb-4">Carpet Cleaning</h3>
-					<p class="text-gray-600 text-lg mb-4">Professional carpet cleaning using industry-leading equipment and techniques. Remove stains, odors, and allergens for a fresh, clean carpet.</p>
-					<ul class="space-y-2 text-gray-600">
-						<li>• Deep steam cleaning</li>
-						<li>• Stain removal</li>
-						<li>• Pet odor treatment</li>
-						<li>• Quick drying methods</li>
-					</ul>
-				</div>
-
-				<div>
-					<h3 class="text-3xl font-heading font-bold text-brand-navy mb-4">Tile & Grout Cleaning</h3>
-					<p class="text-gray-600 text-lg mb-4">Restore your tile and grout to like-new condition. We remove built-up dirt, grime, and mildew that regular mopping can't reach.</p>
-					<ul class="space-y-2 text-gray-600">
-						<li>• Professional scrubbing</li>
-						<li>• Grout sealing</li>
-						<li>• Mildew removal</li>
-						<li>• Shine restoration</li>
-					</ul>
-				</div>
-
-				<div>
-					<h3 class="text-3xl font-heading font-bold text-brand-navy mb-4">Deep Cleaning</h3>
-					<p class="text-gray-600 text-lg mb-4">A thorough, top-to-bottom cleaning that goes beyond regular maintenance. Perfect for spring cleaning or special occasions.</p>
-					<ul class="space-y-2 text-gray-600">
-						<li>• Baseboards and trim</li>
-						<li>• Light fixtures and ceiling fans</li>
-						<li>• Inside cabinets and appliances</li>
-						<li>• Window sills and tracks</li>
-					</ul>
-				</div>
-
-				<div>
-					<h3 class="text-3xl font-heading font-bold text-brand-navy mb-4">Post-Construction Cleaning</h3>
-					<p class="text-gray-600 text-lg mb-4">Remove construction dust, debris, and residue after renovation or construction projects.</p>
-					<ul class="space-y-2 text-gray-600">
-						<li>• Dust and debris removal</li>
-						<li>• Paint overspray cleanup</li>
-						<li>• Window and surface detailing</li>
-						<li>• Final polish for move-in</li>
-					</ul>
-				</div>
+	<!-- The Situation - pull quote style -->
+	<section class="py-20 md:py-28 bg-white">
+		<div class="max-w-3xl mx-auto px-6">
+			<div class="border-l-4 border-brand-orange pl-8 md:pl-12">
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+					Some situations call for professional help. Maybe you're preparing for a special event, getting ready to sell your home, or finally tackling that deep clean you've been putting off.
+				</p>
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
+					You've handled your own cleaning for years. You know your standards. But this time, you need someone who can match your attention to detail—<span class="text-brand-navy font-semibold">without the stress.</span>
+				</p>
 			</div>
 		</div>
 	</section>
 
+	<!-- What's Included -->
+	<section class="py-20 md:py-28 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Exactly What You're Getting"
+				subtitle="Every deep clean covers these areas thoroughly"
+			/>
+
+			<div class="grid md:grid-cols-2 gap-8 lg:gap-10">
+				{includedAreas.map((area, index) => (
+					<AreaCard
+						title={area.title}
+						items={area.items}
+						number={index + 1}
+					/>
+				))}
+			</div>
+
+			<p class="text-center text-gray-400 mt-12 text-sm max-w-xl mx-auto">
+				We focus on cleaning, not organizing. We don't move heavy furniture, clean inside walls, or handle biohazard situations.
+			</p>
+		</div>
+	</section>
+
+	<!-- Mid-page CTA -->
+	<section class="py-10 bg-brand-cream border-y border-brand-orange/10">
+		<div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+			<div>
+				<p class="text-brand-navy font-heading font-bold text-xl">Ready to get started?</p>
+				<p class="text-gray-600">Free quotes in under 24 hours.</p>
+			</div>
+			<Button href="/contact" variant="primary">Request a Quote</Button>
+		</div>
+	</section>
+
+	<!-- Perfect For These Situations -->
+	<section class="py-20 md:py-28 bg-white">
+		<div class="max-w-5xl mx-auto px-6">
+			<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy text-center mb-16">Perfect For These Situations</h2>
+			<div class="grid sm:grid-cols-2 gap-6">
+				{useCases.map(useCase => (
+					<UseCaseCard
+						title={useCase.title}
+						description={useCase.description}
+						icon={useCase.icon}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- How It Works -->
+	<section class="py-20 md:py-28 bg-gray-50">
+		<div class="max-w-4xl mx-auto px-6">
+			<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy text-center mb-16">How It Works</h2>
+			<ProcessSteps steps={processSteps} />
+		</div>
+	</section>
+
+	<!-- Pricing -->
+	<section class="py-20 md:py-28 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title="Transparent Pricing"
+				subtitle="Typical ranges for Lake County homes"
+			/>
+
+			<div class="grid md:grid-cols-3 gap-4 md:gap-6 mb-10">
+				{pricingTiers.map(tier => (
+					<PricingCard
+						label={tier.label}
+						priceMin={tier.priceMin}
+						priceMax={tier.priceMax}
+						featured={tier.featured}
+						badge={tier.badge}
+					/>
+				))}
+			</div>
+
+			<p class="text-center text-gray-400 text-sm mb-10">
+				Final price depends on home size, current condition, and specific focus areas.
+			</p>
+
+			<div class="text-center">
+				<Button href="/contact" variant="primary" size="lg">Get Your Exact Quote</Button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Trust Signals -->
+	<section class="py-16 bg-brand-navy">
+		<div class="max-w-5xl mx-auto px-6">
+			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+				{trustSignals.map(signal => (
+					<TrustBadge
+						title={signal.title}
+						subtitle={signal.subtitle}
+						icon={signal.icon}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section class="py-20 md:py-28 bg-white">
+		<div class="max-w-3xl mx-auto px-6">
+			<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy text-center mb-16">Common Questions</h2>
+			<div class="space-y-6">
+				{faqs.map(faq => (
+					<FAQItem
+						question={faq.question}
+						answer={faq.answer}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
 	<CTASection
-		title="Tackle the Tough Jobs"
-		subtitle="Let our specialty cleaning services handle what regular cleaning can't."
+		title="Ready for a Thorough Clean?"
+		subtitle="Get your free estimate in minutes. No pressure, no obligation."
+		buttonText="Get Started"
 		buttonLink="/contact"
 	/>
+
+	<!-- Service Area -->
+	<section class="py-8 bg-brand-navy/5">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<p class="text-gray-500 text-sm">
+				<span class="font-medium text-gray-600">Serving Lake County, IL:</span> Grayslake · Libertyville · Vernon Hills · Mundelein · Waukegan · and surrounding areas
+			</p>
+		</div>
+	</section>
 </BaseLayout>

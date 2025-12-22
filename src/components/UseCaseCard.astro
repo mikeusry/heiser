@@ -1,0 +1,30 @@
+---
+/**
+ * UseCaseCard Component
+ * Card displaying a use case with icon, title, and description
+ * Features hover effects with icon color transition
+ *
+ * Props:
+ * - title: Use case title
+ * - description: Use case description
+ * - icon: SVG path data for the icon
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const { title, description, icon } = Astro.props;
+---
+
+<div class="group border border-gray-200 rounded-xl p-8 hover:border-brand-orange hover:shadow-lg transition-all duration-300">
+  <div class="w-12 h-12 rounded-lg bg-gray-100 group-hover:bg-brand-orange/10 flex items-center justify-center mb-4 transition-colors">
+    <svg class="w-6 h-6 text-gray-400 group-hover:text-brand-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon}/>
+    </svg>
+  </div>
+  <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">{title}</h3>
+  <p class="text-gray-600 leading-relaxed">{description}</p>
+</div>

@@ -1,0 +1,38 @@
+---
+/**
+ * AreaCard Component
+ * Card displaying a service area (room) with numbered badge and checklist
+ *
+ * Props:
+ * - title: Area name (e.g., "Kitchen", "Bathrooms")
+ * - items: Array of included items
+ * - number: Display number for the badge
+ */
+
+interface Props {
+  title: string;
+  items: string[];
+  number: number;
+}
+
+const { title, items, number } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300">
+  <div class="flex items-center gap-4 mb-6">
+    <span class="w-12 h-12 rounded-xl bg-brand-orange text-white font-heading font-bold flex items-center justify-center text-lg">
+      {String(number).padStart(2, '0')}
+    </span>
+    <h3 class="text-2xl font-heading font-bold text-brand-navy">{title}</h3>
+  </div>
+  <ul class="space-y-3">
+    {items.map(item => (
+      <li class="flex items-start gap-3 text-gray-600">
+        <svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>{item}</span>
+      </li>
+    ))}
+  </ul>
+</div>

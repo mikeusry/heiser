@@ -1,0 +1,64 @@
+---
+/**
+ * ServiceCard Component
+ * Card for displaying service previews with image, title, description, and link
+ *
+ * Props:
+ * - title: Service title (required)
+ * - description: Service description (required)
+ * - href: Link to service page (required)
+ * - image: Cloudinary image object or publicId string
+ * - variant: 'default' | 'simple' - simple has no image
+ */
+
+import CloudinaryImage from './CloudinaryImage.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  image?: {
+    publicId: string;
+    alt?: string;
+  } | string;
+  variant?: 'default' | 'simple';
+  linkText?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  image,
+  variant = 'default',
+  linkText = 'Learn More',
+} = Astro.props;
+
+const publicId = typeof image === 'string' ? image : image?.publicId;
+const alt = typeof image === 'string' ? title : image?.alt || title;
+---
+
+{variant === 'simple' ? (
+  <a href={href} class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow group block">
+    <h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">{title}</h3>
+    <p class="text-gray-600 mb-6">{description}</p>
+    <span class="text-brand-orange font-semibold group-hover:underline">{linkText} &rarr;</span>
+  </a>
+) : (
+  <a href={href} class="group block">
+    {publicId && (
+      <div class="relative overflow-hidden rounded-xl mb-4">
+        <CloudinaryImage
+          publicId={publicId}
+          alt={alt}
+          width={400}
+          height={300}
+          class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+      </div>
+    )}
+    <h3 class="text-2xl font-heading text-brand-navy mb-2 font-bold">{title}</h3>
+    <p class="text-gray-600 mb-4">{description}</p>
+    <span class="text-brand-orange font-semibold group-hover:underline">{linkText} &rarr;</span>
+  </a>
+)}

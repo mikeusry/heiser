@@ -1,5 +1,7 @@
 ---
 // Modern Footer with Navy Background
+import { footerServices } from '../lib/services';
+import { contact, company } from '../lib/contact';
 ---
 
 <footer class="bg-brand-navy text-white py-16">
@@ -11,12 +13,12 @@
         <div class="mb-6">
           <img
             src="/heiser-logo.png"
-            alt="The Heiser Group"
+            alt={company.name}
             class="h-16 w-auto bg-white px-4 py-2 rounded-lg"
           />
         </div>
         <p class="text-gray-300 mb-6 text-lg leading-relaxed">
-          The Heiser Group provides <strong>Commercial Cleaning Services</strong> & <strong>Residential Cleaning Services</strong> to Lake County, Illinois to Kenosha, Wisconsin.
+          {company.shortDescription}
         </p>
         <a
           href="/contact"
@@ -30,26 +32,13 @@
       <div>
         <h3 class="text-xl font-heading font-bold mb-6" style="color: #B0B0B0;">Services</h3>
         <ul class="space-y-3">
-          <li>
-            <a href="/commercial-cleaning" class="text-gray-300 hover:text-white transition-colors text-lg">
-              Commercial Cleaning
-            </a>
-          </li>
-          <li>
-            <a href="/residential-cleaning" class="text-gray-300 hover:text-white transition-colors text-lg">
-              Residential Cleaning
-            </a>
-          </li>
-          <li>
-            <a href="/realty-cleaning" class="text-gray-300 hover:text-white transition-colors text-lg">
-              Realty Cleaning
-            </a>
-          </li>
-          <li>
-            <a href="/specialty-cleaning" class="text-gray-300 hover:text-white transition-colors text-lg">
-              Specialty Cleaning
-            </a>
-          </li>
+          {footerServices.map(service => (
+            <li>
+              <a href={service.url} class="text-gray-300 hover:text-white transition-colors text-lg">
+                {service.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -90,12 +79,12 @@
             </a>
           </li>
           <li>
-            <a href="https://www.facebook.com/theheisergroup" target="_blank" rel="noopener" class="text-gray-300 hover:text-white transition-colors text-lg">
+            <a href={contact.social.facebook} target="_blank" rel="noopener" class="text-gray-300 hover:text-white transition-colors text-lg">
               Facebook
             </a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/company/the-heiser-group" target="_blank" rel="noopener" class="text-gray-300 hover:text-white transition-colors text-lg">
+            <a href={contact.social.linkedin} target="_blank" rel="noopener" class="text-gray-300 hover:text-white transition-colors text-lg">
               LinkedIn
             </a>
           </li>
@@ -109,14 +98,14 @@
         <div>
           <h4 class="text-lg font-semibold mb-2">HEISER GROUP</h4>
           <p class="text-gray-300 text-lg">
-            1567 BARCLAY BLVD<br />
-            BUFFALO GROVE IL 60089-4518
+            {contact.address.street}<br />
+            {contact.address.city} {contact.address.state} {contact.address.zip}
           </p>
         </div>
         <div>
           <h4 class="text-lg font-semibold mb-2">Contact</h4>
           <p class="text-gray-300 text-lg">
-            O: <a href="tel:7735455200" class="hover:text-white transition-colors">(773) 545-5200</a>
+            O: <a href={contact.phone.href} class="hover:text-white transition-colors">{contact.phone.display}</a>
           </p>
         </div>
       </div>

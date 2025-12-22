@@ -1,0 +1,31 @@
+---
+/**
+ * StatCard Component
+ * Display a single statistic with large number and label
+ *
+ * Props:
+ * - value: The stat value/number to display (required)
+ * - label: Description of the stat (required)
+ * - variant: 'default' | 'light' - color scheme
+ */
+
+interface Props {
+  value: string;
+  label: string;
+  variant?: 'default' | 'light';
+}
+
+const {
+  value,
+  label,
+  variant = 'default',
+} = Astro.props;
+
+const valueColor = variant === 'light' ? 'text-white' : 'text-brand-orange';
+const labelColor = variant === 'light' ? 'text-white/80' : 'text-gray-600';
+---
+
+<div class="text-center">
+  <div class={`text-5xl font-heading font-bold ${valueColor} mb-2`}>{value}</div>
+  <div class={`${labelColor} text-lg`}>{label}</div>
+</div>

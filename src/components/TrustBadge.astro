@@ -1,0 +1,29 @@
+---
+/**
+ * TrustBadge Component
+ * Compact trust signal with icon, title, and subtitle
+ *
+ * Props:
+ * - title: Main text
+ * - subtitle: Secondary text
+ * - icon: SVG path data for the icon
+ */
+
+interface Props {
+  title: string;
+  subtitle: string;
+  icon: string;
+}
+
+const { title, subtitle, icon } = Astro.props;
+---
+
+<div class="text-white text-center">
+  <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-white/10 flex items-center justify-center">
+    <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon}/>
+    </svg>
+  </div>
+  <p class="font-semibold mb-0.5">{title}</p>
+  <p class="text-white/50 text-sm">{subtitle}</p>
+</div>

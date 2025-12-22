@@ -1,0 +1,43 @@
+---
+/**
+ * ProcessSteps Component
+ * Displays a horizontal timeline of process steps
+ *
+ * Props:
+ * - steps: Array of { title: string, description: string }
+ * - showConnector: Whether to show connecting line (default: true)
+ */
+
+interface Step {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  steps: Step[];
+  showConnector?: boolean;
+}
+
+const {
+  steps,
+  showConnector = true,
+} = Astro.props;
+---
+
+<div class="relative">
+  {showConnector && (
+    <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gray-200"></div>
+  )}
+
+  <div class="grid md:grid-cols-4 gap-8 md:gap-4">
+    {steps.map((step, index) => (
+      <div class="relative text-center md:text-left">
+        <div class="inline-flex md:flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-brand-orange text-brand-orange font-heading font-bold text-xl mb-4 relative z-10">
+          {index + 1}
+        </div>
+        <h3 class="text-lg font-heading font-bold text-brand-navy mb-2">{step.title}</h3>
+        <p class="text-gray-600 text-sm">{step.description}</p>
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,41 @@
+---
+/**
+ * SectionHeader Component
+ * Reusable section heading with optional subtitle
+ *
+ * Props:
+ * - title: Main heading text (required)
+ * - subtitle: Description text below the title
+ * - centered: Whether to center text (default: true)
+ * - size: 'default' | 'large' - controls heading size
+ */
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  centered?: boolean;
+  size?: 'default' | 'large';
+}
+
+const {
+  title,
+  subtitle,
+  centered = true,
+  size = 'default',
+} = Astro.props;
+
+const alignClass = centered ? 'text-center' : '';
+const titleSize = size === 'large' ? 'text-5xl' : 'text-4xl';
+const marginBottom = subtitle ? 'mb-4' : 'mb-16';
+---
+
+<div class={`${alignClass} ${subtitle ? 'mb-16' : ''}`}>
+  <h2 class={`${titleSize} font-heading font-bold text-brand-navy ${marginBottom}`}>
+    {title}
+  </h2>
+  {subtitle && (
+    <p class="text-xl text-gray-600">
+      {subtitle}
+    </p>
+  )}
+</div>

@@ -1,17 +1,53 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import { contact } from '../lib/contact';
+import { serviceOptions } from '../lib/services';
+import { serviceAreaText, serviceAreas } from '../lib/serviceAreas';
+
+// ContactPage Schema
+const contactPageSchema = {
+	"@context": "https://schema.org",
+	"@type": "ContactPage",
+	"name": "Contact The Heiser Group",
+	"description": "Get a free quote for professional cleaning services in Lake County, IL. Call or fill out our contact form.",
+	"url": "https://heisergroup.com/contact",
+	"mainEntity": {
+		"@type": "LocalBusiness",
+		"@id": "https://heisergroup.com/#localbusiness",
+		"name": "The Heiser Group",
+		"telephone": contact.phone.display,
+		"email": contact.email,
+		"address": {
+			"@type": "PostalAddress",
+			"streetAddress": contact.address.street,
+			"addressLocality": contact.address.city,
+			"addressRegion": contact.address.state,
+			"postalCode": contact.address.zip,
+			"addressCountry": "US"
+		},
+		"openingHoursSpecification": {
+			"@type": "OpeningHoursSpecification",
+			"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+			"opens": "09:00",
+			"closes": "17:00"
+		},
+		"areaServed": serviceAreas.cities.map(city => ({
+			"@type": "City",
+			"name": city
+		}))
+	}
+};
 ---
 
-<BaseLayout title="Contact Us - The Heiser Group" description="Get in touch with The Heiser Group for a free quote on professional cleaning services in Chicago and Lake County Illinois.">
-	<!-- Hero Section -->
-	<section class="bg-brand-navy text-white py-40 px-6">
-		<div class="max-w-4xl mx-auto text-center">
-			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">Get In Touch</h1>
-			<p class="text-xl text-white">
-				Ready to experience the difference? Contact us today for a free quote.
-			</p>
-		</div>
-	</section>
+<BaseLayout title="Contact The Heiser Group | Free Cleaning Quote Lake County IL" description="Get a free quote for professional house cleaning or commercial cleaning in Lake County, IL. Call (773) 545-5200 or fill out our contact form. Quick response guaranteed.">
+	<script type="application/ld+json" set:html={JSON.stringify(contactPageSchema)} />
+	<PageHero
+		title="Get In Touch"
+		subtitle="Ready to experience the difference? Contact us today for a free quote."
+		centered
+	/>
 
 	<!-- Contact Form & Info Section -->
 	<section class="py-20 bg-gray-50">
@@ -74,12 +110,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 								class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
 							>
 								<option value="">Select a service</option>
-								<option value="residential">Residential Cleaning</option>
-								<option value="commercial">Commercial Cleaning</option>
-								<option value="realty">Realty Cleaning</option>
-								<option value="specialty">Specialty Cleaning</option>
-								<option value="bi-weekly">Bi-Weekly Cleaning</option>
-								<option value="monthly">Monthly Cleaning</option>
+								{serviceOptions.map(option => (
+									<option value={option.value}>{option.label}</option>
+								))}
 							</select>
 						</div>
 
@@ -112,19 +145,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 					<div class="space-y-8">
 						<!-- Phone -->
-						<div class="flex items-start gap-4">
-							<div class="w-12 h-12 bg-brand-orange rounded-lg flex items-center justify-center flex-shrink-0">
-								<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-								</svg>
-							</div>
-							<div>
-								<h3 class="font-semibold text-gray-900 mb-1">Phone</h3>
-								<a href="tel:7735455200" class="text-lg text-gray-600 hover:text-brand-orange transition-colors">
-									(773) 545-5200
-								</a>
-							</div>
-						</div>
+						<FeatureCard
+							title="Phone"
+							description={contact.phone.display}
+							icon="phone"
+						/>
 
 						<!-- Address -->
 						<div class="flex items-start gap-4">
@@ -137,8 +162,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<div>
 								<h3 class="font-semibold text-gray-900 mb-1">Address</h3>
 								<p class="text-gray-600">
-									1567 BARCLAY BLVD<br />
-									BUFFALO GROVE, IL 60089-4518
+									{contact.address.street}<br />
+									{contact.address.city}, {contact.address.state} {contact.address.zip}
 								</p>
 							</div>
 						</div>
@@ -153,8 +178,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<div>
 								<h3 class="font-semibold text-gray-900 mb-1">Business Hours</h3>
 								<p class="text-gray-600">
-									Monday - Friday<br />
-									9:00 AM - 5:00 PM
+									{contact.hours.days}<br />
+									{contact.hours.start} - {contact.hours.end}
 								</p>
 							</div>
 						</div>
@@ -162,9 +187,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<!-- Service Area -->
 						<div class="mt-12 p-6 bg-brand-cream rounded-xl">
 							<h3 class="font-heading font-bold text-xl text-brand-navy mb-4">Service Areas</h3>
-							<p class="text-gray-700 leading-relaxed">
-								We proudly serve <strong>Lake County Illinois</strong> including North Shore, Buffalo Grove, North Chicago, Libertyville, Waukegan, Lake Forest and <strong>Kenosha, Wisconsin</strong>.
-							</p>
+							<p class="text-gray-700 leading-relaxed" set:html={serviceAreaText.withEmphasis} />
 						</div>
 					</div>
 				</div>

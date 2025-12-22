@@ -1,0 +1,46 @@
+---
+/**
+ * PricingCard Component
+ * Displays pricing tier with label and price range
+ *
+ * Props:
+ * - label: Tier name (e.g., "1-2 Bedroom")
+ * - priceMin: Minimum price
+ * - priceMax: Maximum price
+ * - featured: Whether this is the highlighted/recommended tier
+ * - badge: Optional badge text (e.g., "Most Common")
+ */
+
+interface Props {
+  label: string;
+  priceMin: number;
+  priceMax: number;
+  featured?: boolean;
+  badge?: string;
+}
+
+const {
+  label,
+  priceMin,
+  priceMax,
+  featured = false,
+  badge,
+} = Astro.props;
+
+const formatPrice = (price: number) => `$${price.toLocaleString()}`;
+---
+
+<div class={`rounded-2xl p-8 text-center relative ${featured ? 'bg-brand-navy' : 'bg-gray-50 hover:bg-gray-100'} transition-colors`}>
+  {badge && (
+    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-xs px-4 py-1.5 rounded-full font-semibold tracking-wide">
+      {badge}
+    </span>
+  )}
+  <p class={`text-sm mb-3 uppercase tracking-wider font-medium ${featured ? 'text-white/50' : 'text-gray-400'}`}>
+    {label}
+  </p>
+  <p class={`text-4xl font-heading font-bold ${featured ? 'text-white' : 'text-brand-navy'}`}>
+    {formatPrice(priceMin)}<span class={`text-2xl mx-1 ${featured ? 'text-white/30' : 'text-gray-300'}`}>–</span>{formatPrice(priceMax)}
+  </p>
+  <slot />
+</div>

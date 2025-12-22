@@ -1,64 +1,431 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 import CTASection from '../components/CTASection.astro';
+import { getServiceById } from '../lib/services';
+
+const service = getServiceById('monthly');
+
+// FAQ data for schema and rendering
+const faqs = [
+	{
+		question: "Is monthly enough to keep my home clean?",
+		answer: "For smaller homes or tidy households, yes. If you find yourself doing a lot between visits, consider upgrading to bi-weekly."
+	},
+	{
+		question: "Can I add extra cleanings if I need them?",
+		answer: "Absolutely. Special occasion coming up? Just ask—we'll fit you in."
+	},
+	{
+		question: "What if I want to switch to bi-weekly?",
+		answer: "Easy. Just let us know and we'll adjust your schedule. No penalties."
+	},
+	{
+		question: "Will the same team come every month?",
+		answer: "Yes. Consistency is our promise, regardless of frequency."
+	},
+	{
+		question: "What's included vs. extra?",
+		answer: "Everything listed in our standard monthly cleaning is included. Add-ons like inside fridge, inside oven, or laundry are available for an additional fee."
+	}
+];
+
+// FAQPage Schema
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faqs.map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
+};
+
+// Service Schema
+const serviceSchema = {
+	"@context": "https://schema.org",
+	"@type": "Service",
+	"name": "Monthly Cleaning Service",
+	"description": "Professional monthly deep cleaning service for homes in Lake County, IL. Same team every visit, thorough cleaning, affordable rates.",
+	"provider": {
+		"@type": "LocalBusiness",
+		"name": "The Heiser Group",
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "Grayslake",
+			"addressRegion": "IL",
+			"addressCountry": "US"
+		},
+		"areaServed": [
+			"Grayslake", "Libertyville", "Vernon Hills", "Highland Park",
+			"Lake Forest", "Mundelein", "Lake County"
+		]
+	},
+	"serviceType": "Monthly House Cleaning",
+	"areaServed": {
+		"@type": "State",
+		"name": "Illinois"
+	}
+};
 ---
 
-<BaseLayout title="Monthly Cleaning Services - The Heiser Group" description="Monthly home cleaning services in Chicago and Lake County Illinois. Affordable professional cleaning once a month.">
-	<section class="bg-brand-navy text-white py-40 px-6">
-		<div class="max-w-4xl mx-auto">
-			<p class="text-white text-lg font-semibold mb-4 uppercase tracking-wide">MONTHLY CLEANING</p>
-			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">
-				Monthly Deep Cleaning Service
-			</h1>
-			<p class="text-xl text-white">
-				Perfect for maintaining a tidy home with comprehensive monthly cleaning service.
-			</p>
-		</div>
-	</section>
+<BaseLayout title="Monthly Cleaning Service Lake County IL | The Heiser Group" description="Professional monthly deep cleaning for busy lives. Same team every visit, thorough cleaning, affordable rates. Serving Lake County IL since 1979.">
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
 
+	<PageHero
+		eyebrow="MONTHLY CLEANING SERVICE"
+		title="Monthly Deep Cleaning for Busy Lives"
+		subtitle="A thorough deep clean once a month. Same team, consistent quality—without the commitment of weekly service."
+	/>
+
+	<!-- Section 1: Is Monthly Right for You? -->
 	<section class="py-20 bg-white">
 		<div class="max-w-4xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy mb-8">Is Monthly Cleaning Right for You?</h2>
+			<SectionHeader title="Is Monthly Cleaning Right for You?" centered={false} />
 			<div class="space-y-6 text-lg text-gray-700">
 				<p>
-					Monthly cleaning is ideal for individuals, couples, or small families who maintain a relatively tidy home but want a thorough deep clean once a month. It's a cost-effective way to keep your home in great shape without the commitment of more frequent service.
+					Monthly cleaning isn't for everyone—but it might be perfect for you.
 				</p>
-				<p>
-					Each monthly visit is a comprehensive deep clean that covers all the essentials plus those harder-to-reach areas that often get overlooked in daily tidying.
+
+				<div class="grid md:grid-cols-2 gap-8 mt-8">
+					<div class="bg-green-50 p-6 rounded-lg">
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Monthly works well if you:</h3>
+						<ul class="space-y-3">
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+								<span>Maintain a relatively tidy home day-to-day</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+								<span>Live alone or with a partner (no kids/pets creating daily chaos)</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+								<span>Want professional cleaning without the cost of bi-weekly</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+								<span>Need a thorough deep clean to reset your home each month</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="bg-amber-50 p-6 rounded-lg">
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">You might want bi-weekly instead if:</h3>
+						<ul class="space-y-3">
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+								<span>Your home gets messy quickly between cleanings</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+								<span>You have kids or pets adding to daily cleanup</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+								<span>You'd rather not do any maintenance cleaning yourself</span>
+							</li>
+						</ul>
+						<p class="mt-4 text-sm text-gray-600">
+							<a href="/bi-weekly-cleaning" class="text-brand-orange hover:underline">Learn about bi-weekly cleaning →</a>
+						</p>
+					</div>
+				</div>
+
+				<p class="mt-6 text-gray-600 italic">
+					Not sure? Start with monthly—you can always upgrade to bi-weekly if you need more frequent service.
 				</p>
 			</div>
 		</div>
 	</section>
 
+	<!-- Section 2: What's Included -->
 	<section class="py-20 bg-gray-50">
 		<div class="max-w-6xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-12">What's Included</h2>
-			<div class="grid md:grid-cols-3 gap-6">
-				{[
-					"Complete kitchen cleaning",
-					"Bathroom sanitation",
-					"Dusting all surfaces",
-					"Vacuuming and mopping",
-					"Bedroom tidying",
-					"Living area cleaning",
-					"Baseboards wiping",
-					"Window sill cleaning",
-					"All supplies included"
-				].map(item => (
-					<div class="flex items-start gap-3">
-						<svg class="w-6 h-6 text-brand-orange flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-						</svg>
-						<span class="text-gray-700">{item}</span>
+			<SectionHeader title="Every Monthly Visit Is a Deep Clean" />
+			<p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mb-12">
+				Because we're only there once a month, each visit is thorough. We don't just maintain—we reset your entire home.
+			</p>
+
+			<div class="grid md:grid-cols-3 gap-8">
+				<!-- Kitchen -->
+				<div class="bg-white p-6 rounded-lg shadow-sm">
+					<h3 class="text-xl font-semibold text-gray-900 mb-4">Kitchen</h3>
+					<ul class="space-y-2 text-gray-700">
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Countertops, stovetop, appliance exteriors</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Sink and fixtures deep cleaned</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Cabinet fronts wiped</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Floor vacuumed and mopped</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Inside microwave cleaned</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Bathrooms -->
+				<div class="bg-white p-6 rounded-lg shadow-sm">
+					<h3 class="text-xl font-semibold text-gray-900 mb-4">Bathrooms</h3>
+					<ul class="space-y-2 text-gray-700">
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Toilets, showers, tubs fully sanitized</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Mirrors and fixtures polished</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Counters and cabinets wiped</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Floors scrubbed</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Grout attention as needed</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Living Areas -->
+				<div class="bg-white p-6 rounded-lg shadow-sm">
+					<h3 class="text-xl font-semibold text-gray-900 mb-4">Living Areas & Bedrooms</h3>
+					<ul class="space-y-2 text-gray-700">
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>All surfaces dusted (including hard-to-reach)</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Floors vacuumed and mopped</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Baseboards wiped</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Window sills cleaned</span>
+						</li>
+						<li class="flex items-start gap-2">
+							<svg class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							<span>Ceiling fans dusted</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<p class="text-center mt-8 text-gray-600">
+				<strong>We bring everything</strong> — All supplies and equipment included.
+			</p>
+		</div>
+	</section>
+
+	<!-- Section 3: The Monthly Advantage -->
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader title="Why Choose Monthly Cleaning?" />
+
+			<div class="grid md:grid-cols-2 gap-8 mt-12">
+				<div class="flex gap-4">
+					<div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+						<svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">More Affordable Than Bi-Weekly</h3>
+						<p class="text-gray-600">Get professional cleaning at a lower monthly cost. Perfect if budget matters but you still want quality service.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+						<svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">More Thorough Each Visit</h3>
+						<p class="text-gray-600">With monthly service, each cleaning is a deep clean—not just maintenance. We tackle everything.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+						<svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">Same Team Every Time</h3>
+						<p class="text-gray-600">Just like our bi-weekly clients, you get the same dedicated team who learns your home and preferences.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-4">
+					<div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-lg flex items-center justify-center">
+						<svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+					</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">Flexible If Needs Change</h3>
+						<p class="text-gray-600">Life gets busier? Upgrade to bi-weekly anytime. Need a one-time boost? Add extra visits as needed.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 4: Trust & Reliability -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader title="The Heiser Difference" />
+
+			<div class="grid md:grid-cols-4 gap-6 mt-12">
+				<div class="text-center">
+					<div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+						<span class="text-2xl font-bold text-brand-orange">45+</span>
+					</div>
+					<h3 class="font-semibold text-gray-900 mb-2">Years in Lake County</h3>
+					<p class="text-sm text-gray-600">Family-owned since 1979. Not a franchise—your neighbors.</p>
+				</div>
+
+				<div class="text-center">
+					<div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+						<svg class="w-8 h-8 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+					</div>
+					<h3 class="font-semibold text-gray-900 mb-2">Background-Checked & Insured</h3>
+					<p class="text-sm text-gray-600">Every team member vetted. Your home is protected.</p>
+				</div>
+
+				<div class="text-center">
+					<div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+						<svg class="w-8 h-8 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+					</div>
+					<h3 class="font-semibold text-gray-900 mb-2">Satisfaction Guarantee</h3>
+					<p class="text-sm text-gray-600">Not happy? Tell us within 24 hours—we'll make it right.</p>
+				</div>
+
+				<div class="text-center">
+					<div class="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+						<svg class="w-8 h-8 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+					</div>
+					<h3 class="font-semibold text-gray-900 mb-2">Safe Products</h3>
+					<p class="text-sm text-gray-600">Professional-grade but safe for your family and pets.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 5: How It Works -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader title="Getting Started" />
+
+			<div class="space-y-8 mt-12">
+				<div class="flex gap-6">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center text-white font-bold">1</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">Get a Quote</h3>
+						<p class="text-gray-600">Tell us about your home. Flat-rate pricing—no surprises.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-6">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center text-white font-bold">2</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">Pick Your Day</h3>
+						<p class="text-gray-600">Choose a monthly day that works. We lock it in.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-6">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center text-white font-bold">3</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">Meet Your Team</h3>
+						<p class="text-gray-600">Same people every month. They'll learn your home.</p>
+					</div>
+				</div>
+
+				<div class="flex gap-6">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange rounded-full flex items-center justify-center text-white font-bold">4</div>
+					<div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-2">Enjoy the Reset</h3>
+						<p class="text-gray-600">Come home to a deep-cleaned house, every single month.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 6: Pricing -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader title="Monthly Cleaning Rates" />
+
+			<p class="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+				We quote based on home size and condition. Monthly rates are typically 10-15% less than bi-weekly per visit.
+			</p>
+
+			<div class="bg-white rounded-lg shadow-sm p-8">
+				<h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">Typical Lake County Monthly Rates</h3>
+
+				<div class="space-y-4">
+					<div class="flex justify-between items-center py-3 border-b border-gray-100">
+						<span class="text-gray-700">2 bedroom / 1 bath</span>
+						<span class="font-semibold text-gray-900">$150 - $200</span>
+					</div>
+					<div class="flex justify-between items-center py-3 border-b border-gray-100">
+						<span class="text-gray-700">3 bedroom / 2 bath</span>
+						<span class="font-semibold text-gray-900">$200 - $275</span>
+					</div>
+					<div class="flex justify-between items-center py-3">
+						<span class="text-gray-700">4 bedroom / 2.5 bath</span>
+						<span class="font-semibold text-gray-900">$275 - $375</span>
+					</div>
+				</div>
+
+				<p class="text-sm text-gray-500 mt-6 text-center italic">
+					First visit may be higher for initial deep clean.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Section 7: FAQ -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader title="Common Questions About Monthly Cleaning" />
+
+			<div class="space-y-6 mt-12">
+				{faqs.map(faq => (
+					<div class="border-b border-gray-200 pb-6">
+						<h3 class="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+						<p class="text-gray-600">{faq.answer}</p>
 					</div>
 				))}
 			</div>
 		</div>
 	</section>
 
+	<!-- CTA Section -->
 	<CTASection
-		title="Schedule Your Monthly Service"
-		subtitle="Affordable, thorough cleaning once a month. Perfect for busy lifestyles."
+		title="Ready for Monthly Deep Cleaning?"
+		subtitle="Get your free quote. Professional cleaning once a month—affordable, thorough, reliable. Serving Grayslake, Libertyville, Vernon Hills, Highland Park, Lake Forest, Mundelein, and all of Lake County, IL."
 		buttonLink="/contact"
 	/>
 </BaseLayout>

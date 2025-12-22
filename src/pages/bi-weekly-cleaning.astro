@@ -1,62 +1,460 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import CTASection from '../components/CTASection.astro';
+import { contact, company } from '../lib/contact';
+
+const title = "Bi-Weekly Cleaning Service Lake County IL | The Heiser Group";
+const description = "Reliable bi-weekly house cleaning service in Lake County IL. Same team every visit, consistent scheduling, flat-rate pricing. Professional recurring cleaning service.";
+
+const benefits = [
+	{
+		title: "Same Team Every Visit",
+		description: "Your cleaning team knows your home, your preferences, and where the dog treats are. No starting over every two weeks.",
+		icon: "check" as const
+	},
+	{
+		title: "Consistent Day and Time",
+		description: "Block it on your calendar and forget about it. No phone tag. No rescheduling chaos. Your service runs like clockwork.",
+		icon: "calendar" as const
+	},
+	{
+		title: "Proactive Communication",
+		description: "Running late? We text you. Need to reschedule? Easy online portal. Your cleaning service, on your terms.",
+		icon: "sparkle" as const
+	},
+	{
+		title: "Priority Scheduling",
+		description: "Regular clients get first choice of appointment times. Lock in your preferred slot and keep it.",
+		icon: "star" as const
+	}
+];
+
+const whatsIncluded = {
+	kitchen: [
+		"Countertops, stovetop, and appliance exteriors",
+		"Sink scrubbed and fixtures polished",
+		"Cabinet fronts wiped down",
+		"Floor vacuumed and mopped"
+	],
+	bathrooms: [
+		"Toilets, showers, and tubs sanitized",
+		"Mirrors and fixtures gleaming",
+		"Counters cleared and cleaned",
+		"Floors scrubbed"
+	],
+	living: [
+		"All surfaces dusted",
+		"Floors vacuumed and mopped",
+		"Furniture surfaces wiped",
+		"Trash removed, beds made"
+	]
+};
+
+const whyBiWeekly = [
+	{
+		title: "Your Home Never Gets \"Out of Control\"",
+		description: "No catch-up cleaning needed before guests arrive. Your home stays consistently presentable."
+	},
+	{
+		title: "Each Cleaning Is Efficient",
+		description: "Less buildup means faster service. We maintain your clean rather than restore it."
+	},
+	{
+		title: "Predictable Budget",
+		description: "Same cost, same service, every two weeks. No surprises on your credit card statement."
+	},
+	{
+		title: "The Sweet Spot",
+		description: "Weekly is overkill for most homes. Monthly lets things slide too far. Bi-weekly keeps your home consistently clean."
+	}
+];
+
+const trustSignals = [
+	{
+		title: "Background-Checked & Insured",
+		description: "Every team member passes a thorough background check. Your home and belongings are protected."
+	},
+	{
+		title: "5-Star Reviews",
+		description: "Check our Google reviews. The words you'll see most: reliable, consistent, same team every time."
+	},
+	{
+		title: "Satisfaction Guarantee",
+		description: "Not happy with a cleaning? Tell us within 24 hours and we'll make it right. No hassle."
+	},
+	{
+		title: "Safe for Kids & Pets",
+		description: "We use professional-grade products that are effective AND safe for your family."
+	}
+];
+
+const pricing = [
+	{
+		bedrooms: "2 bedroom / 1 bath",
+		range: "$140-$180 per visit"
+	},
+	{
+		bedrooms: "3 bedroom / 2 bath",
+		range: "$180-$250 per visit"
+	},
+	{
+		bedrooms: "4 bedroom / 2.5 bath",
+		range: "$250-$350 per visit"
+	}
+];
+
+const steps = [
+	{
+		number: 1,
+		title: "Quick Online Quote",
+		description: "Tell us about your home—size, bedrooms, bathrooms, any pets. Get a flat-rate quote in minutes."
+	},
+	{
+		number: 2,
+		title: "Schedule Your First Cleaning",
+		description: "Pick a day and time that works for your schedule. We'll lock in that recurring slot."
+	},
+	{
+		number: 3,
+		title: "Meet Your Team",
+		description: "Your dedicated team arrives, cleans thoroughly, and checks in with you before they leave."
+	},
+	{
+		number: 4,
+		title: "Relax and Repeat",
+		description: "Same team, same time, every two weeks. Your only job is to enjoy your clean home."
+	}
+];
+
+const faqs = [
+	{
+		question: "What if I need to reschedule?",
+		answer: "No problem. Our online portal makes it easy. Give us 24 hours notice and we'll move your appointment—no fee."
+	},
+	{
+		question: "Will the same team come every time?",
+		answer: "Yes. That's our promise. Your team learns your home and your preferences."
+	},
+	{
+		question: "What if something gets broken?",
+		answer: "We're fully insured. If something happens, we'll handle it professionally and make it right."
+	},
+	{
+		question: "Do I need to be home?",
+		answer: "Completely up to you. Many clients give us a code or leave a key. Others prefer to be home. Your choice."
+	},
+	{
+		question: "What's the difference between bi-weekly and monthly?",
+		answer: "Bi-weekly keeps your home consistently clean. Monthly is better for light maintenance, but you'll notice more buildup between visits."
+	},
+	{
+		question: "Are your products safe for pets?",
+		answer: "Absolutely. We use professional products that are effective but safe for pets and children. If you have specific sensitivities, let us know."
+	}
+];
+
+// Schema markup
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faqs.map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
+};
+
+const serviceSchema = {
+	"@context": "https://schema.org",
+	"@type": "Service",
+	"name": "Bi-Weekly House Cleaning Service",
+	"description": "Professional bi-weekly recurring house cleaning service in Lake County IL. Same team every visit, consistent scheduling, flat-rate pricing.",
+	"provider": {
+		"@type": "LocalBusiness",
+		"name": company.name,
+		"telephone": contact.phone.display,
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "Grayslake",
+			"addressRegion": "IL",
+			"addressCountry": "US"
+		}
+	},
+	"areaServed": [
+		{ "@type": "County", "name": "Lake County", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Grayslake", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Libertyville", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Vernon Hills", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Highland Park", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Lake Forest", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Mundelein", "containedIn": "Illinois" }
+	],
+	"serviceType": ["Bi-Weekly Cleaning", "Recurring House Cleaning", "Professional House Cleaning"]
+};
 ---
 
-<BaseLayout title="Bi-Weekly Cleaning Services - The Heiser Group" description="Bi-weekly home cleaning services in Chicago. Our most popular residential cleaning option.">
-	<section class="bg-brand-navy text-white py-40 px-6">
-		<div class="max-w-4xl mx-auto">
-			<p class="text-white text-lg font-semibold mb-4 uppercase tracking-wide">BI-WEEKLY CLEANING</p>
-			<h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-white">
-				Our Most Popular Service
-			</h1>
-			<p class="text-xl text-white">
-				Keep your home consistently clean with professional cleaning every two weeks.
+<BaseLayout title={title} description={description}>
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+	<PageHero
+		eyebrow="BI-WEEKLY CLEANING SERVICE"
+		title="Reliable Bi-Weekly Cleaning for Busy Professionals"
+		subtitle="Same team. Same time. Every two weeks. The house cleaning service Lake County families count on."
+	/>
+
+	<!-- The Problem Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-6">
+				You've Been Burned Before
+			</h2>
+			<div class="space-y-4 text-lg text-gray-700">
+				<p>
+					You've tried other cleaning services. They canceled last minute. Different people showed up each time. The quality was hit or miss. Now you're back to doing it yourself—or just living with it.
+				</p>
+				<p>
+					Between demanding jobs, kids' activities, and everything else, who has time to manage a cleaning service that needs constant oversight?
+				</p>
+				<p class="font-semibold text-brand-navy">
+					You don't need another task to manage. You need a cleaning service that just <em>works</em>.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Benefits/Solution Section -->
+	<section class="py-20 bg-brand-cream">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Bi-Weekly Cleaning That Runs Like Clockwork"
+				subtitle="Here's what makes our bi-weekly service different"
+			/>
+			<div class="grid md:grid-cols-2 gap-8">
+				{benefits.map(benefit => (
+					<div class="bg-white p-8 rounded-xl shadow-lg">
+						<FeatureCard
+							title={benefit.title}
+							description={benefit.description}
+							icon={benefit.icon}
+							iconSize="lg"
+						/>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Included Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Every Bi-Weekly Visit Covers"
+			/>
+			<div class="grid md:grid-cols-3 gap-8">
+				<div class="bg-gray-50 p-8 rounded-xl">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Kitchen</h3>
+					<ul class="space-y-3">
+						{whatsIncluded.kitchen.map(item => (
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-brand-orange mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+								</svg>
+								<span class="text-gray-700">{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div class="bg-gray-50 p-8 rounded-xl">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Bathrooms</h3>
+					<ul class="space-y-3">
+						{whatsIncluded.bathrooms.map(item => (
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-brand-orange mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+								</svg>
+								<span class="text-gray-700">{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div class="bg-gray-50 p-8 rounded-xl">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Living Areas & Bedrooms</h3>
+					<ul class="space-y-3">
+						{whatsIncluded.living.map(item => (
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-brand-orange mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+								</svg>
+								<span class="text-gray-700">{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+			<div class="mt-8 text-center">
+				<p class="text-lg text-gray-600 bg-brand-cream rounded-lg p-6 max-w-3xl mx-auto">
+					<strong>Extras on Rotation:</strong> Each visit, we rotate through detailed tasks: baseboards, ceiling fans, inside windows, door frames. Over time, every corner gets attention.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Bi-Weekly Works -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Why Bi-Weekly Works"
+				subtitle="The sweet spot for busy families"
+			/>
+			<div class="grid md:grid-cols-2 gap-8">
+				{whyBiWeekly.map((item, index) => (
+					<FeatureCard
+						title={item.title}
+						description={item.description}
+						variant="numbered"
+						number={index + 1}
+						iconSize="lg"
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Trust Section -->
+	<section class="py-20 bg-brand-navy text-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<div class="text-center mb-12">
+				<h2 class="text-3xl md:text-4xl font-heading font-bold mb-4">
+					Why Lake County Families Trust Heiser Group
+				</h2>
+			</div>
+			<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+				{trustSignals.map(signal => (
+					<div class="text-center">
+						<div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center mx-auto mb-4">
+							<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+							</svg>
+						</div>
+						<h3 class="text-xl font-heading font-bold mb-2">{signal.title}</h3>
+						<p class="text-gray-300">{signal.description}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Pricing Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title="What Does Bi-Weekly Cleaning Cost?"
+				subtitle="We quote based on your home's size and condition. Bi-weekly clients get our best rates because regular service is more efficient."
+			/>
+			<div class="bg-gray-50 rounded-xl p-8">
+				<h3 class="text-xl font-heading font-bold text-brand-navy mb-6">Typical bi-weekly rates for Lake County homes:</h3>
+				<div class="space-y-4">
+					{pricing.map(tier => (
+						<div class="flex justify-between items-center py-3 border-b border-gray-200 last:border-0">
+							<span class="text-gray-700">{tier.bedrooms}</span>
+							<span class="font-semibold text-brand-navy">{tier.range}</span>
+						</div>
+					))}
+				</div>
+				<p class="mt-6 text-sm text-gray-600 italic">
+					First cleaning is slightly higher (initial deep clean), then regular bi-weekly rate applies.
+				</p>
+				<div class="mt-6 p-4 bg-brand-cream rounded-lg">
+					<p class="font-semibold text-brand-navy">
+						Flat-Rate Pricing — No hourly charges, no surprises. You know exactly what you'll pay.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- How It Works -->
+	<section class="py-20 bg-brand-cream">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Getting Started Is Easy"
+			/>
+			<div class="grid md:grid-cols-4 gap-8">
+				{steps.map(step => (
+					<div class="text-center">
+						<div class="w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+							{step.number}
+						</div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">{step.title}</h3>
+						<p class="text-gray-600">{step.description}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader title="Common Questions About Bi-Weekly Cleaning" />
+			<div class="space-y-6">
+				{faqs.map(faq => (
+					<div class="border-b border-gray-200 pb-6">
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">{faq.question}</h3>
+						<p class="text-gray-600">{faq.answer}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="py-20 bg-brand-cream">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+				Ready for Cleaning That Just Works?
+			</h2>
+			<p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+				Get your free quote in minutes. No phone tag, no pressure. Just reliable bi-weekly cleaning that fits your life.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+				<a
+					href="/contact"
+					class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all duration-300 hover:shadow-xl"
+				>
+					Get a Free Quote
+				</a>
+				<a href={contact.phone.href} class="flex items-center gap-2 font-semibold text-brand-navy hover:text-brand-orange transition-colors text-lg">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+					</svg>
+					{contact.phone.display}
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Service Area Footer -->
+	<section class="py-8 bg-gray-100">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<p class="text-gray-600">
+				<strong>Serving Lake County, IL:</strong> Grayslake, Libertyville, Vernon Hills, Highland Park, Lake Forest, Mundelein, and surrounding areas.
 			</p>
 		</div>
 	</section>
 
-	<section class="py-20 bg-white">
-		<div class="max-w-4xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy mb-8">Why Bi-Weekly Cleaning?</h2>
-			<div class="space-y-6 text-lg text-gray-700">
-				<p>
-					Bi-weekly cleaning strikes the perfect balance between maintaining a consistently clean home and managing your budget. With service every two weeks, your home never has a chance to get too messy, making each cleaning session more efficient and effective.
-				</p>
-				<p>
-					This is our most popular service option for busy families, working professionals, and anyone who wants to enjoy a clean home without the hassle of frequent deep cleans.
-				</p>
-			</div>
-		</div>
-	</section>
-
-	<section class="py-20 bg-gray-50">
-		<div class="max-w-4xl mx-auto px-6">
-			<h2 class="text-4xl font-heading font-bold text-brand-navy text-center mb-12">Benefits</h2>
-			<div class="grid md:grid-cols-2 gap-8">
-				<div class="bg-white p-6 rounded-xl shadow-lg">
-					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Consistent Cleanliness</h3>
-					<p class="text-gray-600">Your home stays clean year-round without effort</p>
-				</div>
-				<div class="bg-white p-6 rounded-xl shadow-lg">
-					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Cost-Effective</h3>
-					<p class="text-gray-600">Regular service means each visit is more efficient</p>
-				</div>
-				<div class="bg-white p-6 rounded-xl shadow-lg">
-					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Priority Scheduling</h3>
-					<p class="text-gray-600">Regular clients get priority booking times</p>
-				</div>
-				<div class="bg-white p-6 rounded-xl shadow-lg">
-					<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Healthier Home</h3>
-					<p class="text-gray-600">Regular cleaning reduces allergens and bacteria</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
+	<!-- Final CTA -->
 	<CTASection
-		title="Start Your Bi-Weekly Service"
-		subtitle="Experience the most popular cleaning option in Chicago. Book your first bi-weekly cleaning today!"
+		title="Start Your Bi-Weekly Service Today"
+		subtitle="Join the busy professionals who've stopped managing their cleaning service—and started enjoying their clean homes."
+		buttonText="Get a Free Quote"
 		buttonLink="/contact"
 	/>
 </BaseLayout>

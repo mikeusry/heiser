@@ -1,0 +1,60 @@
+---
+/**
+ * Button Component
+ * Reusable button/link with consistent styling
+ *
+ * Props:
+ * - href: Link destination (if provided, renders as <a>)
+ * - variant: 'primary' | 'secondary' | 'outline' | 'white'
+ * - size: 'sm' | 'md' | 'lg'
+ * - fullWidth: Whether button should be full width
+ * - type: Button type for form buttons (default: 'button')
+ */
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline' | 'white';
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  fullWidth = false,
+  type = 'button',
+  class: className = '',
+} = Astro.props;
+
+const baseStyles = 'inline-block font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105';
+
+const variants = {
+  primary: 'bg-brand-orange text-white hover:bg-brand-orange-dark',
+  secondary: 'bg-brand-navy text-white hover:bg-brand-navy/90',
+  outline: 'border-2 border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white',
+  white: 'bg-white text-brand-orange hover:bg-gray-100',
+};
+
+const sizes = {
+  sm: 'px-6 py-2 text-sm',
+  md: 'px-8 py-3 text-base',
+  lg: 'px-10 py-4 text-lg',
+};
+
+const widthClass = fullWidth ? 'w-full text-center' : '';
+
+const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${widthClass} ${className}`.trim();
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <slot />
+  </button>
+)}

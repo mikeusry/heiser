@@ -54,12 +54,14 @@ export default {
         return jsonResponse({ success: false, error: 'Missing required fields' }, 400);
       }
 
-      // Send email via SendGrid
-      const emailSent = await sendEmail(env, data);
-
-      if (!emailSent) {
-        return jsonResponse({ success: false, error: 'Failed to send email' }, 500);
+      // Send notification email to Heiser
+      const notificationSent = await sendNotificationEmail(env, data);
+      if (!notificationSent) {
+        return jsonResponse({ success: false, error: 'Failed to send notification' }, 500);
       }
+
+      // Send confirmation email to form submitter
+      await sendConfirmationEmail(env, data);
 
       // Check if request wants JSON response (AJAX) or redirect (form submission)
       const acceptHeader = request.headers.get('Accept') || '';
@@ -77,8 +79,8 @@ export default {
   },
 };
 
-async function sendEmail(env: Env, data: FormData): Promise<boolean> {
-  const html = generateEmailHtml(data);
+async function sendNotificationEmail(env: Env, data: FormData): Promise<boolean> {
+  const html = generateNotificationEmailHtml(data);
 
   const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
     method: 'POST',
@@ -119,7 +121,165 @@ async function sendEmail(env: Env, data: FormData): Promise<boolean> {
   return true;
 }
 
-function generateEmailHtml(data: FormData): string {
+async function sendConfirmationEmail(env: Env, data: FormData): Promise<boolean> {
+  const html = generateConfirmationEmailHtml(data);
+
+  const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${env.SENDGRID_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      personalizations: [
+        {
+          to: [{ email: data.email, name: `${data.firstName} ${data.lastName}` }],
+          subject: `Thanks for contacting The Heiser Group!`,
+        },
+      ],
+      from: {
+        email: env.FROM_EMAIL,
+        name: 'The Heiser Group',
+      },
+      reply_to: {
+        email: env.HEISER_EMAIL,
+        name: 'The Heiser Group',
+      },
+      content: [
+        {
+          type: 'text/html',
+          value: html,
+        },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    console.error(`SendGrid confirmation error: ${response.status} - ${error}`);
+    return false;
+  }
+
+  return true;
+}
+
+function generateConfirmationEmailHtml(data: FormData): string {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background-color: #D1623C; padding: 32px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">The Heiser Group</h1>
+              <p style="margin: 8px 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">Professional Cleaning Services</p>
+            </td>
+          </tr>
+
+          <!-- Main Content -->
+          <tr>
+            <td style="padding: 40px 32px;">
+              <h2 style="margin: 0 0 16px; color: #1A2B3D; font-size: 24px; font-weight: 600;">Thanks for reaching out, ${escapeHtml(data.firstName)}!</h2>
+
+              <p style="margin: 0 0 24px; color: #333; font-size: 16px; line-height: 1.6;">
+                We've received your request for <strong>${escapeHtml(data.serviceType)}</strong> and will get back to you within 24 hours (usually much sooner).
+              </p>
+
+              <!-- What You Submitted -->
+              <div style="background-color: #f8f9fa; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
+                <h3 style="margin: 0 0 16px; color: #1A2B3D; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Your Message</h3>
+                <p style="margin: 0; color: #555; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
+              </div>
+
+              <!-- What Happens Next -->
+              <h3 style="margin: 0 0 16px; color: #1A2B3D; font-size: 18px; font-weight: 600;">What happens next?</h3>
+
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width: 32px; vertical-align: top;">
+                          <span style="display: inline-block; width: 24px; height: 24px; background-color: #D1623C; color: #fff; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px; font-weight: 600;">1</span>
+                        </td>
+                        <td style="color: #333; font-size: 15px;">We'll review your request and any specific details you've shared.</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width: 32px; vertical-align: top;">
+                          <span style="display: inline-block; width: 24px; height: 24px; background-color: #D1623C; color: #fff; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px; font-weight: 600;">2</span>
+                        </td>
+                        <td style="color: #333; font-size: 15px;">A team member will reach out to discuss your needs and provide a quote.</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="width: 32px; vertical-align: top;">
+                          <span style="display: inline-block; width: 24px; height: 24px; background-color: #D1623C; color: #fff; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px; font-weight: 600;">3</span>
+                        </td>
+                        <td style="color: #333; font-size: 15px;">Once approved, we'll schedule your service at a time that works for you.</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA -->
+              <p style="margin: 0 0 24px; color: #333; font-size: 16px; line-height: 1.6;">
+                Need to reach us sooner? Give us a call!
+              </p>
+
+              <table cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <a href="tel:+17735455200" style="display: inline-block; background-color: #1A2B3D; color: #ffffff; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 16px;">(773) 545-5200</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #1A2B3D; padding: 24px 32px; text-align: center;">
+              <p style="margin: 0 0 8px; color: #ffffff; font-size: 14px; font-weight: 600;">The Heiser Group</p>
+              <p style="margin: 0; color: rgba(255,255,255,0.7); font-size: 13px;">
+                Professional Cleaning Services in Lake County, IL
+              </p>
+              <p style="margin: 16px 0 0; color: rgba(255,255,255,0.5); font-size: 12px;">
+                <a href="https://heisergroup.com" style="color: rgba(255,255,255,0.7); text-decoration: none;">heisergroup.com</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+}
+
+function generateNotificationEmailHtml(data: FormData): string {
   return `
 <!DOCTYPE html>
 <html>

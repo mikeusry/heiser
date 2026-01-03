@@ -37,7 +37,7 @@ export const imageCategories = {
 
 // Quick access to specific images
 export const featuredImages = {
-  commercialCleaning: getImageByFilename('Commercial_Cleaning1'),
+  commercialCleaning: getImageByFilename('62d6c2bf51d67900c5277e6c_Cleaning_Services_Lake_County_7'),
   biWeeklyCleaning: getImageByFilename('Bi_weekly_house_cleaning'),
   carpetCleaning: getImageByFilename('carpet-cleaning-chicago'),
   tileCleaning: getImageByFilename('tile_cleaning-0'),

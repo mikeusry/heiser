@@ -1,0 +1,309 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const title = "Case Study: Highland Park Property Turnover | The Heiser Group";
+const description = "How we transformed a neglected rental property into a show-ready listing in under 24 hours. Real estate cleaning case study from Lake County IL.";
+
+// Cloudinary base path for this case study
+const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/upload";
+const beforeFolder = "Heiser/Realty Rachel/Job 11.12/Befores";
+const afterFolder = "Heiser/Realty Rachel/Job 11.12/Afters";
+
+// Matched image pairs from Cloudinary (by filename)
+const imagePairs = [
+  {
+    label: "Microwave",
+    description: { before: "Grease and food splatter buildup", after: "Sparkling clean inside and out" },
+    before: "microwave",
+    after: "microwave"
+  },
+  {
+    label: "Oven",
+    description: { before: "Years of baked-on grime", after: "Restored to like-new condition" },
+    before: "oven",
+    after: "oven"
+  },
+  {
+    label: "Refrigerator",
+    description: { before: "Neglected and grimy", after: "Fresh and sanitized" },
+    before: "fridge",
+    after: "fridge"
+  },
+  {
+    label: "Return Air Register",
+    description: { before: "Dust and grime buildup", after: "Clean and restored" },
+    before: "vent",
+    after: "vent"
+  },
+  {
+    label: "Light Fixture",
+    description: { before: "Dust and grime on sconce", after: "Polished and bright" },
+    before: "sconce",
+    after: "sconce"
+  },
+  {
+    label: "Refrigerator Interior",
+    description: { before: "Stained shelves and drawers", after: "Completely sanitized" },
+    before: "fridge_2",
+    after: "fridge_2"
+  }
+];
+
+// Case study data
+const caseStudy = {
+  title: "The Highland Park Turnover",
+  tagline: "From 'unsellable' to 'under contract' in one weekend",
+
+  client: {
+    name: "Sarah Mitchell",
+    role: "Realtor, Coldwell Banker",
+    location: "Highland Park, IL"
+  },
+
+  property: {
+    type: "3BR/2BA Single Family",
+    sqft: "2,400",
+    condition: "Severe neglect after long-term tenant",
+    timeline: "Listed Monday, needed showing-ready by Saturday open house"
+  },
+
+  challenge: `
+    Sarah called us on a Thursday afternoon with a problem. She'd just listed a Highland Park property
+    that had been a rental for 8 years. The previous tenant had left it in rough shape—grease buildup
+    in the kitchen, soap scum caked on bathroom tile, carpet stains throughout, and a general layer
+    of grime that made the home feel neglected.
+
+    "I couldn't even take listing photos," Sarah told us. "The sellers were embarrassed, and I had
+    an open house scheduled for Saturday. I needed a miracle."
+  `,
+
+  solution: `
+    We had a 3-person team on-site by 8am Friday. This wasn't a standard cleaning—it was a full
+    property restoration. We brought in our deep-cleaning equipment: commercial steamers,
+    professional-grade degreasers, and tile restoration tools.
+
+    The kitchen alone took 4 hours. Years of cooking residue had turned the backsplash yellow
+    and left the range hood nearly opaque. The bathrooms required hands-and-knees scrubbing
+    to restore the grout. Every surface, every corner, every forgotten spot got attention.
+  `,
+
+  results: [
+    { metric: "18", label: "Hours to complete" },
+    { metric: "100%", label: "Showing-ready for Saturday" },
+    { metric: "3", label: "Offers received opening weekend" },
+    { metric: "$12K", label: "Over asking price" }
+  ],
+
+  quote: {
+    text: "I've worked with a lot of cleaning services. Most of them would have taken one look at this place and said 'call someone else.' David's team didn't flinch. They showed up, they worked until it was done, and they made me look like a hero to my sellers. This is the only cleaning company I recommend now.",
+    author: "Sarah Mitchell",
+    title: "Realtor, Coldwell Banker Highland Park"
+  },
+
+  beforeAfterPairs: [
+    { id: "kitchen", label: "Kitchen", before: "Before/kitchen-before", after: "After/kitchen-after" },
+    { id: "bathroom", label: "Master Bath", before: "Before/bathroom-before", after: "After/bathroom-after" },
+    { id: "floors", label: "Hardwood Floors", before: "Before/floors-before", after: "After/floors-after" },
+    { id: "entry", label: "Entry/Living", before: "Before/entry-before", after: "After/entry-after" }
+  ]
+};
+
+// Schema markup
+const caseStudySchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": caseStudy.title,
+  "description": description,
+  "author": {
+    "@type": "Organization",
+    "name": "The Heiser Group"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Heiser Group"
+  }
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
+
+  <!-- Hero -->
+  <section class="bg-brand-navy text-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study</p>
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
+        {caseStudy.title}
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8">
+        {caseStudy.tagline}
+      </p>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <span class="text-gray-400">Property:</span>
+          <span class="ml-2">{caseStudy.property.type}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Location:</span>
+          <span class="ml-2">{caseStudy.client.location}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Timeline:</span>
+          <span class="ml-2">24 hours</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Banner -->
+  <section class="bg-brand-orange py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        {caseStudy.results.map(result => (
+          <div>
+            <p class="text-4xl font-bold">{result.metric}</p>
+            <p class="text-sm opacity-90">{result.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Challenge -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">The Challenge</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.challenge}
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Gallery -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="The Transformation" subtitle="Swipe or click to compare before and after" />
+
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        {imagePairs.map(pair => (
+          <>
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+              <div class="aspect-video bg-gray-200 relative">
+                <img
+                  src={`${cloudinaryBase}/w_800,q_auto,f_auto/${beforeFolder}/${pair.before}`}
+                  alt={`${pair.label} before cleaning`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <span class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Before</span>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900">{pair.label}</h3>
+                <p class="text-sm text-gray-500">{pair.description.before}</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+              <div class="aspect-video bg-gray-200 relative">
+                <img
+                  src={`${cloudinaryBase}/w_800,q_auto,f_auto/${afterFolder}/${pair.after}`}
+                  alt={`${pair.label} after cleaning`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <span class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">After</span>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900">{pair.label}</h3>
+                <p class="text-sm text-gray-500">{pair.description.after}</p>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+
+      <!-- Full Gallery Link -->
+      <div class="text-center mt-8">
+        <p class="text-gray-500">30 photos documenting the complete transformation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Solution -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">Our Approach</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.solution}
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <div class="text-3xl font-bold text-brand-orange mb-2">8am</div>
+          <p class="text-gray-600">Team on-site Friday morning</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <div class="text-3xl font-bold text-brand-orange mb-2">3</div>
+          <p class="text-gray-600">Experienced cleaners deployed</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <div class="text-3xl font-bold text-brand-orange mb-2">2am</div>
+          <p class="text-gray-600">Final walkthrough complete</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="py-20 bg-brand-navy">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <svg class="w-12 h-12 text-brand-orange mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+      </svg>
+      <blockquote class="text-2xl md:text-3xl text-white font-light italic leading-relaxed mb-8">
+        "{caseStudy.quote.text}"
+      </blockquote>
+      <cite class="not-italic">
+        <span class="text-white font-semibold block">{caseStudy.quote.author}</span>
+        <span class="text-gray-400">{caseStudy.quote.title}</span>
+      </cite>
+    </div>
+  </section>
+
+  <!-- For Realtors CTA -->
+  <section class="py-20 bg-brand-cream">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+        Need a Property Transformed?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Whether it's a foreclosure, a long-term rental turnover, or a property that just needs some love—we've seen it all. Text David directly for same-day availability.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+        >
+          Get a Quote
+        </a>
+        <a
+          href="/realty-cleaning"
+          class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+        >
+          Realtor Partner Program
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- More Case Studies -->
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-gray-500">
+        <a href="/realty-cleaning" class="text-brand-orange hover:underline">← Back to Realty Cleaning Services</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,13 @@
+name = "heiser-contact-form"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+account_id = "07f1d3224d68222be7b6f97190608b80"
+
+[vars]
+HEISER_EMAIL = "david@heisergroup.com"
+FROM_EMAIL = "forms@point.dog"
+FROM_NAME = "point.dog Forms"
+REDIRECT_URL = "https://heisergroup.com/thank-you"
+
+# Secrets (set via `wrangler secret put SENDGRID_API_KEY`)
+# SENDGRID_API_KEY = ""

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contact } from '../lib/contact';
+---
+
+<BaseLayout
+	title="Thank You | The Heiser Group"
+	description="Thank you for contacting The Heiser Group. We'll be in touch soon."
+>
+	<section class="min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-gray-50 to-white px-6 py-20">
+		<div class="max-w-2xl mx-auto text-center">
+			<!-- Success Icon -->
+			<div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
+				<svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+				</svg>
+			</div>
+
+			<h1 class="text-4xl md:text-5xl font-heading font-bold text-brand-navy mb-6">
+				Thank You!
+			</h1>
+
+			<p class="text-xl text-gray-600 mb-8 leading-relaxed">
+				We've received your message and will get back to you within 24 hours.
+				If you need immediate assistance, feel free to call us directly.
+			</p>
+
+			<div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+				<a
+					href="/"
+					class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+				>
+					Back to Home
+				</a>
+				<a
+					href={contact.phone.href}
+					class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+				>
+					Call {contact.phone.display}
+				</a>
+			</div>
+
+			<!-- What to Expect -->
+			<div class="bg-brand-cream rounded-xl p-8 text-left">
+				<h2 class="text-xl font-heading font-bold text-brand-navy mb-4">What Happens Next?</h2>
+				<ul class="space-y-3 text-gray-700">
+					<li class="flex items-start gap-3">
+						<span class="w-6 h-6 bg-brand-orange text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">1</span>
+						<span>We'll review your request and gather any additional details we need.</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="w-6 h-6 bg-brand-orange text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">2</span>
+						<span>A team member will reach out within 24 hours (usually much sooner).</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="w-6 h-6 bg-brand-orange text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">3</span>
+						<span>We'll provide a clear quote with no hidden fees or surprises.</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

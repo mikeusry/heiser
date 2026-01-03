@@ -5,16 +5,18 @@ import { contact } from '../lib/contact';
 ---
 
 <nav class="bg-brand-orange fixed top-0 left-0 right-0 z-50 shadow-lg">
-  <div class="max-w-7xl mx-auto px-6 py-4">
-    <div class="flex items-center justify-between">
-      <!-- Logo with white background -->
-      <a href="/" class="bg-white px-6 py-3 rounded-lg hover:shadow-xl transition-shadow duration-300">
-        <img
-          src="/heiser-logo-original.png"
-          alt="The Heiser Group"
-          class="h-12 w-auto"
-        />
-      </a>
+  <div class="max-w-7xl mx-auto flex">
+    <!-- White logo section - full height -->
+    <a href="/" class="bg-white flex items-center px-8 py-4 hover:bg-gray-50 transition-colors">
+      <img
+        src="/heiser-logo-original.png"
+        alt="The Heiser Group"
+        class="h-14 w-auto"
+      />
+    </a>
+
+    <!-- Orange nav section -->
+    <div class="flex-1 flex items-center justify-end px-6 py-4">
 
       <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center space-x-2">
@@ -45,6 +47,7 @@ import { contact } from '../lib/contact';
           </button>
           <div class="dropdown-menu">
             <a href="/results" class="dropdown-item">Results</a>
+            <a href="/case-studies/highland-park-turnover" class="dropdown-item">Case Study</a>
             <a href="/real-estate-agents" class="dropdown-item">For Real Estate Agents</a>
             <a href="/contact" class="dropdown-item">Get Quote</a>
           </div>
@@ -86,32 +89,33 @@ import { contact } from '../lib/contact';
         </svg>
       </button>
     </div>
+  </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4">
-      <div class="flex flex-col space-y-2">
-        <a href="/" class="mobile-nav-link">Home</a>
+  <!-- Mobile Menu (separate row, full width orange) -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-brand-orange px-6 pb-4">
+    <div class="flex flex-col space-y-2">
+      <a href="/" class="mobile-nav-link">Home</a>
 
-        <div class="mobile-dropdown">
-          <button class="mobile-nav-link mobile-dropdown-trigger">
-            Services
-            <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </button>
-          <div class="mobile-dropdown-menu">
-            {navServices.map(service => (
-              <a href={service.url} class="mobile-dropdown-item">{service.name}</a>
-            ))}
-          </div>
+      <div class="mobile-dropdown">
+        <button class="mobile-nav-link mobile-dropdown-trigger">
+          Services
+          <svg class="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="mobile-dropdown-menu">
+          {navServices.map(service => (
+            <a href={service.url} class="mobile-dropdown-item">{service.name}</a>
+          ))}
         </div>
-
-        <a href="/results" class="mobile-nav-link">Results</a>
-        <a href="/real-estate-agents" class="mobile-nav-link">For Realtors</a>
-        <a href="/about" class="mobile-nav-link">About</a>
-        <a href="/careers" class="mobile-nav-link">Careers</a>
-        <a href="/contact" class="mobile-nav-link">Contact</a>
       </div>
+
+      <a href="/results" class="mobile-nav-link">Results</a>
+      <a href="/case-studies/highland-park-turnover" class="mobile-nav-link">Case Study</a>
+      <a href="/real-estate-agents" class="mobile-nav-link">For Realtors</a>
+      <a href="/about" class="mobile-nav-link">About</a>
+      <a href="/careers" class="mobile-nav-link">Careers</a>
+      <a href="/contact" class="mobile-nav-link">Contact</a>
     </div>
   </div>
 </nav>

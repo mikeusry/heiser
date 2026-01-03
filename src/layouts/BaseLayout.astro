@@ -20,6 +20,17 @@ const { title = 'The Heiser Group', description = 'Professional cleaning service
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
+
+    <!-- point.dog Pixel -->
+    <script is:inline>
+      window.pdPixelConfig = {
+        brandId: 'heiser',
+        endpoint: 'https://pd-pixel-heiser.point-dog-digital.workers.dev/collect',
+        formSelectors: '#contact-form, form[action*="contact"], .quote-form',
+        servicePatterns: ['/residential-cleaning', '/commercial-cleaning', '/specialty-cleaning', '/realty-cleaning']
+      };
+    </script>
+    <script src="https://cdn.point.dog/pixel/pd-pixel-leadgen.min.js" async></script>
   </head>
   <body>
     <Navigation />

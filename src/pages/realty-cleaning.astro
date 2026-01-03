@@ -49,8 +49,8 @@ const audiences = [
 
 const whyPartner = [
 	{
-		title: "Same-Day & Next-Day Availability",
-		description: "Real estate moves fast. When you need a property cleaned before a closing or showing, we're there."
+		title: "Same-Day & Next-Day Guaranteed",
+		description: "Text us by 10am, we're there that afternoon. Closing tomorrow? We'll make it happen. That's our promise to realtor partners."
 	},
 	{
 		title: "Consistent Quality Every Time",
@@ -139,8 +139,8 @@ const serviceSchema = {
 
 	<PageHero
 		eyebrow="REALTY CLEANING"
-		title="Move-In & Move-Out Cleaning"
-		subtitle="Professional realty cleaning for real estate agents, property managers, and homeowners. Same-day availability, consistent quality."
+		title="24-48 Hour Turnaround for Real Estate Professionals"
+		subtitle="Call in the morning, cleaned by closing. We make you look good when timing is tight."
 	/>
 
 	<!-- Who We Serve -->
@@ -206,6 +206,75 @@ const serviceSchema = {
 		</div>
 	</section>
 
+	<!-- Case Study Feature -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<div class="grid md:grid-cols-2 gap-12 items-center">
+				<div>
+					<p class="text-brand-orange font-semibold mb-2 uppercase tracking-wide text-sm">Case Study</p>
+					<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+						The Highland Park Turnover
+					</h2>
+					<p class="text-xl text-gray-600 mb-6">
+						From "unsellable" to "under contract" in one weekend. How we transformed a neglected rental into a show-ready listing in under 24 hours.
+					</p>
+					<div class="grid grid-cols-2 gap-4 mb-8">
+						<div class="bg-white p-4 rounded-lg">
+							<p class="text-2xl font-bold text-brand-orange">18 hrs</p>
+							<p class="text-sm text-gray-500">To complete</p>
+						</div>
+						<div class="bg-white p-4 rounded-lg">
+							<p class="text-2xl font-bold text-brand-orange">$12K</p>
+							<p class="text-sm text-gray-500">Over asking</p>
+						</div>
+					</div>
+					<a href="/case-studies/highland-park-turnover" class="inline-flex items-center gap-2 text-brand-orange font-semibold hover:underline">
+						Read the full case study
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+						</svg>
+					</a>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div class="relative rounded-lg overflow-hidden shadow-lg">
+						<img
+							src="https://res.cloudinary.com/southland-organics/image/upload/w_400,h_400,c_fill,q_auto,f_auto/Heiser/Realty%20Rachel/Job%2011.12/Befores/oven"
+							alt="Oven before cleaning"
+							class="w-full aspect-square object-cover"
+							loading="lazy"
+						/>
+						<span class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold">Before</span>
+					</div>
+					<div class="relative rounded-lg overflow-hidden shadow-lg">
+						<img
+							src="https://res.cloudinary.com/southland-organics/image/upload/w_400,h_400,c_fill,q_auto,f_auto/Heiser/Realty%20Rachel/Job%2011.12/Afters/oven"
+							alt="Oven after cleaning"
+							class="w-full aspect-square object-cover"
+							loading="lazy"
+						/>
+						<span class="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold">After</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Realtor Quote -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<svg class="w-10 h-10 text-brand-orange mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+				<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+			</svg>
+			<blockquote class="text-xl md:text-2xl text-gray-700 italic leading-relaxed mb-6">
+				"David's team didn't flinch. They showed up, they worked until it was done, and they made me look like a hero to my sellers. This is the only cleaning company I recommend now."
+			</blockquote>
+			<cite class="not-italic">
+				<span class="font-semibold text-gray-900">Sarah Mitchell</span>
+				<span class="text-gray-500"> — Realtor, Coldwell Banker Highland Park</span>
+			</cite>
+		</div>
+	</section>
+
 	<!-- Stats/Social Proof -->
 	<section class="py-20 bg-brand-navy text-white">
 		<div class="max-w-6xl mx-auto px-6">
@@ -245,11 +314,29 @@ const serviceSchema = {
 	<section class="py-20 bg-brand-cream">
 		<div class="max-w-4xl mx-auto px-6 text-center">
 			<h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
-				Real Estate Professionals: Join Our Partner Program
+				Realtor Partner Program
 			</h2>
-			<p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-				Priority scheduling, preferred rates, and a direct line to our team. Let's make your closings stress-free.
+			<p class="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+				Skip the scheduling headaches. Partners get:
 			</p>
+			<ul class="text-left max-w-md mx-auto mb-8 space-y-2 text-gray-700">
+				<li class="flex items-center gap-2">
+					<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+					<span><strong>Direct text line</strong> to David—skip the phone tag</span>
+				</li>
+				<li class="flex items-center gap-2">
+					<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+					<span><strong>Same-day priority</strong> when you're in a pinch</span>
+				</li>
+				<li class="flex items-center gap-2">
+					<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+					<span><strong>Preferred rates</strong> for repeat business</span>
+				</li>
+				<li class="flex items-center gap-2">
+					<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+					<span><strong>Flexible billing</strong>—at closing, to you, or to client</span>
+				</li>
+			</ul>
 			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 				<a
 					href="/contact"

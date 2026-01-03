@@ -1,11 +1,13 @@
 /**
  * Heiser Contact Form Worker
  * Receives form submissions and sends branded emails via SendGrid
+ * Logs leads to CDP (BigQuery) for full journey tracking
  */
 
 interface Env {
   SENDGRID_API_KEY: string;
-  HEISER_EMAIL: string;
+  GCP_SERVICE_ACCOUNT_JSON: string;
+  RECIPIENT_EMAILS: string; // Comma-separated list of recipients
   FROM_EMAIL: string;
   FROM_NAME: string;
   REDIRECT_URL: string;
@@ -18,6 +20,12 @@ interface FormData {
   phone?: string;
   serviceType: string;
   message: string;
+  pdUserId?: string; // pixel user ID for journey tracking
+  sessionId?: string;
+  referrer?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
 }
 
 export default {
@@ -47,6 +55,13 @@ export default {
         phone: formData.get('phone') as string || '',
         serviceType: formData.get('serviceType') as string || '',
         message: formData.get('message') as string || '',
+        // Capture pixel tracking data for journey attribution
+        pdUserId: formData.get('_pd_uid') as string || '',
+        sessionId: formData.get('_pd_session') as string || '',
+        referrer: formData.get('_referrer') as string || request.headers.get('Referer') || '',
+        utmSource: formData.get('utm_source') as string || '',
+        utmMedium: formData.get('utm_medium') as string || '',
+        utmCampaign: formData.get('utm_campaign') as string || '',
       };
 
       // Validate required fields
@@ -54,8 +69,16 @@ export default {
         return jsonResponse({ success: false, error: 'Missing required fields' }, 400);
       }
 
-      // Send notification email to Heiser
-      const notificationSent = await sendNotificationEmail(env, data);
+      // Generate lead ID for tracking
+      const leadId = crypto.randomUUID();
+
+      // Log lead to CDP (BigQuery) for journey tracking - don't block on this
+      const cdpPromise = logLeadToCDP(env, data, leadId).catch(err => {
+        console.error('CDP logging failed:', err);
+      });
+
+      // Send notification email to all recipients
+      const notificationSent = await sendNotificationEmail(env, data, leadId);
       if (!notificationSent) {
         return jsonResponse({ success: false, error: 'Failed to send notification' }, 500);
       }
@@ -63,10 +86,13 @@ export default {
       // Send confirmation email to form submitter
       await sendConfirmationEmail(env, data);
 
+      // Wait for CDP logging to complete (but don't fail if it doesn't)
+      await cdpPromise;
+
       // Check if request wants JSON response (AJAX) or redirect (form submission)
       const acceptHeader = request.headers.get('Accept') || '';
       if (acceptHeader.includes('application/json')) {
-        return jsonResponse({ success: true });
+        return jsonResponse({ success: true, leadId });
       }
 
       // Redirect to thank you page
@@ -79,8 +105,11 @@ export default {
   },
 };
 
-async function sendNotificationEmail(env: Env, data: FormData): Promise<boolean> {
-  const html = generateNotificationEmailHtml(data);
+async function sendNotificationEmail(env: Env, data: FormData, leadId: string): Promise<boolean> {
+  const html = generateNotificationEmailHtml(data, leadId);
+
+  // Parse recipient emails from comma-separated string
+  const recipients = env.RECIPIENT_EMAILS.split(',').map(email => ({ email: email.trim() }));
 
   const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
     method: 'POST',
@@ -91,7 +120,7 @@ async function sendNotificationEmail(env: Env, data: FormData): Promise<boolean>
     body: JSON.stringify({
       personalizations: [
         {
-          to: [{ email: env.HEISER_EMAIL }],
+          to: recipients,
           subject: `New Quote Request: ${data.serviceType} - ${data.firstName} ${data.lastName}`,
         },
       ],
@@ -124,6 +153,9 @@ async function sendNotificationEmail(env: Env, data: FormData): Promise<boolean>
 async function sendConfirmationEmail(env: Env, data: FormData): Promise<boolean> {
   const html = generateConfirmationEmailHtml(data);
 
+  // Use first recipient as reply-to
+  const primaryRecipient = env.RECIPIENT_EMAILS.split(',')[0].trim();
+
   const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
     method: 'POST',
     headers: {
@@ -142,7 +174,7 @@ async function sendConfirmationEmail(env: Env, data: FormData): Promise<boolean>
         name: 'The Heiser Group',
       },
       reply_to: {
-        email: env.HEISER_EMAIL,
+        email: primaryRecipient,
         name: 'The Heiser Group',
       },
       content: [
@@ -161,6 +193,174 @@ async function sendConfirmationEmail(env: Env, data: FormData): Promise<boolean>
   }
 
   return true;
+}
+
+// ============================================
+// CDP / BigQuery Integration
+// ============================================
+
+async function logLeadToCDP(env: Env, data: FormData, leadId: string): Promise<void> {
+  try {
+    const accessToken = await getGCPAccessToken(env);
+    if (!accessToken) {
+      console.error('Failed to get GCP access token');
+      return;
+    }
+
+    const projectId = 'spray-squad-cdp';
+    const datasetId = 'cdp';
+    const tableId = 'leads';
+
+    // Hash PII for privacy
+    const emailHash = await sha256(data.email.toLowerCase().trim());
+    const phoneHash = data.phone ? await sha256(normalizePhone(data.phone)) : null;
+
+    const row = {
+      lead_id: leadId,
+      brand_id: 'heiser',
+      pd_user_id: data.pdUserId || null,
+      session_id: data.sessionId || null,
+      created_at: new Date().toISOString(),
+
+      // Contact info (hashed for privacy, raw for CRM)
+      email: data.email,
+      email_hash: emailHash,
+      phone: data.phone || null,
+      phone_hash: phoneHash,
+      first_name: data.firstName,
+      last_name: data.lastName,
+      full_name: `${data.firstName} ${data.lastName}`,
+
+      // Lead details
+      service_type: data.serviceType,
+      message: data.message,
+      lead_source: data.utmSource || 'direct',
+      lead_medium: data.utmMedium || null,
+      lead_campaign: data.utmCampaign || null,
+      referrer: data.referrer || null,
+
+      // Status tracking
+      status: 'new',
+      qualified: null,
+      converted: null,
+      revenue: null,
+    };
+
+    const url = `https://bigquery.googleapis.com/bigquery/v2/projects/${projectId}/datasets/${datasetId}/tables/${tableId}/insertAll`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        rows: [{ insertId: leadId, json: row }],
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error(`BigQuery insert error: ${response.status} - ${error}`);
+      return;
+    }
+
+    const result = await response.json() as { insertErrors?: unknown[] };
+    if (result.insertErrors && result.insertErrors.length > 0) {
+      console.error('BigQuery insert errors:', JSON.stringify(result.insertErrors));
+    } else {
+      console.log(`Lead ${leadId} logged to CDP`);
+    }
+  } catch (error) {
+    console.error('CDP logging error:', error);
+  }
+}
+
+async function getGCPAccessToken(env: Env): Promise<string | null> {
+  try {
+    const serviceAccount = JSON.parse(env.GCP_SERVICE_ACCOUNT_JSON);
+
+    const now = Math.floor(Date.now() / 1000);
+    const header = { alg: 'RS256', typ: 'JWT' };
+    const payload = {
+      iss: serviceAccount.client_email,
+      scope: 'https://www.googleapis.com/auth/bigquery.insertdata',
+      aud: 'https://oauth2.googleapis.com/token',
+      iat: now,
+      exp: now + 3600,
+    };
+
+    const jwt = await signJWT(header, payload, serviceAccount.private_key);
+
+    const response = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        assertion: jwt,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('GCP token error:', await response.text());
+      return null;
+    }
+
+    const data = await response.json() as { access_token: string };
+    return data.access_token;
+  } catch (error) {
+    console.error('Failed to get GCP access token:', error);
+    return null;
+  }
+}
+
+async function signJWT(header: object, payload: object, privateKeyPem: string): Promise<string> {
+  const encoder = new TextEncoder();
+
+  const headerB64 = base64UrlEncode(JSON.stringify(header));
+  const payloadB64 = base64UrlEncode(JSON.stringify(payload));
+  const unsignedToken = `${headerB64}.${payloadB64}`;
+
+  // Import the private key
+  const pemContents = privateKeyPem
+    .replace(/-----BEGIN PRIVATE KEY-----/, '')
+    .replace(/-----END PRIVATE KEY-----/, '')
+    .replace(/\s/g, '');
+
+  const binaryKey = Uint8Array.from(atob(pemContents), c => c.charCodeAt(0));
+
+  const cryptoKey = await crypto.subtle.importKey(
+    'pkcs8',
+    binaryKey,
+    { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+
+  const signature = await crypto.subtle.sign(
+    'RSASSA-PKCS1-v1_5',
+    cryptoKey,
+    encoder.encode(unsignedToken)
+  );
+
+  const signatureB64 = base64UrlEncode(String.fromCharCode(...new Uint8Array(signature)));
+  return `${unsignedToken}.${signatureB64}`;
+}
+
+function base64UrlEncode(str: string): string {
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+async function sha256(text: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function normalizePhone(phone: string): string {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length === 10 ? '1' + digits : digits;
 }
 
 function generateConfirmationEmailHtml(data: FormData): string {
@@ -279,7 +479,7 @@ function generateConfirmationEmailHtml(data: FormData): string {
 `;
 }
 
-function generateNotificationEmailHtml(data: FormData): string {
+function generateNotificationEmailHtml(data: FormData, leadId: string): string {
   return `
 <!DOCTYPE html>
 <html>
@@ -303,7 +503,7 @@ function generateNotificationEmailHtml(data: FormData): string {
                     <p style="margin: 4px 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">The Heiser Group Website</p>
                   </td>
                   <td align="right" valign="middle">
-                    <span style="color: #ffffff; font-size: 12px; opacity: 0.8;">via point.dog</span>
+                    <span style="color: #ffffff; font-size: 12px; opacity: 0.8;">Lead #${escapeHtml(leadId.slice(0, 8))}</span>
                   </td>
                 </tr>
               </table>

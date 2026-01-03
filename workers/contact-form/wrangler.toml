@@ -4,10 +4,11 @@ compatibility_date = "2024-01-01"
 account_id = "07f1d3224d68222be7b6f97190608b80"
 
 [vars]
-HEISER_EMAIL = "mike@point.dog"  # TEMP: Change back to david@heisergroup.com before go-live
+RECIPIENT_EMAILS = "mike@point.dog,matthew@heisergroup.com,david@heisergroup.com"
 FROM_EMAIL = "forms@point.dog"
 FROM_NAME = "point.dog Forms"
 REDIRECT_URL = "https://heisergroup.com/thank-you"
 
-# Secrets (set via `wrangler secret put SENDGRID_API_KEY`)
-# SENDGRID_API_KEY = ""
+# Secrets (set via wrangler secret put):
+# - SENDGRID_API_KEY
+# - GCP_SERVICE_ACCOUNT_JSON

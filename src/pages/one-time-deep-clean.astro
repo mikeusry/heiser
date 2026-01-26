@@ -1,0 +1,393 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import CTASection from '../components/CTASection.astro';
+import FAQItem from '../components/FAQItem.astro';
+import { contact, company } from '../lib/contact';
+
+const title = "One-Time Deep Clean Lake County IL | The Heiser Group";
+const description = "Professional one-time deep cleaning for Lake County IL homes. Moving, hosting guests, or just need a fresh start? Thorough deep cleaning with no recurring commitment.";
+
+const whyDeepClean = [
+	{
+		title: "Moving In or Out",
+		description: "Start fresh in your new home or leave your old place spotless. We handle the deep cleaning so you can focus on the move.",
+		icon: "check" as const
+	},
+	{
+		title: "Hosting Guests",
+		description: "Family coming for the holidays? Big celebration on the calendar? Get your home guest-ready without the stress.",
+		icon: "sparkle" as const
+	},
+	{
+		title: "Seasonal Reset",
+		description: "That spring cleaning you've been putting off, or a fresh start for the new year. Sometimes you just need a reset.",
+		icon: "calendar" as const
+	},
+	{
+		title: "Getting Back on Track",
+		description: "Life got busy and things slipped. No judgment—we'll get your home back to baseline so you can maintain from there.",
+		icon: "star" as const
+	}
+];
+
+const whatsIncluded = {
+	kitchen: [
+		"Inside and outside of appliances",
+		"Cabinet fronts and handles degreased",
+		"Backsplash and range hood cleaned",
+		"Sink scrubbed and fixtures polished",
+		"Countertops cleared and sanitized",
+		"Floor vacuumed and mopped"
+	],
+	bathrooms: [
+		"Tile and grout scrubbed",
+		"Shower doors and tracks detailed",
+		"Toilets sanitized inside and out",
+		"Behind toilets and under sinks",
+		"Mirrors and fixtures spotless",
+		"Floors scrubbed"
+	],
+	living: [
+		"All surfaces dusted top to bottom",
+		"Baseboards and door frames wiped",
+		"Ceiling fans and light fixtures",
+		"Floors vacuumed and mopped",
+		"Furniture surfaces wiped",
+		"Window sills and blinds dusted"
+	]
+};
+
+const pricing = [
+	{
+		bedrooms: "1-2 bedroom",
+		range: "$250-$400"
+	},
+	{
+		bedrooms: "3 bedroom",
+		range: "$350-$550"
+	},
+	{
+		bedrooms: "4+ bedroom",
+		range: "$500-$750"
+	}
+];
+
+const trustSignals = [
+	{
+		title: "45+ Years in Lake County",
+		description: "We've been cleaning Lake County homes since 1979. We're not a franchise—we're your neighbors."
+	},
+	{
+		title: "Background-Checked & Insured",
+		description: "Every team member passes a thorough background check. We're fully insured. Your home is protected."
+	},
+	{
+		title: "Satisfaction Guaranteed",
+		description: "Not happy? Tell us before we leave and we'll address it on the spot. Your satisfaction is our priority."
+	},
+	{
+		title: "No Pressure to Subscribe",
+		description: "One-time means one-time. We'll never pressure you into recurring service. Though many clients do come back."
+	}
+];
+
+const faqs = [
+	{
+		question: "How long does a one-time deep clean take?",
+		answer: "Most deep cleans take 3-6 hours depending on home size and current condition. We'll give you a time estimate with your quote."
+	},
+	{
+		question: "Do I need to be home?",
+		answer: "It's up to you. Many clients prefer to be away and return to a clean home. Others like to do a walkthrough before we leave."
+	},
+	{
+		question: "What's the difference between deep cleaning and regular cleaning?",
+		answer: "Regular cleaning maintains a home. Deep cleaning reaches areas that don't get attention regularly—inside appliances, behind furniture, grout lines, baseboards, and detailed surfaces."
+	},
+	{
+		question: "Can I book a deep clean and then start recurring service?",
+		answer: "Absolutely. Many clients start with a deep clean to get their home to baseline, then switch to bi-weekly or monthly maintenance. We'll help you find the right frequency."
+	},
+	{
+		question: "What if my home is really dirty?",
+		answer: "No judgment. We've seen it all. If your home needs extra attention, we'll let you know upfront and give you an honest quote. We're here to help, not to judge."
+	},
+	{
+		question: "Do you bring your own supplies?",
+		answer: "Yes. We bring professional-grade equipment and products. If you have specific products you'd like us to use, just let us know."
+	}
+];
+
+// Schema markup
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faqs.map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
+};
+
+const serviceSchema = {
+	"@context": "https://schema.org",
+	"@type": "Service",
+	"name": "One-Time Deep Cleaning Service",
+	"description": "Professional one-time deep cleaning service for homes in Lake County IL. Moving, hosting guests, or seasonal reset—thorough deep cleaning with no recurring commitment.",
+	"provider": {
+		"@type": "LocalBusiness",
+		"name": company.name,
+		"telephone": contact.phone.display,
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": "Grayslake",
+			"addressRegion": "IL",
+			"addressCountry": "US"
+		}
+	},
+	"areaServed": [
+		{ "@type": "County", "name": "Lake County", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Grayslake", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Libertyville", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Vernon Hills", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Highland Park", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Lake Forest", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Mundelein", "containedIn": "Illinois" }
+	],
+	"serviceType": ["One-Time Deep Cleaning", "Deep House Cleaning", "Move-In Cleaning", "Move-Out Cleaning"]
+};
+---
+
+<BaseLayout title={title} description={description}>
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+	<PageHero
+		eyebrow="ONE-TIME DEEP CLEAN"
+		title="A Fresh Start for Your Home"
+		subtitle="No commitment. No subscription. Just a thorough, professional deep clean when you need it most."
+	/>
+
+	<!-- The Situation Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<div class="border-l-4 border-brand-orange pl-8 md:pl-12">
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+					Maybe you're moving into a new place and want to start fresh. Maybe family is coming to visit and you want your home at its best. Or maybe life just got ahead of you and you need help getting back on track.
+				</p>
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed">
+					Whatever the reason, sometimes you need a <span class="text-brand-navy font-semibold">one-time deep clean</span>—thorough, professional, and without the pressure of signing up for recurring service.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Deep Clean Section -->
+	<section class="py-20 bg-brand-cream">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Perfect For These Situations"
+				subtitle="A one-time deep clean makes sense when..."
+			/>
+			<div class="grid md:grid-cols-2 gap-8">
+				{whyDeepClean.map(reason => (
+					<div class="bg-white p-8 rounded-xl shadow-lg">
+						<FeatureCard
+							title={reason.title}
+							description={reason.description}
+							icon={reason.icon}
+							iconSize="lg"
+						/>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Included Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="What's Included in Your Deep Clean"
+				subtitle="We go beyond surface cleaning to tackle the details"
+			/>
+			<div class="grid md:grid-cols-3 gap-8">
+				<div class="bg-gray-50 p-8 rounded-xl">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Kitchen</h3>
+					<ul class="space-y-3">
+						{whatsIncluded.kitchen.map(item => (
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-brand-orange mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+								</svg>
+								<span class="text-gray-700">{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div class="bg-gray-50 p-8 rounded-xl">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Bathrooms</h3>
+					<ul class="space-y-3">
+						{whatsIncluded.bathrooms.map(item => (
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-brand-orange mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+								</svg>
+								<span class="text-gray-700">{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div class="bg-gray-50 p-8 rounded-xl">
+					<h3 class="text-2xl font-heading font-bold text-brand-navy mb-4">Living Areas & Bedrooms</h3>
+					<ul class="space-y-3">
+						{whatsIncluded.living.map(item => (
+							<li class="flex items-start gap-3">
+								<svg class="w-5 h-5 text-brand-orange mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+								</svg>
+								<span class="text-gray-700">{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+			<p class="text-center text-gray-500 mt-8 text-sm">
+				Need something specific? Inside oven, refrigerator deep clean, or laundry available as add-ons.
+			</p>
+		</div>
+	</section>
+
+	<!-- Pricing Section -->
+	<section class="py-20 bg-gray-50">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title="Transparent Pricing"
+				subtitle="Typical ranges for Lake County homes"
+			/>
+			<div class="grid md:grid-cols-3 gap-6 mb-8">
+				{pricing.map((tier, index) => (
+					<div class={`bg-white p-6 rounded-xl text-center ${index === 1 ? 'ring-2 ring-brand-orange shadow-lg' : 'shadow'}`}>
+						{index === 1 && (
+							<span class="inline-block bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full mb-3">Most Common</span>
+						)}
+						<p class="text-gray-600 mb-2">{tier.bedrooms}</p>
+						<p class="text-3xl font-heading font-bold text-brand-navy">{tier.range}</p>
+					</div>
+				))}
+			</div>
+			<p class="text-center text-gray-500 text-sm mb-8">
+				Final price depends on home size, current condition, and specific requests. We'll provide an exact quote before any work begins.
+			</p>
+			<div class="text-center">
+				<a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-brand-orange text-white font-semibold rounded-lg hover:bg-brand-orange/90 transition-colors">
+					Get Your Free Quote
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Trust Signals Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Why Trust Us With Your Home?"
+			/>
+			<div class="grid md:grid-cols-2 gap-8">
+				{trustSignals.map(signal => (
+					<div class="flex gap-4">
+						<div class="flex-shrink-0 w-12 h-12 bg-brand-orange/10 rounded-full flex items-center justify-center">
+							<svg class="w-6 h-6 text-brand-orange" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+							</svg>
+						</div>
+						<div>
+							<h3 class="text-lg font-heading font-bold text-brand-navy mb-1">{signal.title}</h3>
+							<p class="text-gray-600">{signal.description}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- How It Works Section -->
+	<section class="py-20 bg-brand-cream">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title="How It Works"
+				subtitle="Simple, straightforward process"
+			/>
+			<div class="space-y-8">
+				<div class="flex gap-6 items-start">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold">1</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Tell Us About Your Home</h3>
+						<p class="text-gray-600">Fill out our quick form or give us a call. Tell us about your home size, current condition, and any specific needs.</p>
+					</div>
+				</div>
+				<div class="flex gap-6 items-start">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold">2</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Get Your Quote</h3>
+						<p class="text-gray-600">We'll provide a clear, detailed quote. No surprises, no hidden fees. You'll know exactly what to expect.</p>
+					</div>
+				</div>
+				<div class="flex gap-6 items-start">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold">3</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">We Deep Clean</h3>
+						<p class="text-gray-600">Our team arrives on time, works systematically through your home, and doesn't cut corners.</p>
+					</div>
+				</div>
+				<div class="flex gap-6 items-start">
+					<div class="flex-shrink-0 w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold">4</div>
+					<div>
+						<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Enjoy Your Fresh Home</h3>
+						<p class="text-gray-600">Walk through with us if you'd like. We'll address any concerns before we leave. Then enjoy your clean space.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-3xl mx-auto px-6">
+			<SectionHeader
+				title="Common Questions"
+			/>
+			<div class="space-y-6">
+				{faqs.map(faq => (
+					<FAQItem
+						question={faq.question}
+						answer={faq.answer}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<CTASection
+		title="Ready for a Fresh Start?"
+		subtitle="Get your free quote. No pressure, no obligation, no recurring commitment required."
+		buttonText="Get Your Free Quote"
+		buttonLink="/contact"
+	/>
+
+	<!-- Service Area -->
+	<section class="py-8 bg-brand-navy/5">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<p class="text-gray-500 text-sm">
+				<span class="font-medium text-gray-600">Serving Lake County, IL:</span> Grayslake · Libertyville · Vernon Hills · Mundelein · Highland Park · Lake Forest · and surrounding areas
+			</p>
+		</div>
+	</section>
+</BaseLayout>

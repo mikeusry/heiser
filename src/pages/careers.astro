@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import FeatureCard from '../components/FeatureCard.astro';
-import CTASection from '../components/CTASection.astro';
 
 // JobPosting Schema
 const jobPostingSchema = {
@@ -60,6 +59,13 @@ const requirements = [
 	"Reliable transportation",
 	"Ability to pass a background check",
 ];
+
+const positionOptions = [
+	{ value: "part-time-janitor", label: "Part-Time Janitor Position" },
+	{ value: "full-time-janitor", label: "Full-Time Janitor Position" },
+	{ value: "day-porter", label: "Day Porter Position" },
+	{ value: "residential-cleaning", label: "Residential Cleaning Crew" },
+];
 ---
 
 <BaseLayout title="Cleaning Jobs Lake County IL | Careers at The Heiser Group" description="Now hiring professional house cleaners in Lake County, IL. Competitive pay $15-22/hr, flexible scheduling, full training provided. Join a family-owned company with 45+ years of excellence.">
@@ -105,10 +111,150 @@ const requirements = [
 		</div>
 	</section>
 
-	<CTASection
-		title="Ready to Join Our Team?"
-		subtitle="Contact us today to learn more about current job openings and start your career with The Heiser Group."
-		buttonText="Apply Now"
-		buttonLink="/contact"
-	/>
+	<!-- Application Form Section -->
+	<section class="py-20 bg-white">
+		<div class="max-w-2xl mx-auto px-6">
+			<SectionHeader
+				title="Apply Now"
+				subtitle="Ready to join our team? Fill out the form below and we'll be in touch."
+			/>
+
+			<div class="bg-gray-50 p-8 rounded-2xl shadow-lg">
+				<form id="careers-form" action="https://heiser-contact-form.point-dog-digital.workers.dev" method="POST" class="space-y-6">
+					<input type="hidden" name="form_type" value="careers" />
+					<!-- Honeypot field - hidden from users, catches bots -->
+					<div class="hidden" aria-hidden="true">
+						<label for="website">Website</label>
+						<input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+					</div>
+
+					<div>
+						<label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Name *</label>
+						<input
+							type="text"
+							id="name"
+							name="name"
+							required
+							class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+						/>
+					</div>
+
+					<div>
+						<label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							required
+							class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+						/>
+					</div>
+
+					<div>
+						<label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+						<input
+							type="tel"
+							id="phone"
+							name="phone"
+							required
+							class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+						/>
+					</div>
+
+					<div>
+						<label for="position" class="block text-sm font-semibold text-gray-700 mb-2">Desired Position *</label>
+						<select
+							id="position"
+							name="position"
+							required
+							class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+						>
+							<option value="">Select a position</option>
+							{positionOptions.map(option => (
+								<option value={option.value}>{option.label}</option>
+							))}
+						</select>
+					</div>
+
+					<div>
+						<label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+						<textarea
+							id="message"
+							name="message"
+							rows="4"
+							class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange focus:border-transparent"
+							placeholder="Tell us a bit about yourself..."
+						></textarea>
+					</div>
+
+					<button
+						type="submit"
+						class="w-full bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all duration-300 hover:shadow-lg"
+					>
+						Submit Application
+					</button>
+
+					<div id="form-message" class="hidden p-4 rounded-lg text-center"></div>
+				</form>
+			</div>
+		</div>
+	</section>
 </BaseLayout>
+
+<script>
+	const form = document.getElementById('careers-form') as HTMLFormElement;
+	const formMessage = document.getElementById('form-message');
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		const formData = new FormData(form);
+
+		// Show loading state
+		const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+		const originalText = submitButton.textContent;
+		submitButton.textContent = 'Submitting...';
+		submitButton.disabled = true;
+
+		try {
+			const response = await fetch(form.action, {
+				method: 'POST',
+				body: formData,
+				headers: {
+					'Accept': 'application/json'
+				}
+			});
+
+			const data = await response.json();
+
+			if (response.ok && data.success) {
+				// Show success message
+				if (formMessage) {
+					formMessage.textContent = 'Thank you for your application! We\'ll be in touch soon.';
+					formMessage.className = 'p-4 rounded-lg text-center bg-green-100 text-green-800';
+					formMessage.classList.remove('hidden');
+				}
+				form.reset();
+			} else {
+				throw new Error(data.error || 'Form submission failed');
+			}
+
+		} catch (error) {
+			// Error message
+			if (formMessage) {
+				formMessage.textContent = 'Something went wrong. Please try again or call us directly.';
+				formMessage.className = 'p-4 rounded-lg text-center bg-red-100 text-red-800';
+				formMessage.classList.remove('hidden');
+			}
+		} finally {
+			// Reset button
+			submitButton.textContent = originalText;
+			submitButton.disabled = false;
+
+			// Hide message after 5 seconds
+			setTimeout(() => {
+				formMessage?.classList.add('hidden');
+			}, 5000);
+		}
+	});
+</script>

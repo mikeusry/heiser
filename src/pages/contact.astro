@@ -57,6 +57,11 @@ const contactPageSchema = {
 				<div class="bg-white p-8 rounded-2xl shadow-lg">
 					<h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">Request a Quote</h2>
 					<form id="contact-form" action="https://heiser-contact-form.point-dog-digital.workers.dev" method="POST" class="space-y-6">
+						<!-- Honeypot field - hidden from users, catches bots -->
+						<div class="hidden" aria-hidden="true">
+							<label for="website">Website</label>
+							<input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+						</div>
 						<div class="grid md:grid-cols-2 gap-6">
 							<div>
 								<label for="firstName" class="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>

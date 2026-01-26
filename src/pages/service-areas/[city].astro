@@ -6,131 +6,236 @@ import FeatureCard from '../../components/FeatureCard.astro';
 import CTASection from '../../components/CTASection.astro';
 import { contact, company } from '../../lib/contact';
 
+interface CityFAQ {
+	question: string;
+	answer: string;
+}
+
 interface CityData {
 	name: string;
 	slug: string;
 	county: string;
-	description: string;
-	highlights: string[];
+	population: string;
+	driveTime: string;
+	intro: string;
+	aboutCity: string;
+	neighborhoods: string[];
+	landmarks: string[];
 	zipCodes: string[];
+	faqs: CityFAQ[];
 }
 
-// Define cities data
-const citiesData: CityData[] = [
+// Comprehensive city data with unique content per Bipper Media standards
+// Exported for use in getStaticPaths
+export const citiesData: CityData[] = [
 	{
 		name: "Grayslake",
 		slug: "grayslake",
 		county: "Lake County",
-		description: "Grayslake's charming downtown and growing residential areas deserve professional cleaning care. From lakefront homes to family neighborhoods, we keep Grayslake spotless.",
-		highlights: ["College of Lake County area", "Downtown Grayslake", "Lakefront properties", "Family neighborhoods"],
+		population: "21,000",
+		driveTime: "12 minutes",
+		intro: "Grayslake combines small-town charm with modern convenience, making it one of Lake County's most desirable communities. From the historic downtown district along Center Street to the scenic shores of Grayslake and Third Lake, this village offers a unique blend of natural beauty and community spirit. The College of Lake County brings educational energy to the area, while local favorites like the Grayslake Farmers Market draw families every summer. Whether you live in a lakefront property, a cozy bungalow near downtown, or a newer development off Route 83, The Heiser Group understands what Grayslake homeowners need—reliable, thorough cleaning from people who know this community.",
+		aboutCity: "Founded in 1895, Grayslake has grown from a small farming community into a thriving village while maintaining its welcoming character. The downtown area features locally-owned shops, restaurants, and the beloved Grayslake Heritage Center. With excellent schools, abundant parks, and easy access to both Chicago and Milwaukee, Grayslake attracts families seeking quality of life without sacrificing convenience.",
+		neighborhoods: ["Downtown Grayslake", "College of Lake County area", "Grayslake lakefront", "Third Lake community", "Prairie Crossing", "Heatherstone", "Saddle Brook Farms", "Cambridge Country"],
+		landmarks: ["College of Lake County", "Grayslake Heritage Center", "Central Park", "Alleghany Park", "Grayslake Library"],
 		zipCodes: ["60030"],
+		faqs: [
+			{ question: "Do you provide cleaning services throughout all of Grayslake?", answer: "Yes, we serve all Grayslake neighborhoods including downtown, the College of Lake County area, Prairie Crossing, lakefront properties, and all surrounding subdivisions. We're just 12 minutes from our Buffalo Grove office." },
+			{ question: "How much does house cleaning cost in Grayslake?", answer: "Pricing depends on home size and service frequency. Most Grayslake homes range from $120-$250 per cleaning for regular service. Contact us for a free, no-obligation quote specific to your home." },
+			{ question: "Do you offer move-out cleaning for Grayslake rentals?", answer: "Absolutely. We provide move-in and move-out cleaning for Grayslake apartments, condos, and houses. This is especially popular with College of Lake County students and families relocating to the area." },
+		],
 	},
 	{
 		name: "Libertyville",
 		slug: "libertyville",
 		county: "Lake County",
-		description: "Libertyville's beautiful historic homes and thriving business district need cleaning professionals who understand quality. We've been serving Libertyville families for decades.",
-		highlights: ["Downtown Libertyville", "Historic district homes", "Business district offices", "Residential neighborhoods"],
+		population: "20,500",
+		driveTime: "8 minutes",
+		intro: "Libertyville represents the best of suburban Chicago living—a vibrant downtown, excellent schools, and tree-lined streets with beautifully maintained homes. Main Street Libertyville is the heart of the community, featuring independent boutiques, acclaimed restaurants, and the historic Cook Memorial Library. From stately Victorian homes in the historic district to newer construction in developments like Oak Ridge and Winchester, Libertyville homeowners take pride in their properties. The Heiser Group has been serving Libertyville families for decades, and we understand that homes here deserve meticulous attention to detail. Whether you need weekly cleaning or help preparing for one of Libertyville's famous block parties, our experienced team delivers the quality this community expects.",
+		aboutCity: "Incorporated in 1882, Libertyville has become one of the North Shore's most sought-after communities. The village consistently ranks among Illinois' best places to live, thanks to top-rated schools, low crime, and an engaged community. Major employers like Motorola Solutions and Hollister have headquarters nearby, while downtown Libertyville offers a walkable, small-town atmosphere just 35 miles from Chicago.",
+		neighborhoods: ["Downtown Libertyville", "Historic district", "Oak Ridge", "Winchester", "Old School Forest", "Greentree", "Brookdale", "Stonegate"],
+		landmarks: ["Cook Memorial Library", "Ansel B. Cook Home", "Libertyville Civic Center", "Independence Grove", "Lambs Farm"],
 		zipCodes: ["60048"],
+		faqs: [
+			{ question: "How long has The Heiser Group served Libertyville?", answer: "We've been cleaning Libertyville homes and businesses since 1978—over 45 years of trusted service in this community. Many of our clients have been with us for decades." },
+			{ question: "Do you clean historic homes in Libertyville?", answer: "Yes, we have extensive experience with Libertyville's historic homes. Our team understands how to properly care for older properties, including hardwood floors, original woodwork, and delicate finishes." },
+			{ question: "Can you clean my Libertyville office building?", answer: "Absolutely. We provide commercial cleaning for Libertyville businesses of all sizes, from downtown retail spaces to corporate offices. We offer flexible scheduling including evenings and weekends." },
+		],
 	},
 	{
 		name: "Vernon Hills",
 		slug: "vernon-hills",
 		county: "Lake County",
-		description: "From Hawthorn Mall area businesses to beautiful residential communities, Vernon Hills trusts The Heiser Group for professional cleaning services.",
-		highlights: ["Hawthorn Mall area", "Corporate offices", "Residential communities", "Retail spaces"],
+		population: "26,500",
+		driveTime: "5 minutes",
+		intro: "Vernon Hills has transformed from open farmland into one of Lake County's most dynamic communities in just a few decades. Hawthorn Mall anchors a thriving retail and dining district, while corporate campuses house major employers like CDW, Zebra Technologies, and Rust-Oleum. But beyond the commerce, Vernon Hills offers excellent residential neighborhoods where families put down roots. From the established homes near Deerpath Park to newer communities like Gregg's Landing and Midlothian, Vernon Hills residents enjoy top-rated Stevenson High School, abundant parks, and easy access to everything Lake County offers. The Heiser Group's proximity to Vernon Hills—just 5 minutes from our office—means we can respond quickly and serve your home with the consistency you deserve.",
+		aboutCity: "Vernon Hills incorporated in 1958 and has grown strategically while maintaining green space and quality of life. The village boasts over 800 acres of parks, the popular Cuneo Mansion and Gardens, and Sullivan Community Center. Its central Lake County location provides easy access to O'Hare, downtown Chicago, and neighboring communities.",
+		neighborhoods: ["Deerpath", "Gregg's Landing", "Midlothian", "Lakeview", "Westchester", "Grosse Pointe", "The Enclave", "Cambridge"],
+		landmarks: ["Hawthorn Mall", "Cuneo Mansion and Gardens", "Sullivan Community Center", "Century Park", "Deerpath Park"],
 		zipCodes: ["60061"],
+		faqs: [
+			{ question: "Are you located near Vernon Hills?", answer: "Yes! Our Buffalo Grove office is just 5 minutes from Vernon Hills, making us one of the closest professional cleaning companies to your home or business." },
+			{ question: "Do you clean offices in the Hawthorn Mall business district?", answer: "Yes, we provide commercial cleaning services throughout the Vernon Hills business district, including offices near Hawthorn Mall, corporate campuses, and retail spaces." },
+			{ question: "What's included in a standard Vernon Hills house cleaning?", answer: "Our standard cleaning includes all rooms—dusting, vacuuming, mopping, kitchen cleaning, bathroom sanitization, and more. We customize our checklist based on your home's needs and your priorities." },
+		],
 	},
 	{
 		name: "Mundelein",
 		slug: "mundelein",
 		county: "Lake County",
-		description: "Mundelein's diverse community of homes and businesses deserves reliable, professional cleaning. We're proud to serve Mundelein families and businesses.",
-		highlights: ["Downtown Mundelein", "University of Saint Mary of the Lake area", "Family homes", "Local businesses"],
+		population: "32,000",
+		driveTime: "15 minutes",
+		intro: "Mundelein offers the best of both worlds—affordable Lake County living with genuine community character. The revitalized downtown along Park Street features local restaurants, shops, and the historic Round Lake Area Library. But Mundelein's crown jewel is the University of Saint Mary of the Lake, a stunning 1,000-acre seminary with beautiful grounds open to the public. Neighborhoods range from established areas near downtown to newer developments like Cambridge Country and Steeple Chase, giving families options at every price point. Mundelein's strong sense of community shows in events like Mundelein Days and the Park Street Cruise Night. The Heiser Group is proud to serve Mundelein homes and businesses, bringing 45+ years of Lake County experience to every cleaning.",
+		aboutCity: "Originally called Mechanics Grove, Mundelein was renamed in 1924 after Cardinal George Mundelein, who established the seminary that bears his name. Today it's Lake County's third-largest community, known for excellent parks, diverse dining, and strong community involvement. The Metra station provides easy commuter access to Chicago.",
+		neighborhoods: ["Downtown Mundelein", "Cambridge Country", "Steeple Chase", "Carriage Way", "Fox Point", "Long Grove Manor", "Diamond Lake area", "Hawley Lake area"],
+		landmarks: ["University of Saint Mary of the Lake", "Mundelein Heritage Museum", "Diamond Lake", "Barefoot Bay Water Park", "Keith Mione Community Park"],
 		zipCodes: ["60060"],
+		faqs: [
+			{ question: "Do you serve the Diamond Lake area of Mundelein?", answer: "Yes, we serve all of Mundelein including Diamond Lake, Hawley Lake, downtown, and all surrounding neighborhoods. We're about 15 minutes from our Buffalo Grove office." },
+			{ question: "Can you clean vacation rentals in Mundelein?", answer: "Yes! We offer turnover cleaning for short-term rentals and vacation properties in Mundelein. We can work with your booking schedule to ensure your property is spotless for every guest." },
+			{ question: "Do you offer recurring cleaning plans for Mundelein homes?", answer: "Absolutely. Most Mundelein clients choose weekly or bi-weekly cleaning to maintain their homes. We also offer monthly service and one-time deep cleans." },
+		],
 	},
 	{
 		name: "Highland Park",
 		slug: "highland-park",
 		county: "Lake County",
-		description: "Highland Park's elegant homes and upscale properties require meticulous attention to detail. Our experienced team delivers the quality Highland Park residents expect.",
-		highlights: ["Ravinia area", "Lakefront estates", "Downtown businesses", "Historic homes"],
+		population: "30,000",
+		driveTime: "18 minutes",
+		intro: "Highland Park stands as one of the North Shore's most prestigious communities, known for its ravines, bluffs, and architecturally significant homes. The city's cultural richness is unmatched—Ravinia Festival draws world-class performers every summer, while downtown Highland Park offers upscale shopping and dining along Central Avenue. Homes here range from historic estates designed by notable architects to mid-century modern gems and newer construction in areas like Briargate. Highland Park residents expect excellence, and The Heiser Group delivers with meticulous attention to detail refined over 45 years. We understand how to care for fine finishes, delicate surfaces, and the unique demands of Highland Park's exceptional homes.",
+		aboutCity: "Highland Park incorporated in 1869 and has long attracted artists, business leaders, and families seeking a cultured community. The city's natural beauty—with ravines running to Lake Michigan—inspired landscape architect Jens Jensen's work. Today, Highland Park balances historic preservation with modern amenities, offering excellent schools, beautiful parks, and the iconic Ravinia Festival.",
+		neighborhoods: ["Ravinia", "Braeside", "Briargate", "West Highland Park", "Port Clinton", "Exmoor", "Sherwood Forest", "South Deere Park"],
+		landmarks: ["Ravinia Festival", "Moraine Park", "Chicago Botanic Garden (nearby)", "Highland Park Hospital", "Port Clinton Art Center"],
 		zipCodes: ["60035"],
+		faqs: [
+			{ question: "Do you have experience cleaning large Highland Park homes?", answer: "Yes, we regularly clean substantial homes in Highland Park, including multi-story estates and properties over 5,000 square feet. Our teams are experienced with fine homes and their unique requirements." },
+			{ question: "Can you clean before and after Ravinia events?", answer: "Absolutely! Many Highland Park clients request cleaning before summer gatherings and after hosting guests for Ravinia concerts. We offer flexible scheduling to accommodate your entertainment calendar." },
+			{ question: "Do you clean homes in the ravines area?", answer: "Yes, we serve all Highland Park neighborhoods including homes near the ravines, lakefront estates in Port Clinton, and properties throughout West Highland Park and Briargate." },
+		],
 	},
 	{
 		name: "Lake Forest",
 		slug: "lake-forest",
 		county: "Lake County",
-		description: "Lake Forest's prestigious estates and discerning residents trust The Heiser Group for exceptional cleaning services. We bring 45+ years of experience to every home.",
-		highlights: ["Market Square area", "Estate properties", "Historic mansions", "Lakefront homes"],
+		population: "19,500",
+		driveTime: "20 minutes",
+		intro: "Lake Forest is Illinois' most exclusive community, where historic estates, tree-lined streets, and lakefront properties create an atmosphere of timeless elegance. Market Square, designed in 1916 as America's first planned shopping center, anchors a downtown that feels more like a New England village than suburban Chicago. Homes here include architectural masterpieces by David Adler, Howard Van Doren Shaw, and other notable architects. The Heiser Group has earned the trust of Lake Forest families for over four decades by delivering the exceptional service this community demands. We understand that Lake Forest homes require more than cleaning—they require knowledgeable professionals who appreciate fine craftsmanship and treat your property with the respect it deserves.",
+		aboutCity: "Founded in 1857 by a group of Chicago business leaders, Lake Forest was designed as a gracious retreat from the city. Lake Forest College, founded the same year, anchors the educational tradition. The community has preserved its character through careful planning, maintaining large lots, mature trees, and strict architectural standards that protect its beauty.",
+		neighborhoods: ["East Lake Forest", "West Lake Forest", "Knollwood", "Sheridan Road estates", "South Lake Forest", "Old Elm", "Indian Hill", "Deerpath Hill Estates"],
+		landmarks: ["Market Square", "Lake Forest College", "Gorton Community Center", "Deerpath Golf Course", "Lake Michigan beaches"],
 		zipCodes: ["60045"],
+		faqs: [
+			{ question: "How do you handle cleaning estate properties in Lake Forest?", answer: "Our team includes experienced cleaners specifically trained for estate properties. We understand proper care for marble, hardwood, antiques, and fine finishes. We work carefully around valuable furnishings and art." },
+			{ question: "Do you provide cleaning for Lake Forest real estate listings?", answer: "Yes, we partner with Lake Forest real estate agents to prepare homes for showings, open houses, and photography. We understand the presentation standards required in this market." },
+			{ question: "Can you clean my Lake Forest home on a weekly basis?", answer: "Absolutely. Many Lake Forest clients prefer weekly service to maintain their homes at the highest standard. We assign consistent team members so you see familiar, trusted faces each visit." },
+		],
 	},
 	{
 		name: "Waukegan",
 		slug: "waukegan",
 		county: "Lake County",
-		description: "As Lake County's largest city, Waukegan has diverse cleaning needs. From downtown offices to residential neighborhoods, we serve all of Waukegan.",
-		highlights: ["Downtown Waukegan", "Lakefront area", "Commercial buildings", "Residential areas"],
+		population: "89,000",
+		driveTime: "22 minutes",
+		intro: "As Lake County's largest city and county seat, Waukegan offers diverse neighborhoods, lakefront access, and a rich history. The downtown district features beautiful historic architecture, including the Genesee Theatre, a restored 1920s movie palace hosting live entertainment. Waukegan's lakefront has undergone revitalization, with the harbor area offering dining and recreation. Neighborhoods range from historic areas near downtown to residential developments in western Waukegan. The city's diversity brings cultural vibrancy, with excellent Mexican, Asian, and Caribbean restaurants. The Heiser Group serves Waukegan homes and businesses throughout the city, bringing professional cleaning services that fit every budget and need.",
+		aboutCity: "Waukegan's history stretches back centuries—the area was a Potawatomi village before European settlement. The city grew as a major industrial center and remains economically vital today. Recent investments in downtown and the lakefront signal a bright future, while affordable housing and diverse neighborhoods attract new residents seeking Lake County living.",
+		neighborhoods: ["Downtown Waukegan", "North Waukegan", "South Waukegan", "West Waukegan", "Lakehurst", "Bonnie Brook", "Glen Flora", "Clearview"],
+		landmarks: ["Genesee Theatre", "Waukegan Harbor", "Bowen Park", "Jack Benny statue", "Lake County Courthouse"],
 		zipCodes: ["60085", "60087"],
+		faqs: [
+			{ question: "Do you serve all areas of Waukegan?", answer: "Yes, we provide cleaning services throughout Waukegan—from downtown and the harbor area to neighborhoods in North, South, and West Waukegan. We're about 22 minutes from our Buffalo Grove office." },
+			{ question: "Are your Waukegan cleaning prices affordable?", answer: "We offer competitive pricing for all budgets. Waukegan homes typically range from $100-$200 for regular cleaning depending on size. Contact us for a free quote." },
+			{ question: "Do you clean commercial buildings in Waukegan?", answer: "Yes, we provide janitorial services for Waukegan businesses including offices, retail spaces, and industrial facilities. We offer flexible scheduling and competitive commercial rates." },
+		],
 	},
 	{
 		name: "Buffalo Grove",
 		slug: "buffalo-grove",
 		county: "Lake County",
-		description: "Buffalo Grove families and businesses count on The Heiser Group for reliable, thorough cleaning services. We've been part of this community for years.",
-		highlights: ["Town Center area", "Corporate parks", "Family neighborhoods", "Retail centers"],
+		population: "43,000",
+		driveTime: "0 minutes",
+		intro: "Buffalo Grove is our home—The Heiser Group has been headquartered here for decades, and we know this community inside and out. What started as farmland has become one of Chicagoland's most desirable suburbs, consistently ranked among the best places to live in Illinois. Town Center offers dining and entertainment, while the Raupp Memorial Museum preserves local history. Buffalo Grove's excellent schools, safe streets, and strong community programs attract families who stay for generations. From established neighborhoods near Prairie View Metra station to newer developments in the Long Grove area, we serve Buffalo Grove neighbors with the familiarity and care that comes from being part of this community ourselves.",
+		aboutCity: "Buffalo Grove incorporated in 1958 and spans both Lake and Cook counties. The village has grown thoughtfully, balancing residential development with business parks and ample green space. Notable employers include Siemens and Zebra Technologies. The village's commitment to parks, trails, and recreational programs makes it ideal for active families.",
+		neighborhoods: ["Town Center", "Prairie View", "Strathmore", "Cambridge on the Lake", "Buffalo Grove Lincolnshire", "Deerfield Estates", "Aptakisic", "The Grove"],
+		landmarks: ["Raupp Memorial Museum", "Buffalo Grove Town Center", "Mike Rylko Community Park", "Buffalo Creek Forest Preserve", "Willow Stream Pool"],
 		zipCodes: ["60089"],
+		faqs: [
+			{ question: "Are you actually located in Buffalo Grove?", answer: "Yes! Our office is right here in Buffalo Grove at 1567 Barclay Blvd. We're truly your neighbors, and we've been headquartered in this community for decades." },
+			{ question: "Do you clean businesses in Buffalo Grove Town Center?", answer: "Yes, we provide commercial cleaning for Buffalo Grove businesses including offices, retail spaces, and restaurants. Many Town Center businesses trust us for their cleaning needs." },
+			{ question: "How quickly can you start cleaning my Buffalo Grove home?", answer: "Being based in Buffalo Grove, we can often begin service within days. Contact us today and we'll schedule a convenient time for your first cleaning." },
+		],
 	},
 	{
 		name: "Deerfield",
 		slug: "deerfield",
 		county: "Lake County",
-		description: "Deerfield's professional community and beautiful homes deserve professional cleaning to match. We provide meticulous service throughout Deerfield.",
-		highlights: ["Downtown Deerfield", "Corporate headquarters", "Residential areas", "Retail district"],
+		population: "19,000",
+		driveTime: "10 minutes",
+		intro: "Deerfield blends residential charm with corporate energy, home to major company headquarters and beautiful family neighborhoods. Downtown Deerfield along Waukegan Road offers local shops and restaurants, while Deerbrook Mall provides convenient shopping. The village is known for its excellent schools—Deerfield High School consistently ranks among Illinois' best. Homes range from mid-century ranches to newer construction and upscale developments. Corporate giants like Walgreens Boots Alliance, Mondelez, and Caterpillar have headquarters here, bringing professional families who appreciate Deerfield's quality of life. The Heiser Group serves both Deerfield's residential neighborhoods and corporate facilities, delivering consistent quality just 10 minutes from our Buffalo Grove office.",
+		aboutCity: "Deerfield's history includes a remarkable chapter—in 1959, residents voted to integrate the community, becoming one of America's first suburbs to do so voluntarily. Today, that progressive spirit continues in a village known for excellent governance, top schools, and strong property values. The Metra station connects commuters to Chicago in under an hour.",
+		neighborhoods: ["Downtown Deerfield", "Woodland", "Briarwood", "Kenton", "The Arbors", "Deerfield Park", "West Deerfield", "Carlisle"],
+		landmarks: ["Walgreens headquarters", "Deerbrook Mall", "Mitchell Pool", "Jewett Park", "Deerfield Historic Village"],
 		zipCodes: ["60015"],
+		faqs: [
+			{ question: "Do you clean corporate offices in Deerfield?", answer: "Yes, we provide commercial cleaning for Deerfield businesses from small offices to large corporate facilities. We offer after-hours service to avoid disrupting your workday." },
+			{ question: "Can you clean my Deerfield home while I'm at work?", answer: "Absolutely. Many Deerfield clients provide a key or code for entry. Our background-checked teams are bonded and insured, giving you peace of mind while you're away." },
+			{ question: "What makes Heiser Group different from other Deerfield cleaners?", answer: "We've served Lake County for 45+ years, we're locally owned (not a franchise), and we're just 10 minutes away in Buffalo Grove. We assign consistent teams so you build a relationship with your cleaners." },
+		],
 	},
 	{
 		name: "Lake Bluff",
 		slug: "lake-bluff",
 		county: "Lake County",
-		description: "Lake Bluff's charming village atmosphere and beautiful homes are best maintained with professional care. We're honored to serve Lake Bluff residents.",
-		highlights: ["Village center", "Lakefront properties", "Historic homes", "Residential neighborhoods"],
+		population: "5,700",
+		driveTime: "22 minutes",
+		intro: "Lake Bluff is a hidden gem of the North Shore—a small, close-knit village where neighbors know each other and community events draw everyone together. The charming downtown along Scranton Avenue features local shops, restaurants, and the beloved Lake Bluff Brewing Company. The village beach on Lake Michigan offers stunning sunrises and summer swimming. Tree-lined streets feature a mix of historic homes, beach cottages, and estate properties along the bluffs. Lake Bluff families treasure their village's small-town feel while enjoying excellent District 65 schools and easy Metra access to Chicago. The Heiser Group appreciates Lake Bluff's unique character and serves residents with the personalized attention this community deserves.",
+		aboutCity: "Lake Bluff began as a Methodist camp meeting site in the 1870s and incorporated in 1895. The village has carefully maintained its small-town character, limiting commercial development and preserving green space. The annual Fourth of July parade is a North Shore tradition, and community involvement remains exceptionally high.",
+		neighborhoods: ["East Lake Bluff", "West Lake Bluff", "The Terrace", "Tangley Oaks", "Green Gables", "Sunrise Park area", "Beach area", "Sanctuary"],
+		landmarks: ["Lake Bluff beach", "Artesian Park", "Lake Bluff History Museum", "Blair Park", "Sunrise Beach Park"],
 		zipCodes: ["60044"],
+		faqs: [
+			{ question: "Do you serve the beach area of Lake Bluff?", answer: "Yes, we serve all of Lake Bluff including the beach area, homes along the bluffs, and all neighborhoods east and west of the tracks. We understand the unique needs of lakefront properties." },
+			{ question: "Can you clean my Lake Bluff vacation home?", answer: "Absolutely. We provide cleaning for seasonal residents and vacation properties in Lake Bluff. We can coordinate with your schedule to have your home ready when you arrive." },
+			{ question: "How does pricing work for small Lake Bluff homes?", answer: "Lake Bluff has homes of all sizes. For smaller homes and cottages, our pricing starts around $100-$150 for regular cleaning. We provide custom quotes based on your specific home." },
+		],
 	},
 	{
 		name: "Gurnee",
 		slug: "gurnee",
 		county: "Lake County",
-		description: "From Six Flags Great America to Gurnee Mills and beyond, Gurnee is a bustling community. We provide cleaning services for homes and businesses throughout Gurnee.",
-		highlights: ["Gurnee Mills area", "Commercial district", "Family neighborhoods", "Business parks"],
+		population: "31,000",
+		driveTime: "20 minutes",
+		intro: "Gurnee is Lake County's entertainment hub—home to Six Flags Great America and Gurnee Mills, one of the Midwest's largest outlet malls. But beyond the attractions, Gurnee offers excellent family neighborhoods, good schools, and strong community spirit. Warren Township High School is well-regarded, and neighborhoods like The Hunt Club, Heather Ridge, and Viking Park offer quality homes at accessible prices. Gurnee's location near I-94 provides easy access to Chicago and Milwaukee, making it popular with commuters. The village also features excellent parks and the popular Gurnee Community Center. The Heiser Group serves Gurnee homes and businesses, from residential neighborhoods to commercial spaces that serve the area's many visitors.",
+		aboutCity: "Gurnee incorporated in 1928 but remained rural until the late 20th century. Six Flags arrived in 1976, followed by Gurnee Mills in 1991, transforming the village into a regional destination. Despite rapid growth, Gurnee has maintained good schools and neighborhood quality while benefiting from the economic activity tourism brings.",
+		neighborhoods: ["The Hunt Club", "Heather Ridge", "Viking Park", "Gurnee Heights", "Abbey Oaks", "Old Grand Avenue", "Stonebrook", "Grand Hunt"],
+		landmarks: ["Six Flags Great America", "Gurnee Mills", "Gurnee Community Center", "Hunt Club Park", "Viking Park"],
 		zipCodes: ["60031"],
+		faqs: [
+			{ question: "Do you clean rental properties near Six Flags?", answer: "Yes! We provide cleaning for vacation rentals and Airbnbs near Six Flags Great America. We understand the quick turnovers needed during peak season." },
+			{ question: "Can you clean retail spaces at Gurnee Mills?", answer: "Yes, we provide commercial cleaning for Gurnee retail spaces, including stores in the Gurnee Mills area. We offer flexible scheduling to work around business hours." },
+			{ question: "Do you serve neighborhoods in western Gurnee?", answer: "Yes, we serve all of Gurnee from the Hunt Club and Viking Park neighborhoods to areas near Gurnee Mills and Six Flags. We're about 20 minutes from our Buffalo Grove office." },
+		],
 	},
 	{
 		name: "Lincolnshire",
 		slug: "lincolnshire",
 		county: "Lake County",
-		description: "Lincolnshire's corporate parks and upscale residential areas require professional cleaning services. We deliver excellence throughout Lincolnshire.",
-		highlights: ["Corporate centers", "Marriott Theatre area", "Executive homes", "Office buildings"],
+		population: "7,500",
+		driveTime: "5 minutes",
+		intro: "Lincolnshire packs impressive corporate presence and residential luxury into a small, well-planned village. The Marriott Theatre in Lincolnshire has been producing professional shows for decades, while corporate campuses house companies like Aon, IDG, and Quill. Residential neighborhoods feature upscale homes, many backing to forest preserves or golf courses. Lincolnshire's location along the Des Plaines River offers natural beauty, with the River Trail connecting to regional path networks. Schools through Stevenson High School are excellent, and the village's small population means responsive local government. At just 5 minutes from our Buffalo Grove office, The Heiser Group can serve Lincolnshire homes and businesses with unmatched convenience.",
+		aboutCity: "Lincolnshire incorporated in 1957 as a primarily residential community but has grown into a corporate hub. The village has balanced development carefully, preserving open space while welcoming businesses that provide economic stability. Half Day Forest Preserve and riverfront access offer natural recreation within the village.",
+		neighborhoods: ["Lincolnshire Estates", "Riverwoods area", "Old Mill", "Shire", "Lincolnwood", "Corporate corridor", "Sedgewood", "Thorngate"],
+		landmarks: ["Marriott Theatre", "Spring Lake", "Half Day Forest Preserve", "North Shore Bike Path", "Village Green"],
 		zipCodes: ["60069"],
+		faqs: [
+			{ question: "How close are you to Lincolnshire?", answer: "We're just 5 minutes from Lincolnshire! Our Buffalo Grove office location means we can respond quickly and serve your home or business conveniently." },
+			{ question: "Do you clean corporate offices in Lincolnshire?", answer: "Yes, we provide janitorial services for Lincolnshire's many corporate offices. We offer daily, weekly, or custom cleaning schedules to meet your business needs." },
+			{ question: "Can you clean homes near the forest preserve?", answer: "Absolutely. We serve all Lincolnshire neighborhoods including homes near Half Day Forest Preserve and along the Des Plaines River. We understand these properties often need extra attention due to natural surroundings." },
+		],
 	},
 ];
 
 export function getStaticPaths() {
-	const cities: CityData[] = [
-		{ name: "Grayslake", slug: "grayslake", county: "Lake County", description: "Grayslake's charming downtown and growing residential areas deserve professional cleaning care.", highlights: ["College of Lake County area", "Downtown Grayslake", "Lakefront properties", "Family neighborhoods"], zipCodes: ["60030"] },
-		{ name: "Libertyville", slug: "libertyville", county: "Lake County", description: "Libertyville's beautiful historic homes and thriving business district need cleaning professionals who understand quality.", highlights: ["Downtown Libertyville", "Historic district homes", "Business district offices", "Residential neighborhoods"], zipCodes: ["60048"] },
-		{ name: "Vernon Hills", slug: "vernon-hills", county: "Lake County", description: "From Hawthorn Mall area businesses to beautiful residential communities, Vernon Hills trusts The Heiser Group.", highlights: ["Hawthorn Mall area", "Corporate offices", "Residential communities", "Retail spaces"], zipCodes: ["60061"] },
-		{ name: "Mundelein", slug: "mundelein", county: "Lake County", description: "Mundelein's diverse community of homes and businesses deserves reliable, professional cleaning.", highlights: ["Downtown Mundelein", "University of Saint Mary of the Lake area", "Family homes", "Local businesses"], zipCodes: ["60060"] },
-		{ name: "Highland Park", slug: "highland-park", county: "Lake County", description: "Highland Park's elegant homes and upscale properties require meticulous attention to detail.", highlights: ["Ravinia area", "Lakefront estates", "Downtown businesses", "Historic homes"], zipCodes: ["60035"] },
-		{ name: "Lake Forest", slug: "lake-forest", county: "Lake County", description: "Lake Forest's prestigious estates and discerning residents trust The Heiser Group for exceptional cleaning services.", highlights: ["Market Square area", "Estate properties", "Historic mansions", "Lakefront homes"], zipCodes: ["60045"] },
-		{ name: "Waukegan", slug: "waukegan", county: "Lake County", description: "As Lake County's largest city, Waukegan has diverse cleaning needs.", highlights: ["Downtown Waukegan", "Lakefront area", "Commercial buildings", "Residential areas"], zipCodes: ["60085", "60087"] },
-		{ name: "Buffalo Grove", slug: "buffalo-grove", county: "Lake County", description: "Buffalo Grove families and businesses count on The Heiser Group for reliable, thorough cleaning services.", highlights: ["Town Center area", "Corporate parks", "Family neighborhoods", "Retail centers"], zipCodes: ["60089"] },
-		{ name: "Deerfield", slug: "deerfield", county: "Lake County", description: "Deerfield's professional community and beautiful homes deserve professional cleaning to match.", highlights: ["Downtown Deerfield", "Corporate headquarters", "Residential areas", "Retail district"], zipCodes: ["60015"] },
-		{ name: "Lake Bluff", slug: "lake-bluff", county: "Lake County", description: "Lake Bluff's charming village atmosphere and beautiful homes are best maintained with professional care.", highlights: ["Village center", "Lakefront properties", "Historic homes", "Residential neighborhoods"], zipCodes: ["60044"] },
-		{ name: "Gurnee", slug: "gurnee", county: "Lake County", description: "From Six Flags Great America to Gurnee Mills and beyond, Gurnee is a bustling community.", highlights: ["Gurnee Mills area", "Commercial district", "Family neighborhoods", "Business parks"], zipCodes: ["60031"] },
-		{ name: "Lincolnshire", slug: "lincolnshire", county: "Lake County", description: "Lincolnshire's corporate parks and upscale residential areas require professional cleaning services.", highlights: ["Corporate centers", "Marriott Theatre area", "Executive homes", "Office buildings"], zipCodes: ["60069"] },
-	];
-	return cities.map(city => ({
+	return citiesData.map(city => ({
 		params: { city: city.slug },
 		props: { city },
 	}));
@@ -143,7 +248,7 @@ interface Props {
 const { city } = Astro.props;
 
 const title = `House Cleaning ${city.name} IL | Professional Cleaning Services | The Heiser Group`;
-const description = `Professional house cleaning and commercial cleaning services in ${city.name}, Illinois. Trusted by ${city.county} families since 1978. Get a free quote today!`;
+const description = `Professional house cleaning and commercial cleaning services in ${city.name}, Illinois. Trusted by ${city.county} families since 1978. Serving ${city.neighborhoods.slice(0, 3).join(", ")} and more. Get a free quote today!`;
 
 const services = [
 	{
@@ -165,48 +270,36 @@ const services = [
 		icon: "sparkle" as const,
 	},
 	{
-		title: "Realty Cleaning",
-		description: `Move-in/move-out cleaning for ${city.name} real estate professionals and homeowners.`,
-		href: "/realty-cleaning",
+		title: "Specialty Cleaning",
+		description: `Carpet, floor, and specialty cleaning for ${city.name} homes and businesses.`,
+		href: "/specialty-cleaning",
 		icon: "star" as const,
 	},
 ];
 
 const whyChooseUs = [
-	{ title: "45+ Years Experience", description: "Serving Lake County since 1978. We know this area." },
-	{ title: "Background-Checked Teams", description: "Every team member passes thorough background checks." },
-	{ title: "Satisfaction Guaranteed", description: "Not happy? We'll make it right before we leave." },
-	{ title: "Locally Owned", description: "We're not a franchise—we're your neighbors." },
+	{ title: "45+ Years Experience", description: "Serving Lake County since 1978" },
+	{ title: `${city.driveTime} Away`, description: "From our Buffalo Grove office" },
+	{ title: "Background-Checked", description: "Every team member verified" },
+	{ title: "Satisfaction Guaranteed", description: "We'll make it right" },
 ];
 
-const allCities = [
-	{ name: "Grayslake", slug: "grayslake" },
-	{ name: "Libertyville", slug: "libertyville" },
-	{ name: "Vernon Hills", slug: "vernon-hills" },
-	{ name: "Mundelein", slug: "mundelein" },
-	{ name: "Highland Park", slug: "highland-park" },
-	{ name: "Lake Forest", slug: "lake-forest" },
-	{ name: "Waukegan", slug: "waukegan" },
-	{ name: "Buffalo Grove", slug: "buffalo-grove" },
-	{ name: "Deerfield", slug: "deerfield" },
-	{ name: "Lake Bluff", slug: "lake-bluff" },
-	{ name: "Gurnee", slug: "gurnee" },
-	{ name: "Lincolnshire", slug: "lincolnshire" },
-];
+const allCities = citiesData.map(c => ({ name: c.name, slug: c.slug }));
 
-// Schema for local business
+// LocalBusiness Schema
 const localBusinessSchema = {
 	"@context": "https://schema.org",
 	"@type": "LocalBusiness",
-	"name": `The Heiser Group - ${city.name}`,
+	"name": `The Heiser Group - ${city.name} Cleaning Services`,
 	"description": description,
 	"url": `https://heisergroup.com/service-areas/${city.slug}`,
 	"telephone": contact.phone.display,
 	"address": {
 		"@type": "PostalAddress",
-		"addressLocality": city.name,
+		"streetAddress": contact.address.street,
+		"addressLocality": "Buffalo Grove",
 		"addressRegion": "IL",
-		"postalCode": city.zipCodes[0],
+		"postalCode": "60089",
 		"addressCountry": "US"
 	},
 	"areaServed": {
@@ -226,52 +319,49 @@ const localBusinessSchema = {
 	}
 };
 
-// BreadcrumbList schema
+// BreadcrumbList Schema
 const breadcrumbSchema = {
 	"@context": "https://schema.org",
 	"@type": "BreadcrumbList",
 	"itemListElement": [
-		{
-			"@type": "ListItem",
-			"position": 1,
-			"name": "Home",
-			"item": "https://heisergroup.com"
-		},
-		{
-			"@type": "ListItem",
-			"position": 2,
-			"name": "Service Areas",
-			"item": "https://heisergroup.com/service-areas"
-		},
-		{
-			"@type": "ListItem",
-			"position": 3,
-			"name": city.name,
-			"item": `https://heisergroup.com/service-areas/${city.slug}`
-		}
+		{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://heisergroup.com" },
+		{ "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://heisergroup.com/service-areas" },
+		{ "@type": "ListItem", "position": 3, "name": city.name, "item": `https://heisergroup.com/service-areas/${city.slug}` }
 	]
+};
+
+// FAQPage Schema
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": city.faqs.map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
 };
 ---
 
 <BaseLayout title={title} description={description}>
 	<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 	<PageHero
-		eyebrow={`SERVING ${city.name.toUpperCase()}, IL`}
+		eyebrow={`SERVING ${city.name.toUpperCase()}, ILLINOIS`}
 		title={`Professional Cleaning Services in ${city.name}`}
-		subtitle={`Trusted by ${city.county} families and businesses since 1978`}
+		subtitle={`Trusted by ${city.county} families and businesses since 1978 • Just ${city.driveTime} from our office`}
 	/>
 
-	<!-- Intro Section -->
+	<!-- Intro Section with unique content -->
 	<section class="py-16 bg-white">
 		<div class="max-w-4xl mx-auto px-6">
 			<div class="prose prose-lg max-w-none">
 				<p class="text-xl text-gray-700 leading-relaxed">
-					{city.description}
-				</p>
-				<p class="text-gray-600 mt-4">
-					The Heiser Group has been providing professional cleaning services throughout {city.county} for over 45 years. Whether you need regular house cleaning, commercial janitorial services, or a one-time deep clean, our experienced team is ready to help.
+					{city.intro}
 				</p>
 			</div>
 		</div>
@@ -299,19 +389,42 @@ const breadcrumbSchema = {
 		</div>
 	</section>
 
-	<!-- Areas We Serve -->
+	<!-- About the City Section -->
 	<section class="py-16 bg-white">
 		<div class="max-w-4xl mx-auto px-6">
 			<SectionHeader
-				title={`Areas We Serve in ${city.name}`}
+				title={`About ${city.name}, Illinois`}
+				subtitle={`Population: ${city.population} • ${city.county}`}
 			/>
-			<div class="grid sm:grid-cols-2 gap-4">
-				{city.highlights.map(area => (
-					<div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
-						<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+			<p class="text-gray-600 leading-relaxed mb-8">
+				{city.aboutCity}
+			</p>
+
+			<!-- Landmarks -->
+			<h3 class="font-heading font-bold text-brand-navy mb-4">Notable Landmarks</h3>
+			<div class="flex flex-wrap gap-2 mb-8">
+				{city.landmarks.map(landmark => (
+					<span class="px-3 py-1 bg-brand-cream text-brand-navy rounded-full text-sm">
+						{landmark}
+					</span>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Neighborhoods Section -->
+	<section class="py-16 bg-gray-50">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title={`${city.name} Neighborhoods We Serve`}
+			/>
+			<div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+				{city.neighborhoods.map(area => (
+					<div class="flex items-center gap-2 p-3 bg-white rounded-lg shadow-sm">
+						<svg class="w-4 h-4 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
 							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
 						</svg>
-						<span class="text-gray-700">{area}</span>
+						<span class="text-gray-700 text-sm">{area}</span>
 					</div>
 				))}
 			</div>
@@ -338,10 +451,31 @@ const breadcrumbSchema = {
 		</div>
 	</section>
 
+	<!-- FAQ Section -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title={`Frequently Asked Questions: ${city.name} Cleaning`}
+			/>
+			<div class="space-y-6">
+				{city.faqs.map((faq, i) => (
+					<div class="bg-gray-50 p-6 rounded-xl">
+						<h3 class="font-heading font-bold text-brand-navy mb-2">
+							{faq.question}
+						</h3>
+						<p class="text-gray-600">
+							{faq.answer}
+						</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
 	<!-- CTA Section -->
 	<CTASection
 		title={`Ready for a Cleaner ${city.name} Home or Office?`}
-		subtitle="Get your free, no-obligation quote today. We'll respond within 24 hours."
+		subtitle={`Get your free, no-obligation quote today. We're just ${city.driveTime} away and ready to serve you.`}
 		buttonText="Get Your Free Quote"
 		buttonLink="/contact"
 	/>
@@ -353,7 +487,7 @@ const breadcrumbSchema = {
 				Also Serving Nearby Communities
 			</h3>
 			<div class="flex flex-wrap justify-center gap-3">
-				{allCities.filter(c => c.slug !== city.slug).slice(0, 8).map(c => (
+				{allCities.filter(c => c.slug !== city.slug).map(c => (
 					<a
 						href={`/service-areas/${c.slug}`}
 						class="px-4 py-2 bg-white rounded-full text-sm text-gray-600 hover:text-brand-orange hover:shadow transition-all"

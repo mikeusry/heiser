@@ -16,11 +16,11 @@ src/
 
 ## Tech Stack
 
-- **Framework:** Astro
-- **Styling:** Tailwind CSS
+- **Framework:** Astro 5
+- **Styling:** Tailwind CSS 4
 - **Images:** Cloudinary CDN
-- **Hosting:** Vercel
+- **Hosting:** Cloudflare Pages
 
 ---
 
-**Last Updated:** December 2025
+**Last Updated:** January 2026

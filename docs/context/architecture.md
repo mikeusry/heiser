@@ -9,43 +9,58 @@
 | Language | TypeScript (strict mode) |
 | Image CDN | Cloudinary (southland-organics cloud) |
 | Fonts | Google Fonts (Zilla Slab, Inter, Playfair Display) |
+| Hosting | Cloudflare Pages |
+| Forms | Cloudflare Workers + SendGrid |
 
 ## Project Structure
 
 ```
 Heiser/
 ├── src/
-│   ├── components/           # Reusable Astro components
-│   │   ├── Navigation.astro
-│   │   ├── Footer.astro
-│   │   ├── CoreValues.astro
-│   │   ├── TestimonialSection.astro
-│   │   ├── CTASection.astro
-│   │   └── CloudinaryImage.astro
-│   ├── pages/                # Route pages (12 total)
+│   ├── components/           # 19 reusable Astro components
+│   ├── pages/                # 56 pages total
+│   │   ├── blog/             # Blog index + [slug].astro
+│   │   ├── service-areas/    # City pages (12 cities)
+│   │   └── case-studies/     # Case study pages
 │   ├── content/
-│   │   └── cloudinary-images.json
-│   └── styles/
-│       └── global.css
-├── public/
-│   └── logo.svg
-├── scripts/                  # Utilities
-│   ├── parse-crawl-data.js
-│   └── upload-to-cloudinary.js
-├── BRAND-GUIDE.md           # Complete brand guidelines
-└── COMPONENTS.md            # Component documentation
+│   │   ├── pages/            # Blog post JSON files (20)
+│   │   └── config.ts         # Content collection schema
+│   ├── lib/                  # Data modules
+│   │   ├── services.ts
+│   │   ├── contact.ts
+│   │   └── testimonials.ts
+│   └── layouts/
+│       └── BaseLayout.astro
+├── workers/
+│   └── contact-form/         # Cloudflare Worker for forms
+├── scripts/                  # Build utilities
+├── public/                   # Static assets
+├── BRAND-GUIDE.md
+└── COMPONENTS.md
 ```
 
-## Pages (12 total)
+## Pages (56 total)
 
-- Homepage: Hero, services, values, testimonials
-- About: Three-generation family story
-- Contact: Form and contact info
-- Results: Testimonials and stats
-- Careers: Job listings
-- 6 Service pages (consistent structure)
-- 404 page
-- Admin page (progress tracking)
+| Category | Count | Examples |
+|----------|-------|----------|
+| Service Pages | 8 | residential, commercial, specialty, realty |
+| City Pages | 12 | Libertyville, Highland Park, Lake Forest... |
+| Blog Posts | 20 | Dynamic from JSON content |
+| Core Pages | 10 | Home, About, Contact, FAQ, Careers... |
+| Legal | 2 | Privacy Policy, Terms |
+| Utility | 4 | 404, Admin, Thank You, Results |
+
+## Deployment
+
+```bash
+# Build
+npm run build
+
+# Deploy to Cloudflare Pages (manual)
+npx wrangler pages deploy dist --project-name=heiser
+```
+
+Note: Cloudflare Pages is not connected to Git. Deploys are manual.
 
 ## Environment Variables
 
@@ -65,12 +80,16 @@ npm run preview      # Preview production build
 
 ## Technical Notes
 
-1. **Tailwind v4 Limitations**: @apply directive not fully compatible - use plain CSS
+1. **Tailwind v4**: Uses @tailwindcss/vite plugin, not PostCSS
 2. **Cloudinary URLs**: Base `https://res.cloudinary.com/southland-organics/`
-3. **Component Imports**: Use `BaseLayout` not `Layout`
-4. **CSS Specificity**: Avoid setting colors on base elements in global.css
+3. **Content Collections**: Blog posts use JSON loader in `src/content.config.ts`
+4. **City Pages**: Data defined in `src/pages/service-areas/[city].astro`
 
 ## Git Repository
 
 - **Remote**: https://github.com/mikeusry/heiser.git
 - **Branch**: main
+
+---
+
+**Last Updated:** January 2026

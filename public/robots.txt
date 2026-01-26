@@ -1,0 +1,11 @@
+# Heiser Group - robots.txt
+User-agent: *
+Allow: /
+
+# Block admin and utility pages
+Disallow: /admin/
+Disallow: /thank-you/
+Disallow: /logo-review/
+
+# Sitemap
+Sitemap: https://heisergroup.com/sitemap-index.xml

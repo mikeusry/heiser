@@ -57,12 +57,49 @@ const faqs = [
 	{ question: "Do I need to be home?", answer: "It's up to you. Many clients prefer to be away and return to a clean home. Others like to do a walkthrough before we leave." },
 	{ question: "What if I'm not satisfied?", answer: "Tell us during the walkthrough and we'll address it immediately. Your satisfaction is guaranteed." },
 ];
+
+// FAQPage schema
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": faqs.map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
+};
+
+// BreadcrumbList schema
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://heisergroup.com"
+		},
+		{
+			"@type": "ListItem",
+			"position": 2,
+			"name": "Specialty Cleaning",
+			"item": "https://heisergroup.com/specialty-cleaning"
+		}
+	]
+};
 ---
 
 <BaseLayout
 	title="Deep Cleaning Service Lake County IL | Specialty Cleaning - The Heiser Group"
 	description="Professional deep cleaning for life's important moments. One-time specialty cleaning services in Lake County, IL. Move-in/out, pre-event, post-construction cleaning."
 >
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
 	<!-- Hero -->
 	<PageHero
 		eyebrow="Specialty Cleaning"
@@ -72,7 +109,7 @@ const faqs = [
 	>
 		<div class="flex flex-col sm:flex-row gap-4">
 			<Button href="/contact" variant="primary" size="lg">Get Your Free Estimate</Button>
-			<Button href="tel:8475550123" variant="white" size="lg">Call (847) 555-0123</Button>
+			<Button href="tel:7735455200" variant="white" size="lg">Call (773) 545-5200</Button>
 		</div>
 	</PageHero>
 

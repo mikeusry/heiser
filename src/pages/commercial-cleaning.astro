@@ -204,11 +204,31 @@ const serviceSchema = {
 	],
 	"serviceType": ["Commercial Cleaning", "Office Cleaning", "Janitorial Services", "Medical Office Cleaning"]
 };
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://heisergroup.com"
+		},
+		{
+			"@type": "ListItem",
+			"position": 2,
+			"name": "Commercial Cleaning",
+			"item": "https://heisergroup.com/commercial-cleaning"
+		}
+	]
+};
 ---
 
 <BaseLayout title={title} description={description}>
 	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 	<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
 	<PageHero
 		eyebrow="COMMERCIAL CLEANING SERVICE"

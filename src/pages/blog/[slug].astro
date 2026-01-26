@@ -72,26 +72,61 @@ function markdownToHtml(md: string): string {
 
 const contentHtml = markdownToHtml(post.markdown);
 
+const postUrl = `https://heisergroup.com/blog/${post.slug.replace('blog-', '')}`;
+
 // Schema markup for blog post
 const articleSchema = {
 	"@context": "https://schema.org",
 	"@type": "BlogPosting",
 	"headline": post.title,
 	"description": post.description,
+	"image": ogImage || "https://heisergroup.com/og-image.jpg",
 	"datePublished": date ? new Date(date).toISOString() : undefined,
+	"dateModified": date ? new Date(date).toISOString() : undefined,
 	"author": {
-		"@type": "Organization",
-		"name": "The Heiser Group"
-	},
-	"publisher": {
 		"@type": "Organization",
 		"name": "The Heiser Group",
 		"url": "https://heisergroup.com"
 	},
+	"publisher": {
+		"@type": "Organization",
+		"name": "The Heiser Group",
+		"url": "https://heisergroup.com",
+		"logo": {
+			"@type": "ImageObject",
+			"url": "https://heisergroup.com/heiser-logo-original.png"
+		}
+	},
 	"mainEntityOfPage": {
 		"@type": "WebPage",
-		"@id": `https://heisergroup.com/blog/${post.slug.replace('blog-', '')}`
+		"@id": postUrl
 	}
+};
+
+// BreadcrumbList schema
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{
+			"@type": "ListItem",
+			"position": 1,
+			"name": "Home",
+			"item": "https://heisergroup.com"
+		},
+		{
+			"@type": "ListItem",
+			"position": 2,
+			"name": "Blog",
+			"item": "https://heisergroup.com/blog"
+		},
+		{
+			"@type": "ListItem",
+			"position": 3,
+			"name": post.title,
+			"item": postUrl
+		}
+	]
 };
 ---
 
@@ -102,6 +137,7 @@ const articleSchema = {
 	type="article"
 >
 	<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
 	<!-- Hero -->
 	<section class="bg-brand-navy py-16 md:py-24">

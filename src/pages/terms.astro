@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contact, company } from '../lib/contact';
+
+const title = "Terms of Service | The Heiser Group";
+const description = "Terms of service for The Heiser Group cleaning services. Review our service agreement, policies, and conditions.";
+const lastUpdated = "January 26, 2025";
+---
+
+<BaseLayout title={title} description={description}>
+	<section class="py-20 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<h1 class="text-4xl md:text-5xl font-heading font-bold text-brand-navy mb-4">Terms of Service</h1>
+			<p class="text-gray-500 mb-12">Last updated: {lastUpdated}</p>
+
+			<div class="prose prose-lg max-w-none">
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Agreement to Terms</h2>
+				<p class="text-gray-700 mb-6">
+					By accessing our website or using the cleaning services provided by {company.name} ("we," "our," or "us"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Services</h2>
+				<p class="text-gray-700 mb-6">
+					{company.name} provides professional residential and commercial cleaning services in Lake County, Illinois and surrounding areas. The specific services, pricing, and scheduling are determined through individual service agreements with each client.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Service Agreements</h2>
+				<p class="text-gray-700 mb-4">When you engage our cleaning services:</p>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li>Service details, pricing, and frequency will be outlined in your service agreement</li>
+					<li>Our service agreements include a <strong>30-day cancellation clause</strong> - you may cancel with 30 days written notice</li>
+					<li>We reserve the right to adjust pricing with reasonable notice</li>
+					<li>Recurring service schedules may be adjusted based on availability and mutual agreement</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Scheduling and Access</h2>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li>You agree to provide access to the premises at the scheduled service time</li>
+					<li>If access is not available, a trip charge may apply</li>
+					<li>Please notify us at least 24 hours in advance if you need to reschedule</li>
+					<li>We will make reasonable efforts to accommodate schedule changes</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Payment Terms</h2>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li>Payment is due upon completion of service unless otherwise agreed</li>
+					<li>We accept cash, check, and major credit cards</li>
+					<li>For recurring services, payment may be collected via automatic billing</li>
+					<li>Late payments may incur additional fees as outlined in your service agreement</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Our Responsibilities</h2>
+				<p class="text-gray-700 mb-4">We commit to:</p>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li>Providing professional, thorough cleaning services as described</li>
+					<li>Using appropriate cleaning products and equipment</li>
+					<li>Employing trained, background-checked cleaning professionals</li>
+					<li>Maintaining liability insurance coverage</li>
+					<li>Addressing any service concerns promptly</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Client Responsibilities</h2>
+				<p class="text-gray-700 mb-4">You agree to:</p>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li>Provide a safe working environment for our cleaning team</li>
+					<li>Secure or notify us of valuables, fragile items, or areas requiring special care</li>
+					<li>Inform us of any hazardous materials or conditions</li>
+					<li>Keep pets secured during service if requested</li>
+					<li>Provide accurate contact and billing information</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Satisfaction Guarantee</h2>
+				<p class="text-gray-700 mb-6">
+					Your satisfaction is our priority. If you are not satisfied with any aspect of our service, please notify us before our team leaves so we can address your concerns immediately. For concerns raised after service completion, please contact us within 24 hours and we will work to make it right.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Liability and Insurance</h2>
+				<p class="text-gray-700 mb-6">
+					{company.name} maintains liability insurance to cover accidental damage that may occur during cleaning services. Our liability is limited to the reasonable cost of repair or replacement of damaged items, subject to our insurance policy limits. We are not responsible for pre-existing damage, normal wear and tear, or damage to items not properly disclosed.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Cancellation Policy</h2>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li><strong>Recurring services:</strong> 30 days written notice required to cancel</li>
+					<li><strong>Scheduled appointments:</strong> 24 hours notice for rescheduling</li>
+					<li><strong>Same-day cancellations:</strong> May be subject to a cancellation fee</li>
+					<li><strong>No-shows:</strong> Full service charge may apply</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Website Use</h2>
+				<p class="text-gray-700 mb-4">When using our website, you agree not to:</p>
+				<ul class="list-disc pl-6 text-gray-700 mb-6 space-y-2">
+					<li>Use the site for any unlawful purpose</li>
+					<li>Attempt to gain unauthorized access to any part of the site</li>
+					<li>Interfere with the proper functioning of the site</li>
+					<li>Submit false or misleading information</li>
+				</ul>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Intellectual Property</h2>
+				<p class="text-gray-700 mb-6">
+					All content on this website, including text, images, logos, and design, is the property of {company.name} and is protected by copyright and trademark laws. You may not reproduce, distribute, or use our content without written permission.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Limitation of Liability</h2>
+				<p class="text-gray-700 mb-6">
+					To the fullest extent permitted by law, {company.name} shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your use of our services or website. Our total liability for any claim shall not exceed the amount paid for the specific service giving rise to the claim.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Governing Law</h2>
+				<p class="text-gray-700 mb-6">
+					These Terms of Service shall be governed by and construed in accordance with the laws of the State of Illinois, without regard to its conflict of law provisions. Any disputes shall be resolved in the courts of Lake County, Illinois.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Changes to Terms</h2>
+				<p class="text-gray-700 mb-6">
+					We reserve the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting to our website. Your continued use of our services after changes are posted constitutes acceptance of the modified terms.
+				</p>
+
+				<h2 class="text-2xl font-heading font-bold text-brand-navy mt-8 mb-4">Contact Us</h2>
+				<p class="text-gray-700 mb-4">
+					If you have questions about these Terms of Service, please contact us:
+				</p>
+				<div class="bg-gray-50 p-6 rounded-lg">
+					<p class="text-gray-700 mb-2"><strong>{company.name}</strong></p>
+					<p class="text-gray-700 mb-2">Phone: <a href={`tel:${contact.phone.link}`} class="text-brand-orange hover:underline">{contact.phone.display}</a></p>
+					<p class="text-gray-700">Email: <a href={`mailto:${contact.email}`} class="text-brand-orange hover:underline">{contact.email}</a></p>
+				</div>
+			</div>
+		</div>
+	</section>
+</BaseLayout>

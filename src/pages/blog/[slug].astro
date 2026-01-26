@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTASection from '../../components/CTASection.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+	const contentDir = path.join(process.cwd(), 'src/content/pages');
+	const files = fs.readdirSync(contentDir).filter(f => f.startsWith('blog-') && f !== 'blog.json');
+
+	return files.map(file => {
+		const content = JSON.parse(fs.readFileSync(path.join(contentDir, file), 'utf-8'));
+		const slug = content.slug.replace('blog-', '');
+		return {
+			params: { slug },
+			props: { post: content },
+		};
+	});
+}
+
+interface Props {
+	post: {
+		slug: string;
+		title: string;
+		description: string;
+		markdown: string;
+	};
+}
+
+const { post } = Astro.props;
+
+// Extract date from markdown
+const dateMatch = post.markdown?.match(/([A-Z][a-z]+ \d{1,2}, \d{4})/);
+const date = dateMatch ? dateMatch[1] : null;
+
+// Extract first image from markdown for OG
+const imgMatch = post.markdown?.match(/!\[.*?\]\((https?:\/\/[^\)]+)\)/);
+const ogImage = imgMatch ? imgMatch[1] : undefined;
+
+// Convert markdown to HTML (basic conversion)
+function markdownToHtml(md: string): string {
+	if (!md) return '';
+
+	let html = md
+		// Remove the title (first h1) since we render it separately
+		.replace(/^# .+\n\n?/, '')
+		// H2 headers
+		.replace(/^## (.+)$/gm, '<h2 class="text-2xl font-heading font-bold text-brand-navy mt-10 mb-4">$1</h2>')
+		// H3 headers
+		.replace(/^### (.+)$/gm, '<h3 class="text-xl font-heading font-semibold text-brand-navy mt-8 mb-3">$1</h3>')
+		// Bold
+		.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+		// Links
+		.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" class="text-brand-orange hover:underline">$1</a>')
+		// Images
+		.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg my-6 w-full" loading="lazy" />')
+		// Paragraphs (lines that don't start with special chars)
+		.split('\n\n')
+		.map(block => {
+			if (block.startsWith('<h') || block.startsWith('<img') || block.startsWith('<ul') || block.startsWith('<ol')) {
+				return block;
+			}
+			if (block.trim() && !block.startsWith('<')) {
+				return `<p class="text-gray-700 mb-6 leading-relaxed">${block.replace(/\n/g, ' ')}</p>`;
+			}
+			return block;
+		})
+		.join('\n');
+
+	return html;
+}
+
+const contentHtml = markdownToHtml(post.markdown);
+
+// Schema markup for blog post
+const articleSchema = {
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	"headline": post.title,
+	"description": post.description,
+	"datePublished": date ? new Date(date).toISOString() : undefined,
+	"author": {
+		"@type": "Organization",
+		"name": "The Heiser Group"
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": "The Heiser Group",
+		"url": "https://heisergroup.com"
+	},
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": `https://heisergroup.com/blog/${post.slug.replace('blog-', '')}`
+	}
+};
+---
+
+<BaseLayout
+	title={`${post.title} | The Heiser Group Blog`}
+	description={post.description}
+	image={ogImage}
+	type="article"
+>
+	<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+	<!-- Hero -->
+	<section class="bg-brand-navy py-16 md:py-24">
+		<div class="max-w-4xl mx-auto px-6">
+			<a href="/blog" class="inline-flex items-center text-white/70 hover:text-white mb-6 transition-colors">
+				<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+				</svg>
+				Back to Blog
+			</a>
+			{date && (
+				<p class="text-brand-orange font-medium mb-4">{date}</p>
+			)}
+			<h1 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white">
+				{post.title}
+			</h1>
+		</div>
+	</section>
+
+	<!-- Content -->
+	<article class="py-16 bg-white">
+		<div class="max-w-3xl mx-auto px-6">
+			<div class="prose prose-lg max-w-none" set:html={contentHtml} />
+		</div>
+	</article>
+
+	<!-- Related CTA -->
+	<section class="py-16 bg-gray-50">
+		<div class="max-w-4xl mx-auto px-6">
+			<div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center">
+				<h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-navy mb-4">
+					Need Help With Your Cleaning?
+				</h2>
+				<p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+					Whether it's your home or office, The Heiser Group has been providing professional cleaning services in Lake County since 1978.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a
+						href="/contact"
+						class="inline-flex items-center justify-center px-6 py-3 bg-brand-orange text-white font-semibold rounded-lg hover:bg-brand-orange/90 transition-colors"
+					>
+						Get a Free Quote
+					</a>
+					<a
+						href="/residential-cleaning"
+						class="inline-flex items-center justify-center px-6 py-3 border-2 border-brand-navy text-brand-navy font-semibold rounded-lg hover:bg-brand-navy hover:text-white transition-colors"
+					>
+						View Services
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- More Posts -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<a
+				href="/blog"
+				class="inline-flex items-center text-brand-orange font-semibold hover:underline"
+			>
+				<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+				</svg>
+				View All Blog Posts
+			</a>
+		</div>
+	</section>
+</BaseLayout>

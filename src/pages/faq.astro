@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import FAQItem from '../components/FAQItem.astro';
+import CTASection from '../components/CTASection.astro';
+import { contact } from '../lib/contact';
+
+const title = "Frequently Asked Questions | The Heiser Group";
+const description = "Find answers to common questions about The Heiser Group's residential and commercial cleaning services in Lake County, IL.";
+
+const generalFaqs = [
+	{
+		question: "How long have you been in business?",
+		answer: "The Heiser Group has been providing professional cleaning services in Lake County, Illinois since 1978—that's over 45 years of experience. We're a family-owned business spanning three generations."
+	},
+	{
+		question: "What areas do you serve?",
+		answer: "We serve all of Lake County, Illinois including Grayslake, Libertyville, Vernon Hills, Highland Park, Lake Forest, Mundelein, Waukegan, Buffalo Grove, Deerfield, Gurnee, and surrounding communities."
+	},
+	{
+		question: "Are you insured and bonded?",
+		answer: "Yes, The Heiser Group is fully insured and bonded. All of our team members also undergo thorough background checks before joining our team."
+	},
+	{
+		question: "Do you bring your own supplies and equipment?",
+		answer: "Yes, we bring all necessary cleaning supplies and equipment. We use professional-grade, effective products. If you have specific products you'd like us to use or allergies we should be aware of, just let us know."
+	},
+	{
+		question: "What forms of payment do you accept?",
+		answer: "We accept cash, checks, and all major credit cards. For recurring services, we can set up automatic billing for your convenience."
+	},
+];
+
+const residentialFaqs = [
+	{
+		question: "How often should I have my home cleaned?",
+		answer: "It depends on your household—factors like family size, pets, and lifestyle all play a role. Most of our residential clients choose bi-weekly service, which maintains a clean home without over-servicing. Weekly is great for busy households or those with pets, while monthly works well for smaller homes or as a supplement to your own cleaning routine."
+	},
+	{
+		question: "What's included in a standard cleaning?",
+		answer: "Our standard cleaning covers all main living areas: dusting surfaces, vacuuming and mopping floors, cleaning bathrooms (toilets, sinks, showers, mirrors), kitchen cleaning (counters, appliances exterior, sink), and general tidying. Deep cleaning tasks like inside appliances, baseboards, and windows are included on a rotating basis or as add-ons."
+	},
+	{
+		question: "Do I need to be home during the cleaning?",
+		answer: "It's completely up to you. Many of our clients prefer to give us access (key or code) so they can return to a freshly cleaned home. Others like to be present, especially for the first few visits. We're happy to accommodate either preference."
+	},
+	{
+		question: "What if I need to skip a scheduled cleaning?",
+		answer: "Life happens! Just give us at least 24 hours notice if you need to reschedule or skip a cleaning. We'll work with you to find a time that works or simply resume at your next scheduled visit."
+	},
+	{
+		question: "What's the difference between regular cleaning and deep cleaning?",
+		answer: "Regular cleaning maintains a home—surfaces, floors, bathrooms, and kitchens. Deep cleaning goes further: inside appliances, behind furniture, grout scrubbing, baseboards, detailed surfaces, and areas that don't get attention regularly. Many clients start with a deep clean, then switch to regular maintenance."
+	},
+];
+
+const commercialFaqs = [
+	{
+		question: "Can you clean outside of business hours?",
+		answer: "Absolutely. Most of our commercial clients prefer evening or early morning cleaning so there's no disruption to their workday. We offer flexible scheduling to fit your business operations."
+	},
+	{
+		question: "Do you offer janitorial services?",
+		answer: "Yes, we provide full janitorial services including daily cleaning, restroom maintenance, trash removal, floor care, and more. We can customize a service plan based on your facility's needs."
+	},
+	{
+		question: "What types of businesses do you serve?",
+		answer: "We serve a wide range of commercial clients including office buildings, medical facilities, retail stores, restaurants, schools, churches, and industrial facilities. Each type of business has unique needs, and we tailor our approach accordingly."
+	},
+	{
+		question: "Are your cleaning products safe for office environments?",
+		answer: "Yes, we use professional-grade products that are effective yet safe for workplace environments. We can also accommodate requests for eco-friendly or specific products if needed."
+	},
+	{
+		question: "Do you require long-term contracts?",
+		answer: "Our service agreements include a simple 30-day cancellation clause. We're confident you'll stay because we deliver—not because you're locked in. We earn your business with every visit."
+	},
+];
+
+const pricingFaqs = [
+	{
+		question: "How much does cleaning cost?",
+		answer: "Pricing depends on several factors: home or office size, current condition, frequency of service, and specific needs. For residential, typical ranges are $150-$350 for bi-weekly cleaning. We provide free, no-obligation quotes so you know exactly what to expect."
+	},
+	{
+		question: "Do you charge by the hour or flat rate?",
+		answer: "We typically provide flat-rate pricing based on your specific needs. This means you know exactly what you'll pay, and our team focuses on doing the job right rather than watching the clock."
+	},
+	{
+		question: "Is there a discount for recurring services?",
+		answer: "Yes, recurring clients receive better rates than one-time cleanings. The more frequently we clean, the more efficient each visit becomes, and we pass those savings on to you."
+	},
+	{
+		question: "Do you offer free estimates?",
+		answer: "Yes! We provide free, no-obligation quotes. Just contact us with details about your space and needs, and we'll provide a clear, detailed estimate—usually within 24 hours."
+	},
+];
+
+// Schema markup for FAQ page
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": [...generalFaqs, ...residentialFaqs, ...commercialFaqs, ...pricingFaqs].map(faq => ({
+		"@type": "Question",
+		"name": faq.question,
+		"acceptedAnswer": {
+			"@type": "Answer",
+			"text": faq.answer
+		}
+	}))
+};
+---
+
+<BaseLayout title={title} description={description}>
+	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+	<PageHero
+		eyebrow="FAQ"
+		title="Frequently Asked Questions"
+		subtitle="Find answers to common questions about our cleaning services"
+		centered
+	/>
+
+	<!-- Quick Contact Banner -->
+	<section class="bg-brand-cream py-6">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<p class="text-gray-700">
+				Can't find what you're looking for? Call us at
+				<a href={`tel:${contact.phone.link}`} class="text-brand-orange font-semibold hover:underline">{contact.phone.display}</a>
+				or <a href="/contact" class="text-brand-orange font-semibold hover:underline">send us a message</a>.
+			</p>
+		</div>
+	</section>
+
+	<!-- General FAQs -->
+	<section class="py-16 bg-white">
+		<div class="max-w-3xl mx-auto px-6">
+			<SectionHeader title="General Questions" />
+			<div class="space-y-4">
+				{generalFaqs.map(faq => (
+					<FAQItem question={faq.question} answer={faq.answer} />
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Residential FAQs -->
+	<section class="py-16 bg-gray-50">
+		<div class="max-w-3xl mx-auto px-6">
+			<SectionHeader title="Residential Cleaning" />
+			<div class="space-y-4">
+				{residentialFaqs.map(faq => (
+					<FAQItem question={faq.question} answer={faq.answer} />
+				))}
+			</div>
+			<div class="mt-8 text-center">
+				<a href="/residential-cleaning" class="text-brand-orange font-semibold hover:underline">
+					Learn more about residential services →
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Commercial FAQs -->
+	<section class="py-16 bg-white">
+		<div class="max-w-3xl mx-auto px-6">
+			<SectionHeader title="Commercial Cleaning" />
+			<div class="space-y-4">
+				{commercialFaqs.map(faq => (
+					<FAQItem question={faq.question} answer={faq.answer} />
+				))}
+			</div>
+			<div class="mt-8 text-center">
+				<a href="/commercial-cleaning" class="text-brand-orange font-semibold hover:underline">
+					Learn more about commercial services →
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Pricing FAQs -->
+	<section class="py-16 bg-gray-50">
+		<div class="max-w-3xl mx-auto px-6">
+			<SectionHeader title="Pricing & Payment" />
+			<div class="space-y-4">
+				{pricingFaqs.map(faq => (
+					<FAQItem question={faq.question} answer={faq.answer} />
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<CTASection
+		title="Still Have Questions?"
+		subtitle="We're happy to answer any questions you have. Get in touch and we'll respond within 24 hours."
+		buttonText="Contact Us"
+		buttonLink="/contact"
+	/>
+</BaseLayout>

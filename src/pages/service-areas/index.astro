@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const title = "Service Areas | Lake County IL Cleaning Services | The Heiser Group";
+const description = "The Heiser Group provides professional cleaning services throughout Lake County, Illinois. Serving Grayslake, Libertyville, Vernon Hills, Highland Park, Lake Forest, and more.";
+
+const cities = [
+	{ name: "Grayslake", slug: "grayslake", zip: "60030" },
+	{ name: "Libertyville", slug: "libertyville", zip: "60048" },
+	{ name: "Vernon Hills", slug: "vernon-hills", zip: "60061" },
+	{ name: "Mundelein", slug: "mundelein", zip: "60060" },
+	{ name: "Highland Park", slug: "highland-park", zip: "60035" },
+	{ name: "Lake Forest", slug: "lake-forest", zip: "60045" },
+	{ name: "Waukegan", slug: "waukegan", zip: "60085" },
+	{ name: "Buffalo Grove", slug: "buffalo-grove", zip: "60089" },
+	{ name: "Deerfield", slug: "deerfield", zip: "60015" },
+	{ name: "Lake Bluff", slug: "lake-bluff", zip: "60044" },
+	{ name: "Gurnee", slug: "gurnee", zip: "60031" },
+	{ name: "Lincolnshire", slug: "lincolnshire", zip: "60069" },
+];
+---
+
+<BaseLayout title={title} description={description}>
+	<PageHero
+		eyebrow="SERVICE AREAS"
+		title="Serving Lake County, Illinois"
+		subtitle="Professional cleaning services throughout Lake County and surrounding communities since 1978"
+		centered
+	/>
+
+	<!-- Map/Overview Section -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<p class="text-xl text-gray-700 leading-relaxed mb-8">
+				For over 45 years, The Heiser Group has been the trusted choice for residential and commercial cleaning services throughout Lake County, Illinois. From Waukegan to Buffalo Grove, Highland Park to Gurnee, our experienced team delivers consistent, professional cleaning you can count on.
+			</p>
+			<div class="flex flex-wrap justify-center gap-4">
+				<a href="/residential-cleaning" class="px-6 py-3 bg-brand-orange text-white font-semibold rounded-lg hover:bg-brand-orange/90 transition-colors">
+					Residential Services
+				</a>
+				<a href="/commercial-cleaning" class="px-6 py-3 border-2 border-brand-navy text-brand-navy font-semibold rounded-lg hover:bg-brand-navy hover:text-white transition-colors">
+					Commercial Services
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Cities Grid -->
+	<section class="py-16 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title="Communities We Serve"
+				subtitle="Click on your city to learn more about our services in your area"
+			/>
+			<div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+				{cities.map(city => (
+					<a
+						href={`/service-areas/${city.slug}`}
+						class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all hover:-translate-y-1 group"
+					>
+						<h3 class="text-lg font-heading font-bold text-brand-navy group-hover:text-brand-orange transition-colors">
+							{city.name}
+						</h3>
+						<p class="text-gray-500 text-sm mt-1">ZIP: {city.zip}</p>
+						<p class="text-brand-orange text-sm mt-3 flex items-center">
+							View services
+							<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+							</svg>
+						</p>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Don't See Your City -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<h2 class="text-2xl font-heading font-bold text-brand-navy mb-4">
+				Don't See Your City?
+			</h2>
+			<p class="text-gray-600 mb-6">
+				We serve many communities throughout Lake County and Northern Illinois. If you don't see your city listed, give us a call—we likely service your area too!
+			</p>
+			<a href="/contact" class="inline-flex items-center text-brand-orange font-semibold hover:underline">
+				Contact us to check availability
+				<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+				</svg>
+			</a>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<CTASection
+		title="Ready to Get Started?"
+		subtitle="Get your free quote today. We'll respond within 24 hours."
+		buttonText="Request a Quote"
+		buttonLink="/contact"
+	/>
+</BaseLayout>

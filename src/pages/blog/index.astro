@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const title = "Cleaning Tips & Insights | The Heiser Group Blog";
+const description = "Expert cleaning tips, industry insights, and helpful guides from The Heiser Group. Learn how to maintain a cleaner home and office.";
+
+// Read all blog post JSON files
+const contentDir = path.join(process.cwd(), 'src/content/pages');
+const files = fs.readdirSync(contentDir).filter(f => f.startsWith('blog-') && f !== 'blog.json');
+
+interface BlogPost {
+	slug: string;
+	title: string;
+	description: string;
+	markdown: string;
+	date?: string;
+}
+
+const posts: BlogPost[] = files.map(file => {
+	const content = JSON.parse(fs.readFileSync(path.join(contentDir, file), 'utf-8'));
+	// Extract date from markdown if available (format: "Month Day, Year")
+	const dateMatch = content.markdown?.match(/([A-Z][a-z]+ \d{1,2}, \d{4})/);
+	return {
+		slug: content.slug.replace('blog-', ''),
+		title: content.title,
+		description: content.description,
+		markdown: content.markdown,
+		date: dateMatch ? dateMatch[1] : undefined,
+	};
+}).sort((a, b) => {
+	// Sort by date descending
+	if (!a.date || !b.date) return 0;
+	return new Date(b.date).getTime() - new Date(a.date).getTime();
+});
+
+// Get image from markdown content
+function getPostImage(markdown: string): string | null {
+	const imgMatch = markdown?.match(/!\[.*?\]\((https?:\/\/[^\)]+)\)/);
+	return imgMatch ? imgMatch[1] : null;
+}
+---
+
+<BaseLayout title={title} description={description}>
+	<PageHero
+		eyebrow="BLOG"
+		title="Cleaning Tips & Insights"
+		subtitle="Expert advice from 45+ years of professional cleaning experience"
+		centered
+	/>
+
+	<section class="py-20 bg-white">
+		<div class="max-w-6xl mx-auto px-6">
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{posts.map((post) => {
+					const image = getPostImage(post.markdown);
+					return (
+						<article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+							{image && (
+								<a href={`/blog/${post.slug}`} class="block aspect-video overflow-hidden">
+									<img
+										src={image}
+										alt={post.title}
+										class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+										loading="lazy"
+									/>
+								</a>
+							)}
+							<div class="p-6">
+								{post.date && (
+									<p class="text-sm text-gray-500 mb-2">{post.date}</p>
+								)}
+								<h2 class="text-xl font-heading font-bold text-brand-navy mb-3">
+									<a href={`/blog/${post.slug}`} class="hover:text-brand-orange transition-colors">
+										{post.title}
+									</a>
+								</h2>
+								<p class="text-gray-600 mb-4 line-clamp-3">{post.description}</p>
+								<a
+									href={`/blog/${post.slug}`}
+									class="inline-flex items-center text-brand-orange font-semibold hover:underline"
+								>
+									Read More
+									<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+									</svg>
+								</a>
+							</div>
+						</article>
+					);
+				})}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="py-20 bg-brand-navy">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+				Need Professional Cleaning Help?
+			</h2>
+			<p class="text-xl text-white/80 mb-8">
+				Let our experienced team handle the cleaning while you focus on what matters most.
+			</p>
+			<a
+				href="/contact"
+				class="inline-flex items-center justify-center px-8 py-4 bg-brand-orange text-white font-semibold rounded-lg hover:bg-brand-orange/90 transition-colors"
+			>
+				Get a Free Quote
+			</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+</style>

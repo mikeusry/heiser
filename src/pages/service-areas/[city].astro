@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import { contact, company } from '../../lib/contact';
+
+interface CityData {
+	name: string;
+	slug: string;
+	county: string;
+	description: string;
+	highlights: string[];
+	zipCodes: string[];
+}
+
+// Define cities data
+const citiesData: CityData[] = [
+	{
+		name: "Grayslake",
+		slug: "grayslake",
+		county: "Lake County",
+		description: "Grayslake's charming downtown and growing residential areas deserve professional cleaning care. From lakefront homes to family neighborhoods, we keep Grayslake spotless.",
+		highlights: ["College of Lake County area", "Downtown Grayslake", "Lakefront properties", "Family neighborhoods"],
+		zipCodes: ["60030"],
+	},
+	{
+		name: "Libertyville",
+		slug: "libertyville",
+		county: "Lake County",
+		description: "Libertyville's beautiful historic homes and thriving business district need cleaning professionals who understand quality. We've been serving Libertyville families for decades.",
+		highlights: ["Downtown Libertyville", "Historic district homes", "Business district offices", "Residential neighborhoods"],
+		zipCodes: ["60048"],
+	},
+	{
+		name: "Vernon Hills",
+		slug: "vernon-hills",
+		county: "Lake County",
+		description: "From Hawthorn Mall area businesses to beautiful residential communities, Vernon Hills trusts The Heiser Group for professional cleaning services.",
+		highlights: ["Hawthorn Mall area", "Corporate offices", "Residential communities", "Retail spaces"],
+		zipCodes: ["60061"],
+	},
+	{
+		name: "Mundelein",
+		slug: "mundelein",
+		county: "Lake County",
+		description: "Mundelein's diverse community of homes and businesses deserves reliable, professional cleaning. We're proud to serve Mundelein families and businesses.",
+		highlights: ["Downtown Mundelein", "University of Saint Mary of the Lake area", "Family homes", "Local businesses"],
+		zipCodes: ["60060"],
+	},
+	{
+		name: "Highland Park",
+		slug: "highland-park",
+		county: "Lake County",
+		description: "Highland Park's elegant homes and upscale properties require meticulous attention to detail. Our experienced team delivers the quality Highland Park residents expect.",
+		highlights: ["Ravinia area", "Lakefront estates", "Downtown businesses", "Historic homes"],
+		zipCodes: ["60035"],
+	},
+	{
+		name: "Lake Forest",
+		slug: "lake-forest",
+		county: "Lake County",
+		description: "Lake Forest's prestigious estates and discerning residents trust The Heiser Group for exceptional cleaning services. We bring 45+ years of experience to every home.",
+		highlights: ["Market Square area", "Estate properties", "Historic mansions", "Lakefront homes"],
+		zipCodes: ["60045"],
+	},
+	{
+		name: "Waukegan",
+		slug: "waukegan",
+		county: "Lake County",
+		description: "As Lake County's largest city, Waukegan has diverse cleaning needs. From downtown offices to residential neighborhoods, we serve all of Waukegan.",
+		highlights: ["Downtown Waukegan", "Lakefront area", "Commercial buildings", "Residential areas"],
+		zipCodes: ["60085", "60087"],
+	},
+	{
+		name: "Buffalo Grove",
+		slug: "buffalo-grove",
+		county: "Lake County",
+		description: "Buffalo Grove families and businesses count on The Heiser Group for reliable, thorough cleaning services. We've been part of this community for years.",
+		highlights: ["Town Center area", "Corporate parks", "Family neighborhoods", "Retail centers"],
+		zipCodes: ["60089"],
+	},
+	{
+		name: "Deerfield",
+		slug: "deerfield",
+		county: "Lake County",
+		description: "Deerfield's professional community and beautiful homes deserve professional cleaning to match. We provide meticulous service throughout Deerfield.",
+		highlights: ["Downtown Deerfield", "Corporate headquarters", "Residential areas", "Retail district"],
+		zipCodes: ["60015"],
+	},
+	{
+		name: "Lake Bluff",
+		slug: "lake-bluff",
+		county: "Lake County",
+		description: "Lake Bluff's charming village atmosphere and beautiful homes are best maintained with professional care. We're honored to serve Lake Bluff residents.",
+		highlights: ["Village center", "Lakefront properties", "Historic homes", "Residential neighborhoods"],
+		zipCodes: ["60044"],
+	},
+	{
+		name: "Gurnee",
+		slug: "gurnee",
+		county: "Lake County",
+		description: "From Six Flags Great America to Gurnee Mills and beyond, Gurnee is a bustling community. We provide cleaning services for homes and businesses throughout Gurnee.",
+		highlights: ["Gurnee Mills area", "Commercial district", "Family neighborhoods", "Business parks"],
+		zipCodes: ["60031"],
+	},
+	{
+		name: "Lincolnshire",
+		slug: "lincolnshire",
+		county: "Lake County",
+		description: "Lincolnshire's corporate parks and upscale residential areas require professional cleaning services. We deliver excellence throughout Lincolnshire.",
+		highlights: ["Corporate centers", "Marriott Theatre area", "Executive homes", "Office buildings"],
+		zipCodes: ["60069"],
+	},
+];
+
+export function getStaticPaths() {
+	const cities: CityData[] = [
+		{ name: "Grayslake", slug: "grayslake", county: "Lake County", description: "Grayslake's charming downtown and growing residential areas deserve professional cleaning care.", highlights: ["College of Lake County area", "Downtown Grayslake", "Lakefront properties", "Family neighborhoods"], zipCodes: ["60030"] },
+		{ name: "Libertyville", slug: "libertyville", county: "Lake County", description: "Libertyville's beautiful historic homes and thriving business district need cleaning professionals who understand quality.", highlights: ["Downtown Libertyville", "Historic district homes", "Business district offices", "Residential neighborhoods"], zipCodes: ["60048"] },
+		{ name: "Vernon Hills", slug: "vernon-hills", county: "Lake County", description: "From Hawthorn Mall area businesses to beautiful residential communities, Vernon Hills trusts The Heiser Group.", highlights: ["Hawthorn Mall area", "Corporate offices", "Residential communities", "Retail spaces"], zipCodes: ["60061"] },
+		{ name: "Mundelein", slug: "mundelein", county: "Lake County", description: "Mundelein's diverse community of homes and businesses deserves reliable, professional cleaning.", highlights: ["Downtown Mundelein", "University of Saint Mary of the Lake area", "Family homes", "Local businesses"], zipCodes: ["60060"] },
+		{ name: "Highland Park", slug: "highland-park", county: "Lake County", description: "Highland Park's elegant homes and upscale properties require meticulous attention to detail.", highlights: ["Ravinia area", "Lakefront estates", "Downtown businesses", "Historic homes"], zipCodes: ["60035"] },
+		{ name: "Lake Forest", slug: "lake-forest", county: "Lake County", description: "Lake Forest's prestigious estates and discerning residents trust The Heiser Group for exceptional cleaning services.", highlights: ["Market Square area", "Estate properties", "Historic mansions", "Lakefront homes"], zipCodes: ["60045"] },
+		{ name: "Waukegan", slug: "waukegan", county: "Lake County", description: "As Lake County's largest city, Waukegan has diverse cleaning needs.", highlights: ["Downtown Waukegan", "Lakefront area", "Commercial buildings", "Residential areas"], zipCodes: ["60085", "60087"] },
+		{ name: "Buffalo Grove", slug: "buffalo-grove", county: "Lake County", description: "Buffalo Grove families and businesses count on The Heiser Group for reliable, thorough cleaning services.", highlights: ["Town Center area", "Corporate parks", "Family neighborhoods", "Retail centers"], zipCodes: ["60089"] },
+		{ name: "Deerfield", slug: "deerfield", county: "Lake County", description: "Deerfield's professional community and beautiful homes deserve professional cleaning to match.", highlights: ["Downtown Deerfield", "Corporate headquarters", "Residential areas", "Retail district"], zipCodes: ["60015"] },
+		{ name: "Lake Bluff", slug: "lake-bluff", county: "Lake County", description: "Lake Bluff's charming village atmosphere and beautiful homes are best maintained with professional care.", highlights: ["Village center", "Lakefront properties", "Historic homes", "Residential neighborhoods"], zipCodes: ["60044"] },
+		{ name: "Gurnee", slug: "gurnee", county: "Lake County", description: "From Six Flags Great America to Gurnee Mills and beyond, Gurnee is a bustling community.", highlights: ["Gurnee Mills area", "Commercial district", "Family neighborhoods", "Business parks"], zipCodes: ["60031"] },
+		{ name: "Lincolnshire", slug: "lincolnshire", county: "Lake County", description: "Lincolnshire's corporate parks and upscale residential areas require professional cleaning services.", highlights: ["Corporate centers", "Marriott Theatre area", "Executive homes", "Office buildings"], zipCodes: ["60069"] },
+	];
+	return cities.map(city => ({
+		params: { city: city.slug },
+		props: { city },
+	}));
+}
+
+interface Props {
+	city: CityData;
+}
+
+const { city } = Astro.props;
+
+const title = `House Cleaning ${city.name} IL | Professional Cleaning Services | The Heiser Group`;
+const description = `Professional house cleaning and commercial cleaning services in ${city.name}, Illinois. Trusted by ${city.county} families since 1978. Get a free quote today!`;
+
+const services = [
+	{
+		title: "Residential Cleaning",
+		description: `Regular house cleaning services for ${city.name} homes. Weekly, bi-weekly, or monthly options available.`,
+		href: "/residential-cleaning",
+		icon: "home" as const,
+	},
+	{
+		title: "Commercial Cleaning",
+		description: `Office and commercial cleaning for ${city.name} businesses. Flexible scheduling to fit your needs.`,
+		href: "/commercial-cleaning",
+		icon: "briefcase" as const,
+	},
+	{
+		title: "Deep Cleaning",
+		description: `One-time deep cleaning services for ${city.name} properties. Moving, seasonal, or special occasions.`,
+		href: "/one-time-deep-clean",
+		icon: "sparkle" as const,
+	},
+	{
+		title: "Realty Cleaning",
+		description: `Move-in/move-out cleaning for ${city.name} real estate professionals and homeowners.`,
+		href: "/realty-cleaning",
+		icon: "star" as const,
+	},
+];
+
+const whyChooseUs = [
+	{ title: "45+ Years Experience", description: "Serving Lake County since 1978. We know this area." },
+	{ title: "Background-Checked Teams", description: "Every team member passes thorough background checks." },
+	{ title: "Satisfaction Guaranteed", description: "Not happy? We'll make it right before we leave." },
+	{ title: "Locally Owned", description: "We're not a franchise—we're your neighbors." },
+];
+
+const allCities = [
+	{ name: "Grayslake", slug: "grayslake" },
+	{ name: "Libertyville", slug: "libertyville" },
+	{ name: "Vernon Hills", slug: "vernon-hills" },
+	{ name: "Mundelein", slug: "mundelein" },
+	{ name: "Highland Park", slug: "highland-park" },
+	{ name: "Lake Forest", slug: "lake-forest" },
+	{ name: "Waukegan", slug: "waukegan" },
+	{ name: "Buffalo Grove", slug: "buffalo-grove" },
+	{ name: "Deerfield", slug: "deerfield" },
+	{ name: "Lake Bluff", slug: "lake-bluff" },
+	{ name: "Gurnee", slug: "gurnee" },
+	{ name: "Lincolnshire", slug: "lincolnshire" },
+];
+
+// Schema for local business
+const localBusinessSchema = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"name": `The Heiser Group - ${city.name}`,
+	"description": description,
+	"url": `https://heisergroup.com/service-areas/${city.slug}`,
+	"telephone": contact.phone.display,
+	"address": {
+		"@type": "PostalAddress",
+		"addressLocality": city.name,
+		"addressRegion": "IL",
+		"postalCode": city.zipCodes[0],
+		"addressCountry": "US"
+	},
+	"areaServed": {
+		"@type": "City",
+		"name": city.name,
+		"containedIn": {
+			"@type": "AdministrativeArea",
+			"name": city.county
+		}
+	},
+	"priceRange": "$$",
+	"openingHoursSpecification": {
+		"@type": "OpeningHoursSpecification",
+		"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+		"opens": "08:00",
+		"closes": "17:00"
+	}
+};
+---
+
+<BaseLayout title={title} description={description}>
+	<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+	<PageHero
+		eyebrow={`SERVING ${city.name.toUpperCase()}, IL`}
+		title={`Professional Cleaning Services in ${city.name}`}
+		subtitle={`Trusted by ${city.county} families and businesses since 1978`}
+	/>
+
+	<!-- Intro Section -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<div class="prose prose-lg max-w-none">
+				<p class="text-xl text-gray-700 leading-relaxed">
+					{city.description}
+				</p>
+				<p class="text-gray-600 mt-4">
+					The Heiser Group has been providing professional cleaning services throughout {city.county} for over 45 years. Whether you need regular house cleaning, commercial janitorial services, or a one-time deep clean, our experienced team is ready to help.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Services Section -->
+	<section class="py-16 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title={`Cleaning Services in ${city.name}`}
+				subtitle="Comprehensive cleaning solutions for homes and businesses"
+			/>
+			<div class="grid md:grid-cols-2 gap-8">
+				{services.map(service => (
+					<a href={service.href} class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+						<FeatureCard
+							title={service.title}
+							description={service.description}
+							icon={service.icon}
+							iconSize="lg"
+						/>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Areas We Serve -->
+	<section class="py-16 bg-white">
+		<div class="max-w-4xl mx-auto px-6">
+			<SectionHeader
+				title={`Areas We Serve in ${city.name}`}
+			/>
+			<div class="grid sm:grid-cols-2 gap-4">
+				{city.highlights.map(area => (
+					<div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+						<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+						</svg>
+						<span class="text-gray-700">{area}</span>
+					</div>
+				))}
+			</div>
+			<p class="text-gray-500 text-sm mt-6 text-center">
+				Serving ZIP codes: {city.zipCodes.join(", ")} and surrounding areas
+			</p>
+		</div>
+	</section>
+
+	<!-- Why Choose Us -->
+	<section class="py-16 bg-brand-cream">
+		<div class="max-w-6xl mx-auto px-6">
+			<SectionHeader
+				title={`Why ${city.name} Chooses The Heiser Group`}
+			/>
+			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				{whyChooseUs.map(item => (
+					<div class="bg-white p-6 rounded-xl shadow text-center">
+						<h3 class="font-heading font-bold text-brand-navy mb-2">{item.title}</h3>
+						<p class="text-gray-600 text-sm">{item.description}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<CTASection
+		title={`Ready for a Cleaner ${city.name} Home or Office?`}
+		subtitle="Get your free, no-obligation quote today. We'll respond within 24 hours."
+		buttonText="Get Your Free Quote"
+		buttonLink="/contact"
+	/>
+
+	<!-- Other Service Areas -->
+	<section class="py-12 bg-gray-50">
+		<div class="max-w-6xl mx-auto px-6">
+			<h3 class="text-lg font-heading font-bold text-brand-navy mb-4 text-center">
+				Also Serving Nearby Communities
+			</h3>
+			<div class="flex flex-wrap justify-center gap-3">
+				{allCities.filter(c => c.slug !== city.slug).slice(0, 8).map(c => (
+					<a
+						href={`/service-areas/${c.slug}`}
+						class="px-4 py-2 bg-white rounded-full text-sm text-gray-600 hover:text-brand-orange hover:shadow transition-all"
+					>
+						{c.name}
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

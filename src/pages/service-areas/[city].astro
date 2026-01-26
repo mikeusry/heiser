@@ -247,8 +247,13 @@ interface Props {
 
 const { city } = Astro.props;
 
-const title = `House Cleaning ${city.name} IL | Professional Cleaning Services | The Heiser Group`;
-const description = `Professional house cleaning and commercial cleaning services in ${city.name}, Illinois. Trusted by ${city.county} families since 1978. Serving ${city.neighborhoods.slice(0, 3).join(", ")} and more. Get a free quote today!`;
+// SEO-optimized title (under 60 chars) and description (under 160 chars)
+const title = `${city.name} IL House Cleaning | The Heiser Group`;
+const description = `Trusted house cleaning in ${city.name}, IL since 1978. Same team every visit, flat-rate pricing, 100% satisfaction guaranteed. Free quotes!`;
+
+// Page dates for SEO
+const pubDate = new Date('2025-01-15');
+const modifiedDate = new Date('2025-01-26');
 
 const services = [
 	{
@@ -345,7 +350,7 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} pubDate={pubDate} modifiedDate={modifiedDate}>
 	<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 	<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 	<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

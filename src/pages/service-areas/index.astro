@@ -4,8 +4,13 @@ import PageHero from '../../components/PageHero.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CTASection from '../../components/CTASection.astro';
 
-const title = "Service Areas | Lake County IL Cleaning Services | The Heiser Group";
-const description = "The Heiser Group provides professional cleaning services throughout Lake County, Illinois. Serving Grayslake, Libertyville, Vernon Hills, Highland Park, Lake Forest, and more.";
+// SEO-optimized title (under 60 chars) and description (under 160 chars)
+const title = "Lake County IL Cleaning Services | Heiser Group";
+const description = "House cleaning services in Lake County IL since 1978. Same team, flat rates, satisfaction guaranteed. Serving Grayslake, Libertyville & more.";
+
+// Page dates for SEO
+const pubDate = new Date('2025-01-15');
+const modifiedDate = new Date('2025-01-26');
 
 const cities = [
 	{ name: "Grayslake", slug: "grayslake", zip: "60030" },
@@ -23,7 +28,7 @@ const cities = [
 ];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} pubDate={pubDate} modifiedDate={modifiedDate}>
 	<PageHero
 		eyebrow="SERVICE AREAS"
 		title="Serving Lake County, Illinois"

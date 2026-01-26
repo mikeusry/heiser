@@ -2,4 +2,4 @@
 # https://developers.cloudflare.com/pages/configuration/redirects/
 
 # Sitemap redirect for tools expecting /sitemap.xml
-/sitemap.xml /sitemap-index.xml 301
+/sitemap.xml /sitemap-0.xml 200

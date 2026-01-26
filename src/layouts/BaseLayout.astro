@@ -63,6 +63,15 @@ const ogImageURL = new URL(image, Astro.site || 'https://heisergroup.com');
     <meta name="geo.region" content="US-IL" />
     <meta name="geo.placename" content="Lake County" />
 
+    <!-- Google Analytics 4 -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-EQDVH8FW06"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EQDVH8FW06');
+    </script>
+
     <!-- point.dog Pixel -->
     <script is:inline>
       window.pdPixelConfig = {

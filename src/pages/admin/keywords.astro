@@ -1,0 +1,396 @@
+---
+// Keyword Research — SSR (no prerender)
+// Server-side fetch of site keywords on load, client-side for interactive tools
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getKeywordsForSite } from '../../lib/dataforseo';
+import type { SiteKeyword } from '../../lib/dataforseo';
+
+let siteKeywords: SiteKeyword[] = [];
+let error: string | null = null;
+
+try {
+  siteKeywords = await getKeywordsForSite(
+    {
+      DATAFORSEO_LOGIN: import.meta.env.DATAFORSEO_LOGIN,
+      DATAFORSEO_PASSWORD: import.meta.env.DATAFORSEO_PASSWORD,
+    },
+    'heisergroup.com',
+    50
+  );
+} catch (e) {
+  error = e instanceof Error ? e.message : 'Failed to fetch keywords';
+}
+
+function fmtNum(n: number): string {
+  return n.toLocaleString('en-US');
+}
+
+function fmtPos(n: number): string {
+  return n > 0 ? n.toFixed(0) : '—';
+}
+
+function difficultyClass(kd: number): string {
+  if (kd <= 20) return 'kd-easy';
+  if (kd <= 40) return 'kd-medium';
+  if (kd <= 60) return 'kd-hard';
+  return 'kd-vhard';
+}
+---
+
+<AdminLayout title="Keyword Research" description="DataforSEO keyword data for heisergroup.com">
+
+  {error && (
+    <div class="error-banner">
+      <strong>Error:</strong> {error}
+    </div>
+  )}
+
+  <!-- Keyword Suggestion Tool -->
+  <div class="admin-card" style="margin-bottom: 1.5rem;">
+    <h2 class="section-title">Keyword Explorer</h2>
+    <p class="section-desc">Enter a seed keyword to find suggestions, or check SERP results.</p>
+    <div class="search-row">
+      <input type="text" id="seed-input" placeholder="e.g. cleaning service lake county" class="search-input" />
+      <button id="btn-suggestions" class="btn btn-primary">Suggestions</button>
+      <button id="btn-serp" class="btn btn-secondary">SERP Check</button>
+    </div>
+    <div id="explorer-results" class="results-area"></div>
+  </div>
+
+  <!-- Site Keywords -->
+  {siteKeywords.length > 0 && (
+    <div class="admin-card">
+      <h2 class="section-title">Keywords Ranking — heisergroup.com</h2>
+      <p class="section-desc">{siteKeywords.length} keywords found via DataforSEO</p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th class="th-kw">Keyword</th>
+              <th class="th-num">Vol</th>
+              <th class="th-num">KD</th>
+              <th class="th-num">Pos</th>
+              <th class="th-num">CPC</th>
+              <th class="th-page">Page</th>
+            </tr>
+          </thead>
+          <tbody>
+            {siteKeywords
+              .sort((a, b) => (a.position || 999) - (b.position || 999))
+              .map((kw) => (
+                <tr>
+                  <td class="td-kw">{kw.keyword}</td>
+                  <td class="td-num">{fmtNum(kw.search_volume)}</td>
+                  <td class="td-num">
+                    <span class={`kd-badge ${difficultyClass(kw.keyword_difficulty)}`}>
+                      {kw.keyword_difficulty}
+                    </span>
+                  </td>
+                  <td class="td-num">
+                    <span class={`pos-badge ${kw.position <= 3 ? 'pos-top' : kw.position <= 10 ? 'pos-page1' : kw.position <= 20 ? 'pos-page2' : 'pos-deep'}`}>
+                      {fmtPos(kw.position)}
+                    </span>
+                  </td>
+                  <td class="td-num">${kw.cpc.toFixed(2)}</td>
+                  <td class="td-page">
+                    {kw.url ? (
+                      <a href={`https://heisergroup.com${kw.url}`} target="_blank" rel="noopener">{kw.url}</a>
+                    ) : '—'}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+</AdminLayout>
+
+<script>
+  const seedInput = document.getElementById('seed-input') as HTMLInputElement;
+  const btnSuggestions = document.getElementById('btn-suggestions');
+  const btnSerp = document.getElementById('btn-serp');
+  const resultsArea = document.getElementById('explorer-results')!;
+
+  function showLoading() {
+    resultsArea.innerHTML = '<div class="loading">Loading...</div>';
+  }
+
+  function showError(msg: string) {
+    resultsArea.innerHTML = `<div class="error-inline">${msg}</div>`;
+  }
+
+  btnSuggestions?.addEventListener('click', async () => {
+    const seed = seedInput.value.trim();
+    if (!seed) return;
+    showLoading();
+
+    try {
+      const resp = await fetch(`/api/admin/keywords?action=suggestions&seed=${encodeURIComponent(seed)}&limit=20`);
+      const data = await resp.json();
+      if (data.error) { showError(data.error); return; }
+
+      const rows = (data as any[])
+        .sort((a: any, b: any) => b.search_volume - a.search_volume)
+        .map((kw: any) => `
+          <tr>
+            <td>${kw.keyword}</td>
+            <td class="td-num">${kw.search_volume.toLocaleString()}</td>
+            <td class="td-num">${kw.keyword_difficulty}</td>
+            <td class="td-num">$${kw.cpc.toFixed(2)}</td>
+          </tr>
+        `).join('');
+
+      resultsArea.innerHTML = `
+        <h3 class="results-title">Suggestions for "${seed}"</h3>
+        <table>
+          <thead><tr><th>Keyword</th><th class="th-num">Volume</th><th class="th-num">KD</th><th class="th-num">CPC</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    } catch (e) {
+      showError('Failed to fetch suggestions');
+    }
+  });
+
+  btnSerp?.addEventListener('click', async () => {
+    const keyword = seedInput.value.trim();
+    if (!keyword) return;
+    showLoading();
+
+    try {
+      const resp = await fetch(`/api/admin/keywords?action=serp&keyword=${encodeURIComponent(keyword)}`);
+      const data = await resp.json();
+      if (data.error) { showError(data.error); return; }
+
+      const rows = (data.items as any[]).map((item: any) => `
+        <tr>
+          <td class="td-num">${item.position}</td>
+          <td>
+            <div class="serp-title">${item.title}</div>
+            <div class="serp-url">${item.domain}</div>
+          </td>
+        </tr>
+      `).join('');
+
+      resultsArea.innerHTML = `
+        <h3 class="results-title">SERP for "${keyword}" (${data.total_results?.toLocaleString() ?? '?'} results)</h3>
+        <table>
+          <thead><tr><th class="th-num">#</th><th>Result</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        ${data.related_searches?.length ? `<div class="related"><strong>Related:</strong> ${data.related_searches.join(', ')}</div>` : ''}
+      `;
+    } catch (e) {
+      showError('Failed to fetch SERP');
+    }
+  });
+
+  // Enter key triggers suggestions
+  seedInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') btnSuggestions?.click();
+  });
+</script>
+
+<style>
+  .error-banner {
+    background: var(--error-light);
+    color: var(--error);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .section-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .section-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  /* Search bar */
+  .search-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    outline: none;
+    font-family: inherit;
+  }
+
+  .search-input:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--admin-primary) 15%, transparent);
+  }
+
+  .btn {
+    padding: 0.625rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--admin-primary);
+    color: var(--admin-primary-text, #fff);
+  }
+
+  .btn-primary:hover {
+    background: var(--admin-primary-hover);
+  }
+
+  .btn-secondary {
+    background: var(--surface-alt);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--border);
+  }
+
+  /* Results */
+  .results-area {
+    min-height: 0;
+  }
+
+  .results-area:empty {
+    display: none;
+  }
+
+  .results-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .loading {
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .error-inline {
+    padding: 0.75rem;
+    background: var(--error-light);
+    color: var(--error);
+    border-radius: var(--radius);
+    font-size: 0.8125rem;
+  }
+
+  .related {
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .serp-title {
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  .serp-url {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* Tables */
+  .table-wrapper { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+  }
+
+  th {
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0.5rem 0.625rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .th-num { text-align: right; white-space: nowrap; }
+
+  td {
+    padding: 0.5rem 0.625rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .td-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .td-kw {
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .td-page {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .td-page a {
+    color: var(--admin-accent);
+    text-decoration: none;
+    font-size: 0.75rem;
+  }
+
+  .td-page a:hover { text-decoration: underline; }
+
+  tr:hover { background: var(--surface-alt); }
+
+  /* Badges */
+  .pos-badge, .kd-badge {
+    display: inline-block;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .pos-top { background: var(--success-light); color: #166534; }
+  .pos-page1 { background: #dbeafe; color: #1e40af; }
+  .pos-page2 { background: var(--warning-light); color: #92400e; }
+  .pos-deep { background: var(--surface-alt); color: var(--text-muted); }
+
+  .kd-easy { background: var(--success-light); color: #166534; }
+  .kd-medium { background: #dbeafe; color: #1e40af; }
+  .kd-hard { background: var(--warning-light); color: #92400e; }
+  .kd-vhard { background: var(--error-light); color: #991b1b; }
+
+  @media (max-width: 600px) {
+    .search-row { flex-direction: column; }
+  }
+</style>

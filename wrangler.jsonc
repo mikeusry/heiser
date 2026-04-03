@@ -1,0 +1,11 @@
+{
+  "name": "heiser-group",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat_v2"],
+  "kv_namespaces": [
+    {
+      "binding": "GALLERY",
+      "id": "868d64206c9048db859f79902edce951"
+    }
+  ]
+}

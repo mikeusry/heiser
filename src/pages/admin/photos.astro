@@ -1,0 +1,861 @@
+---
+// Admin Photo Gallery — SSR (no prerender)
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import {
+  getGalleryKV,
+  listGalleryEntries,
+  SERVICE_TYPES,
+  CLOUDINARY_UPLOAD_URL,
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_CLOUD_NAME,
+} from '../../lib/gallery';
+import type { GalleryEntry } from '../../lib/gallery';
+
+const kv = getGalleryKV(Astro.locals);
+let entries: GalleryEntry[] = [];
+let loadError = '';
+
+try {
+  entries = await listGalleryEntries(kv);
+} catch (e) {
+  loadError = e instanceof Error ? e.message : 'Failed to load gallery entries';
+}
+---
+
+<AdminLayout title="Photo Gallery" description="Upload and manage before/after job photos">
+
+  {loadError && (
+    <div class="banner banner-error">{loadError}</div>
+  )}
+
+  <!-- Upload Form -->
+  <div class="admin-card form-card">
+    <h2 class="section-title">New Gallery Entry</h2>
+
+    <form id="gallery-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="entry-title">Job Title <span class="required">*</span></label>
+          <input class="form-input" type="text" id="entry-title" name="title" placeholder="e.g. Highland Park Kitchen Deep Clean" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="entry-service">Service Type <span class="required">*</span></label>
+          <select class="form-select" id="entry-service" name="serviceType" required>
+            <option value="">Select service...</option>
+            {SERVICE_TYPES.map(s => (
+              <option value={s.value}>{s.label}</option>
+            ))}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="entry-location">Location</label>
+          <input class="form-input" type="text" id="entry-location" name="location" placeholder="e.g. Highland Park, IL" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="entry-date">Date</label>
+          <input class="form-input" type="date" id="entry-date" name="jobDate" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="entry-description">Description</label>
+        <textarea class="form-textarea" id="entry-description" name="description" rows="3" placeholder="Brief description of the job..."></textarea>
+      </div>
+
+      <div class="photos-section">
+        <h3 class="photos-title">Photos</h3>
+        <div id="photos-container"></div>
+        <button type="button" id="add-photo-btn" class="btn btn-secondary">+ Add Photo</button>
+      </div>
+
+      <div class="form-actions">
+        <div id="upload-progress" class="progress-wrap" style="display:none;">
+          <div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div>
+          <span id="progress-text" class="progress-text">Uploading...</span>
+        </div>
+        <button type="submit" id="submit-btn" class="btn btn-primary">Upload &amp; Save</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Existing Galleries -->
+  <div class="admin-card" style="margin-top: 1.5rem;">
+    <h2 class="section-title">Existing Galleries</h2>
+
+    {entries.length === 0 && !loadError && (
+      <p class="empty-state">No gallery entries yet. Upload your first photos above.</p>
+    )}
+
+    <div id="gallery-list" class="gallery-grid">
+      {entries.map(entry => (
+        <div class="gallery-item" data-id={entry.id}>
+          <div class="gallery-thumb">
+            {entry.photos[0] && (
+              <img
+                src={`https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/c_fill,w_300,h_200,q_auto,f_auto/${entry.photos[0].before.publicId}`}
+                alt={entry.photos[0].label}
+                loading="lazy"
+              />
+            )}
+          </div>
+          <div class="gallery-info">
+            <h3 class="gallery-title">{entry.title}</h3>
+            <div class="gallery-meta">
+              <span class={`status-badge ${entry.status}`}>{entry.status}</span>
+              <span class="service-badge">{SERVICE_TYPES.find(s => s.value === entry.serviceType)?.label || entry.serviceType}</span>
+            </div>
+            <div class="gallery-meta-secondary">
+              {entry.location && <span>{entry.location}</span>}
+              {entry.jobDate && <span>{entry.jobDate}</span>}
+              <span>{entry.photos.length} photo{entry.photos.length !== 1 ? 's' : ''}</span>
+            </div>
+          </div>
+          <div class="gallery-actions">
+            <button
+              type="button"
+              class="btn btn-small btn-secondary toggle-status-btn"
+              data-id={entry.id}
+              data-status={entry.status}
+            >
+              {entry.status === 'draft' ? 'Publish' : 'Unpublish'}
+            </button>
+            <button type="button" class="btn btn-small btn-danger delete-btn" data-id={entry.id}>
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Pass server constants to client -->
+  <div id="cloudinary-config" data-upload-url={CLOUDINARY_UPLOAD_URL} data-upload-preset={CLOUDINARY_UPLOAD_PRESET} hidden></div>
+
+</AdminLayout>
+
+<script>
+  // Read server-injected constants
+  const configEl = document.getElementById('cloudinary-config')!;
+  const CLOUDINARY_UPLOAD_URL = configEl.dataset.uploadUrl!;
+  const CLOUDINARY_UPLOAD_PRESET = configEl.dataset.uploadPreset!;
+
+  // -----------------------------------------------------------------------
+  // Photo row builder
+  // -----------------------------------------------------------------------
+  let photoCount = 0;
+
+  function createPhotoRow() {
+    photoCount++;
+    const pid = `photo-${photoCount}`;
+    const row = document.createElement('div');
+    row.className = 'photo-row';
+    row.dataset.photoId = pid;
+    row.innerHTML = `
+      <div class="photo-header">
+        <input type="text" class="form-input photo-label-input" placeholder="Label (e.g. Kitchen)" data-photo="${pid}" />
+        <div class="mode-toggle">
+          <button type="button" class="mode-btn active" data-photo="${pid}" data-mode="single">Single</button>
+          <button type="button" class="mode-btn" data-photo="${pid}" data-mode="pair">Before &amp; After</button>
+        </div>
+        ${photoCount > 1 ? `<button type="button" class="btn btn-small btn-danger remove-photo-btn" data-photo="${pid}">&times;</button>` : ''}
+      </div>
+      <div class="photo-zones" data-mode="single">
+        <div class="drop-zone-wrap zone-primary">
+          <div class="drop-zone" data-photo="${pid}" data-phase="before" tabindex="0" role="button" aria-label="Select photo">
+            <div class="drop-zone-prompt">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span>Tap or drag photo</span>
+            </div>
+            <img class="drop-zone-preview" alt="Photo preview" />
+            <button type="button" class="drop-zone-clear" aria-label="Remove photo">&times;</button>
+            <input type="file" class="drop-zone-file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*" tabindex="-1" />
+          </div>
+          <div class="drop-zone-error"></div>
+        </div>
+        <div class="drop-zone-wrap zone-after">
+          <span class="drop-zone-phase-label">After</span>
+          <div class="drop-zone" data-photo="${pid}" data-phase="after" tabindex="0" role="button" aria-label="Select after photo">
+            <div class="drop-zone-prompt">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span>Tap or drag photo</span>
+            </div>
+            <img class="drop-zone-preview" alt="After photo preview" />
+            <button type="button" class="drop-zone-clear" aria-label="Remove photo">&times;</button>
+            <input type="file" class="drop-zone-file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,image/*" tabindex="-1" />
+          </div>
+          <div class="drop-zone-error"></div>
+        </div>
+      </div>
+    `;
+    return row;
+  }
+
+  // -----------------------------------------------------------------------
+  // Init
+  // -----------------------------------------------------------------------
+  const photosContainer = document.getElementById('photos-container')!;
+  const addPhotoBtn = document.getElementById('add-photo-btn')!;
+
+  photosContainer.appendChild(createPhotoRow());
+
+  addPhotoBtn.addEventListener('click', () => {
+    if (photoCount >= 10) { showToast('Maximum 10 photos per entry', 'warning'); return; }
+    photosContainer.appendChild(createPhotoRow());
+  });
+
+  // -----------------------------------------------------------------------
+  // Mode toggle (single / pair)
+  // -----------------------------------------------------------------------
+  photosContainer.addEventListener('click', (e) => {
+    const modeBtn = (e.target as HTMLElement).closest('.mode-btn') as HTMLButtonElement;
+    if (modeBtn) {
+      const pid = modeBtn.dataset.photo!;
+      const mode = modeBtn.dataset.mode!;
+      const row = photosContainer.querySelector(`[data-photo-id="${pid}"]`)!;
+      const zones = row.querySelector('.photo-zones') as HTMLElement;
+      const toggle = row.querySelector('.mode-toggle')!;
+
+      // Update active button
+      toggle.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      modeBtn.classList.add('active');
+
+      // Update zones display mode
+      zones.dataset.mode = mode;
+
+      // Update primary zone label
+      const primaryWrap = zones.querySelector('.zone-primary')!;
+      let phaseLabel = primaryWrap.querySelector('.drop-zone-phase-label');
+      if (mode === 'pair') {
+        if (!phaseLabel) {
+          phaseLabel = document.createElement('span');
+          phaseLabel.className = 'drop-zone-phase-label';
+          primaryWrap.insertBefore(phaseLabel, primaryWrap.firstChild);
+        }
+        phaseLabel.textContent = 'Before';
+      } else if (phaseLabel) {
+        phaseLabel.remove();
+      }
+
+      // Clear after zone file when switching to single
+      if (mode === 'single') {
+        const afterZone = zones.querySelector('[data-phase="after"]') as HTMLElement;
+        if (afterZone) clearZone(afterZone);
+      }
+      return;
+    }
+
+    // Remove photo row
+    const removeBtn = (e.target as HTMLElement).closest('.remove-photo-btn') as HTMLButtonElement;
+    if (removeBtn) {
+      const pid = removeBtn.dataset.photo!;
+      photosContainer.querySelector(`[data-photo-id="${pid}"]`)?.remove();
+      return;
+    }
+
+    // Clear button
+    const clearBtn = (e.target as HTMLElement).closest('.drop-zone-clear') as HTMLButtonElement;
+    if (clearBtn) {
+      const zone = clearBtn.closest('.drop-zone') as HTMLElement;
+      if (zone) clearZone(zone);
+      return;
+    }
+
+    // Click on drop zone → trigger file input
+    const zone = (e.target as HTMLElement).closest('.drop-zone') as HTMLElement;
+    if (zone && !(e.target as HTMLElement).closest('.drop-zone-clear')) {
+      const input = zone.querySelector('.drop-zone-file') as HTMLInputElement;
+      input?.click();
+    }
+  });
+
+  // Keyboard: Enter/Space triggers file picker
+  photosContainer.addEventListener('keydown', (e) => {
+    const zone = (e.target as HTMLElement).closest('.drop-zone');
+    if (zone && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      (zone.querySelector('.drop-zone-file') as HTMLInputElement)?.click();
+    }
+  });
+
+  // -----------------------------------------------------------------------
+  // File handling
+  // -----------------------------------------------------------------------
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const fileStore = new Map<string, File>();
+
+  function validateFile(file: File): string | null {
+    if (file.size > MAX_FILE_SIZE) return 'File too large (max 10MB)';
+    if (!file.type.startsWith('image/')) return 'Please select an image file (JPG, PNG, WebP, or HEIC)';
+    return null;
+  }
+
+  function handleFile(zone: HTMLElement, file: File) {
+    const errorEl = zone.closest('.drop-zone-wrap')!.querySelector('.drop-zone-error') as HTMLElement;
+    errorEl.textContent = '';
+
+    const error = validateFile(file);
+    if (error) {
+      errorEl.textContent = error;
+      zone.classList.add('has-error');
+      return;
+    }
+
+    zone.classList.remove('has-error');
+    zone.classList.add('has-file');
+
+    const preview = zone.querySelector('.drop-zone-preview') as HTMLImageElement;
+    const url = URL.createObjectURL(file);
+    preview.src = url;
+
+    const key = `${zone.dataset.photo}-${zone.dataset.phase}`;
+    fileStore.set(key, file);
+  }
+
+  function clearZone(zone: HTMLElement) {
+    zone.classList.remove('has-file', 'has-error');
+    const preview = zone.querySelector('.drop-zone-preview') as HTMLImageElement;
+    const input = zone.querySelector('.drop-zone-file') as HTMLInputElement;
+    const errorEl = zone.closest('.drop-zone-wrap')!.querySelector('.drop-zone-error') as HTMLElement;
+
+    if (preview.src) URL.revokeObjectURL(preview.src);
+    preview.src = '';
+    input.value = '';
+    errorEl.textContent = '';
+
+    const key = `${zone.dataset.photo}-${zone.dataset.phase}`;
+    fileStore.delete(key);
+  }
+
+  // File input change
+  photosContainer.addEventListener('change', (e) => {
+    const input = e.target as HTMLInputElement;
+    if (!input.classList.contains('drop-zone-file')) return;
+    const zone = input.closest('.drop-zone') as HTMLElement;
+    if (zone && input.files?.[0]) handleFile(zone, input.files[0]);
+  });
+
+  // Drag and drop
+  photosContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const zone = (e.target as HTMLElement).closest('.drop-zone');
+    if (zone) zone.classList.add('dragover');
+  });
+
+  photosContainer.addEventListener('dragleave', (e) => {
+    const zone = (e.target as HTMLElement).closest('.drop-zone');
+    if (zone) zone.classList.remove('dragover');
+  });
+
+  photosContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const zone = (e.target as HTMLElement).closest('.drop-zone') as HTMLElement;
+    if (zone) {
+      zone.classList.remove('dragover');
+      const file = (e as DragEvent).dataTransfer?.files[0];
+      if (file) handleFile(zone, file);
+    }
+  });
+
+  // -----------------------------------------------------------------------
+  // Upload to Cloudinary
+  // -----------------------------------------------------------------------
+  async function uploadToCloudinary(file: File, subpath: string) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    // Preset locks folder to Heiser/gallery/. Use public_id for subfolder structure.
+    formData.append('public_id', `${subpath}/${Date.now()}`);
+
+    const res = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: formData });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Upload failed (${res.status})`);
+    }
+    return res.json();
+  }
+
+  // -----------------------------------------------------------------------
+  // Form submission
+  // -----------------------------------------------------------------------
+  const form = document.getElementById('gallery-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const progressWrap = document.getElementById('upload-progress')!;
+  const progressBar = document.getElementById('progress-bar')!;
+  const progressText = document.getElementById('progress-text')!;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const title = (document.getElementById('entry-title') as HTMLInputElement).value.trim();
+    const serviceType = (document.getElementById('entry-service') as HTMLSelectElement).value;
+    const location = (document.getElementById('entry-location') as HTMLInputElement).value.trim();
+    const jobDate = (document.getElementById('entry-date') as HTMLInputElement).value;
+    const description = (document.getElementById('entry-description') as HTMLTextAreaElement).value.trim();
+
+    if (!title || !serviceType) { showToast('Please fill in the required fields', 'error'); return; }
+
+    // Gather photo rows
+    const photoRows = photosContainer.querySelectorAll('.photo-row');
+    const photosData: Array<{
+      pid: string; label: string; mode: string;
+      beforeFile: File; afterFile?: File;
+    }> = [];
+
+    for (const row of photoRows) {
+      const el = row as HTMLElement;
+      const pid = el.dataset.photoId!;
+      const label = (el.querySelector('.photo-label-input') as HTMLInputElement)?.value.trim() || `Photo ${photosData.length + 1}`;
+      const zones = el.querySelector('.photo-zones') as HTMLElement;
+      const mode = zones.dataset.mode || 'single';
+
+      const beforeFile = fileStore.get(`${pid}-before`);
+      if (!beforeFile) continue; // skip empty rows
+
+      if (mode === 'pair') {
+        const afterFile = fileStore.get(`${pid}-after`);
+        if (!afterFile) { showToast(`"${label}" is set to Before & After but missing the After photo`, 'error'); return; }
+        photosData.push({ pid, label, mode, beforeFile, afterFile });
+      } else {
+        photosData.push({ pid, label, mode, beforeFile });
+      }
+    }
+
+    if (photosData.length === 0) { showToast('Add at least one photo', 'error'); return; }
+
+    // Begin upload
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading...';
+    progressWrap.style.display = 'flex';
+
+    const entryId = crypto.randomUUID();
+    const totalFiles = photosData.reduce((n, p) => n + (p.mode === 'pair' ? 2 : 1), 0);
+    let uploaded = 0;
+    const photos: any[] = [];
+
+    try {
+      for (const p of photosData) {
+        progressText.textContent = `Uploading ${p.label}...`;
+        const subpath = `${serviceType}/${entryId}`;
+        const beforeResult = await uploadToCloudinary(p.beforeFile, subpath);
+        uploaded++;
+        progressBar.style.width = `${Math.round((uploaded / totalFiles) * 100)}%`;
+
+        const photoEntry: any = {
+          id: crypto.randomUUID(),
+          label: p.label,
+          type: p.mode,
+          before: {
+            publicId: beforeResult.public_id,
+            width: beforeResult.width,
+            height: beforeResult.height,
+            format: beforeResult.format,
+            bytes: beforeResult.bytes,
+          },
+        };
+
+        if (p.mode === 'pair' && p.afterFile) {
+          progressText.textContent = `Uploading ${p.label} (after)...`;
+          const afterResult = await uploadToCloudinary(p.afterFile, subpath);
+          uploaded++;
+          progressBar.style.width = `${Math.round((uploaded / totalFiles) * 100)}%`;
+          photoEntry.after = {
+            publicId: afterResult.public_id,
+            width: afterResult.width,
+            height: afterResult.height,
+            format: afterResult.format,
+            bytes: afterResult.bytes,
+          };
+        }
+
+        photos.push(photoEntry);
+      }
+
+      // Save metadata
+      progressText.textContent = 'Saving entry...';
+      const res = await fetch('/api/admin/photos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: entryId, title, description, serviceType, location,
+          jobDate: jobDate || new Date().toISOString().split('T')[0],
+          photos, status: 'draft',
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Failed to save entry');
+      }
+
+      showToast('Gallery entry saved!', 'success');
+      form.reset();
+      photosContainer.innerHTML = '';
+      photoCount = 0;
+      fileStore.clear();
+      photosContainer.appendChild(createPhotoRow());
+      (document.getElementById('entry-date') as HTMLInputElement).value = new Date().toISOString().split('T')[0];
+      setTimeout(() => window.location.reload(), 1000);
+
+    } catch (err: any) {
+      showToast(err.message || 'Upload failed. Please try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Upload & Save';
+      progressWrap.style.display = 'none';
+      progressBar.style.width = '0%';
+    }
+  });
+
+  // -----------------------------------------------------------------------
+  // Gallery list actions
+  // -----------------------------------------------------------------------
+  const galleryList = document.getElementById('gallery-list');
+
+  galleryList?.addEventListener('click', async (e) => {
+    const target = e.target as HTMLElement;
+
+    const toggleBtn = target.closest('.toggle-status-btn') as HTMLButtonElement;
+    if (toggleBtn) {
+      const id = toggleBtn.dataset.id!;
+      const newStatus = toggleBtn.dataset.status === 'draft' ? 'published' : 'draft';
+      toggleBtn.disabled = true;
+      try {
+        const res = await fetch(`/api/admin/photos?id=${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus }),
+        });
+        if (!res.ok) throw new Error();
+        toggleBtn.dataset.status = newStatus;
+        toggleBtn.textContent = newStatus === 'draft' ? 'Publish' : 'Unpublish';
+        const badge = toggleBtn.closest('.gallery-item')?.querySelector('.status-badge');
+        if (badge) { badge.textContent = newStatus; badge.className = `status-badge ${newStatus}`; }
+        showToast(`Entry ${newStatus === 'published' ? 'published' : 'unpublished'}`, 'success');
+      } catch { showToast('Failed to update status', 'error'); }
+      finally { toggleBtn.disabled = false; }
+      return;
+    }
+
+    const deleteBtn = target.closest('.delete-btn') as HTMLButtonElement;
+    if (deleteBtn) {
+      if (!confirm('Delete this gallery entry? Images will remain in Cloudinary.')) return;
+      deleteBtn.disabled = true;
+      try {
+        const res = await fetch(`/api/admin/photos?id=${deleteBtn.dataset.id}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error();
+        deleteBtn.closest('.gallery-item')?.remove();
+        showToast('Entry deleted', 'success');
+      } catch { showToast('Failed to delete entry', 'error'); deleteBtn.disabled = false; }
+    }
+  });
+
+  // -----------------------------------------------------------------------
+  // Toast
+  // -----------------------------------------------------------------------
+  function showToast(message: string, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<span>${message}</span><button type="button" class="toast-close" aria-label="Dismiss">&times;</button>`;
+    toast.querySelector('.toast-close')!.addEventListener('click', () => toast.remove());
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 5000);
+  }
+
+  // Init date
+  const dateInput = document.getElementById('entry-date') as HTMLInputElement;
+  if (dateInput && !dateInput.value) dateInput.value = new Date().toISOString().split('T')[0];
+</script>
+
+<style is:global>
+  /* ===================== ADMIN PHOTOS PAGE ===================== */
+  /* Using is:global because photo rows are created dynamically via JS */
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .banner { padding: 0.875rem 1.25rem; border-radius: var(--radius); margin-bottom: 1.5rem; font-size: 0.875rem; font-weight: 500; }
+  .banner-error { background: var(--error-light); color: var(--error); }
+
+  /* Form layout */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; margin-bottom: 1rem; }
+  .form-label { font-size: 0.8125rem; font-weight: 600; color: var(--text); margin-bottom: 0.375rem; }
+  .required { color: var(--error); }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface);
+    outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(26,43,61,0.1);
+  }
+  .form-textarea { resize: vertical; min-height: 4rem; }
+
+  /* Photos section */
+  .photos-section { margin-top: 0.5rem; }
+  .photos-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+
+  /* Photo row */
+  .photo-row {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: var(--surface);
+  }
+
+  .photo-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .photo-label-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Mode toggle */
+  .mode-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .mode-btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: inherit;
+    border: none;
+    background: var(--surface);
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  .mode-btn:not(:last-child) { border-right: 1px solid var(--border); }
+  .mode-btn.active { background: var(--admin-primary); color: var(--admin-primary-text); }
+  .mode-btn:hover:not(.active) { background: var(--surface-alt); }
+
+  /* Photo zones container */
+  .photo-zones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .photo-zones[data-mode="single"] {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-zones[data-mode="single"] .zone-after {
+    display: none;
+  }
+
+  .drop-zone-wrap { display: flex; flex-direction: column; }
+
+  .drop-zone-phase-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.375rem;
+  }
+
+  /* Drop zone */
+  .drop-zone {
+    position: relative;
+    min-height: 160px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .drop-zone:hover, .drop-zone:focus-visible {
+    border-color: var(--admin-primary);
+    background: var(--admin-primary-light);
+  }
+  .drop-zone.dragover {
+    border-color: var(--admin-accent);
+    border-style: solid;
+    background: var(--admin-primary-light);
+  }
+  .drop-zone.has-file {
+    border-style: solid;
+    border-color: var(--success);
+  }
+  .drop-zone.has-error { border-color: var(--error); }
+
+  .drop-zone-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    pointer-events: none;
+  }
+  .has-file .drop-zone-prompt { display: none; }
+
+  .drop-zone-preview {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .has-file .drop-zone-preview { display: block; }
+
+  .drop-zone-clear {
+    display: none;
+    position: absolute;
+    top: 0.375rem;
+    right: 0.375rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 1.125rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .has-file .drop-zone-clear { display: flex; }
+  .drop-zone-clear:hover { background: var(--error); }
+
+  .drop-zone-file {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: -1;
+  }
+
+  .drop-zone-error {
+    font-size: 0.75rem;
+    color: var(--error);
+    min-height: 1.125rem;
+    margin-top: 0.25rem;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    min-height: 2.75rem;
+  }
+  .btn-primary { background: var(--admin-primary); color: var(--admin-primary-text); }
+  .btn-primary:hover:not(:disabled) { background: var(--admin-primary-hover); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--surface-alt); }
+  .btn-danger { background: var(--error-light); color: var(--error); }
+  .btn-danger:hover { background: var(--error); color: #fff; }
+  .btn-small { padding: 0.375rem 0.75rem; font-size: 0.75rem; min-height: 2rem; }
+
+  /* Form actions */
+  .form-actions {
+    display: flex; align-items: center; justify-content: flex-end;
+    gap: 1rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+  }
+
+  /* Progress */
+  .progress-wrap { display: flex; align-items: center; gap: 0.75rem; flex: 1; }
+  .progress-track { flex: 1; height: 0.5rem; background: var(--surface-alt); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--admin-accent); border-radius: 999px; transition: width 0.3s; width: 0; }
+  .progress-text { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+  /* Gallery grid */
+  .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .gallery-item { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+  .gallery-thumb { aspect-ratio: 3/2; overflow: hidden; background: var(--surface-alt); }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-info { padding: 0.875rem; }
+  .gallery-title { font-size: 0.9375rem; font-weight: 700; color: var(--text); margin-bottom: 0.375rem; }
+  .gallery-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.375rem; }
+  .gallery-meta-secondary { display: flex; flex-wrap: wrap; gap: 0.75rem; font-size: 0.75rem; color: var(--text-muted); }
+
+  .status-badge { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.125rem 0.5rem; border-radius: 999px; }
+  .status-badge.draft { background: var(--warning-light); color: #92400e; }
+  .status-badge.published { background: var(--success-light); color: #166534; }
+  .service-badge { font-size: 0.6875rem; font-weight: 500; color: var(--text-muted); background: var(--surface-alt); padding: 0.125rem 0.5rem; border-radius: 999px; }
+  .gallery-actions { display: flex; gap: 0.5rem; padding: 0 0.875rem 0.875rem; }
+  .empty-state { color: var(--text-muted); font-size: 0.875rem; text-align: center; padding: 2rem 1rem; }
+
+  /* Toast */
+  .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000; display: flex; flex-direction: column; gap: 0.5rem; }
+  .toast { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 0.8125rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: toast-in 0.25s ease; }
+  .toast-success { background: var(--success-light); color: #166534; }
+  .toast-error { background: var(--error-light); color: #991b1b; }
+  .toast-warning { background: var(--warning-light); color: #92400e; }
+  .toast-close { background: none; border: none; font-size: 1.125rem; cursor: pointer; color: inherit; opacity: 0.6; padding: 0; line-height: 1; }
+  .toast-close:hover { opacity: 1; }
+  @keyframes toast-in { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .photo-zones, .photo-zones[data-mode="pair"] { grid-template-columns: 1fr; }
+    .photo-header { flex-wrap: wrap; }
+    .mode-toggle { width: 100%; order: -1; }
+    .mode-btn { flex: 1; text-align: center; }
+    .drop-zone { min-height: 120px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .form-actions { flex-direction: column; align-items: stretch; }
+    .toast-container { left: 1rem; right: 1rem; bottom: 1rem; }
+  }
+</style>

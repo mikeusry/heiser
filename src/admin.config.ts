@@ -7,11 +7,12 @@ export const adminConfig = createAdminConfig({
   siteUrl: 'https://heisergroup.com',
   modules: {
     dashboard: true,
-    siteReview: true,
+    siteReview: false,
     contentQueue: false,
     voiceSystem: false,
     seoAudit: true,
     brandGuide: true,
+    photoGallery: true,
   },
   colors: {
     primary: '#1A2B3D',      // Navy (brand)

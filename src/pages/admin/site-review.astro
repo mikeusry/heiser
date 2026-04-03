@@ -19,53 +19,47 @@ const pages = [
 
 <AdminLayout title="Site Review" description="Track design progress for all pages">
 
-      <div class="bg-white rounded-2xl shadow-xl p-12">
-        <div class="mb-10">
-          <div class="flex items-center gap-6 text-base">
-            <div class="flex items-center gap-2">
-              <div class="w-4 h-4 bg-green-500 rounded-full"></div>
-              <span>Completed</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-4 h-4 bg-yellow-500 rounded-full"></div>
-              <span>Needs Design</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="w-4 h-4 bg-gray-300 rounded-full"></div>
-              <span>Not Started</span>
-            </div>
+      <div class="review-card">
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-dot completed"></span>
+            <span>Completed</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot needs-design"></span>
+            <span>Needs Design</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot not-started"></span>
+            <span>Not Started</span>
           </div>
         </div>
 
-        <div class="space-y-3">
+        <div class="page-list">
           {pages.map(page => (
-            <div class="page-item flex items-center justify-between p-6 rounded-xl hover:bg-gray-50 transition-colors border-2 border-gray-200" data-status={page.status}>
-              <div class="flex items-center gap-6 flex-1">
+            <div class="page-item" data-status={page.status}>
+              <div class="page-left">
                 <input
                   type="checkbox"
                   id={page.url}
-                  class="page-checkbox w-7 h-7 rounded border-2 border-gray-300 text-brand-orange focus:ring-brand-orange cursor-pointer"
+                  class="page-checkbox"
                   data-page-url={page.url}
                   checked={page.status === 'completed'}
                 />
-                <label for={page.url} class="flex-1 cursor-pointer">
-                  <span class="text-xl font-semibold text-gray-900">{page.name}</span>
+                <label for={page.url} class="page-label">
+                  {page.name}
                 </label>
               </div>
 
-              <div class="flex items-center gap-6">
-                <div class={`status-indicator w-4 h-4 rounded-full ${
-                  page.status === 'completed' ? 'bg-green-500' :
-                  page.status === 'needs-design' ? 'bg-yellow-500' :
-                  'bg-gray-300'
-                }`}></div>
-                <a
-                  href={page.url}
-                  target="_blank"
-                  class="text-brand-orange hover:text-brand-orange-dark font-semibold flex items-center gap-2 text-lg"
-                >
+              <div class="page-right">
+                <span class={`status-indicator ${
+                  page.status === 'completed' ? 'completed' :
+                  page.status === 'needs-design' ? 'needs-design' :
+                  'not-started'
+                }`}></span>
+                <a href={page.url} target="_blank" class="view-link">
                   View
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                   </svg>
                 </a>
@@ -74,27 +68,25 @@ const pages = [
           ))}
         </div>
 
-        <div class="mt-12 pt-12 border-t-2 border-gray-200">
-          <div class="grid md:grid-cols-3 gap-8">
-            <div class="text-center p-8 bg-green-50 rounded-xl">
-              <div class="text-5xl font-bold text-green-600 mb-3" id="completed-count">1</div>
-              <div class="text-gray-600 text-lg">Completed</div>
+        <div class="stats-section">
+          <div class="stats-grid">
+            <div class="stat-card stat-completed">
+              <div class="stat-number" id="completed-count">1</div>
+              <div class="stat-label">Completed</div>
             </div>
-            <div class="text-center p-8 bg-yellow-50 rounded-xl">
-              <div class="text-5xl font-bold text-yellow-600 mb-3" id="needs-design-count">11</div>
-              <div class="text-gray-600 text-lg">Needs Design</div>
+            <div class="stat-card stat-needs-design">
+              <div class="stat-number" id="needs-design-count">11</div>
+              <div class="stat-label">Needs Design</div>
             </div>
-            <div class="text-center p-8 bg-gray-50 rounded-xl">
-              <div class="text-5xl font-bold text-brand-orange mb-3" id="progress-percent">8%</div>
-              <div class="text-gray-600 text-lg">Complete</div>
+            <div class="stat-card stat-progress">
+              <div class="stat-number" id="progress-percent">8%</div>
+              <div class="stat-label">Complete</div>
             </div>
           </div>
         </div>
 
-        <div class="mt-10">
-          <div class="bg-gray-200 rounded-full h-5 overflow-hidden">
-            <div id="progress-bar" class="bg-brand-orange h-full transition-all duration-500" style="width: 8%"></div>
-          </div>
+        <div class="progress-track">
+          <div id="progress-bar" class="progress-fill" style="width: 8%"></div>
         </div>
       </div>
 
@@ -119,10 +111,10 @@ const pages = [
           // Update indicator
           const indicator = pageItem.querySelector('.status-indicator');
           if (indicator) {
-            indicator.className = `status-indicator w-3 h-3 rounded-full ${
-              status === 'completed' ? 'bg-green-500' :
-              status === 'needs-design' ? 'bg-yellow-500' :
-              'bg-gray-300'
+            indicator.className = `status-indicator ${
+              status === 'completed' ? 'completed' :
+              status === 'needs-design' ? 'needs-design' :
+              'not-started'
             }`;
           }
         }
@@ -183,8 +175,8 @@ const pages = [
       if (pageItem && indicator) {
         const newStatus = input.checked ? 'completed' : 'needs-design';
         pageItem.setAttribute('data-status', newStatus);
-        indicator.className = `status-indicator w-3 h-3 rounded-full ${
-          newStatus === 'completed' ? 'bg-green-500' : 'bg-yellow-500'
+        indicator.className = `status-indicator ${
+          newStatus === 'completed' ? 'completed' : 'needs-design'
         }`;
       }
 
@@ -198,17 +190,192 @@ const pages = [
 </script>
 
 <style>
-  .page-checkbox:checked {
-    background-color: #D1623C;
-    border-color: #D1623C;
+  .review-card {
+    background: var(--surface, #fff);
+    border-radius: var(--radius, 8px);
+    box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.1));
+    padding: 2rem;
+  }
+
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .legend-dot,
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-dot.completed,
+  .status-indicator.completed {
+    background: var(--success, #22c55e);
+  }
+
+  .legend-dot.needs-design,
+  .status-indicator.needs-design {
+    background: var(--warning, #f59e0b);
+  }
+
+  .legend-dot.not-started,
+  .status-indicator.not-started {
+    background: var(--border, #e5e7eb);
+  }
+
+  .page-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .page-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: var(--radius, 8px);
+    transition: background 0.15s ease;
+  }
+
+  .page-item:hover {
+    background: var(--surface-alt, #f5f5f5);
+  }
+
+  .page-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .page-checkbox {
+    width: 1.125rem;
+    height: 1.125rem;
+    cursor: pointer;
+    accent-color: var(--admin-accent, #D1623C);
+  }
+
+  .page-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text, #1f2937);
+    cursor: pointer;
+  }
+
+  .page-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .view-link {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--admin-accent, #D1623C);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .view-link:hover {
+    text-decoration: underline;
+  }
+
+  .stats-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 1.25rem;
+    border-radius: var(--radius, 8px);
+  }
+
+  .stat-completed {
+    background: var(--success-light, #dcfce7);
+  }
+
+  .stat-needs-design {
+    background: var(--warning-light, #fef3c7);
+  }
+
+  .stat-progress {
+    background: var(--surface-alt, #f5f5f5);
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-completed .stat-number {
+    color: var(--success, #22c55e);
+  }
+
+  .stat-needs-design .stat-number {
+    color: var(--warning, #f59e0b);
+  }
+
+  .stat-progress .stat-number {
+    color: var(--admin-accent, #D1623C);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .progress-track {
+    margin-top: 1.5rem;
+    background: var(--border, #e5e7eb);
+    border-radius: 999px;
+    height: 0.5rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--admin-accent, #D1623C);
+    border-radius: 999px;
+    transition: width 0.5s ease;
   }
 
   .note-box {
     margin-top: 1.5rem;
     padding: 1rem 1.25rem;
     background: var(--admin-primary-light, #e8f4fc);
-    border-radius: 0.75rem;
-    font-size: 0.9rem;
+    border-radius: var(--radius, 8px);
+    font-size: 0.875rem;
     color: var(--text, #374151);
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

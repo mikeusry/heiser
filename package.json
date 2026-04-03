@@ -9,13 +9,17 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.13",
     "@astrojs/sitemap": "^3.7.0",
     "@cloudinary/react": "^1.14.3",
     "@cloudinary/url-gen": "^1.22.0",
+    "@pointdog/admin-core": "file:../Mothership/packages/admin-core",
+    "@supabase/supabase-js": "^2.101.1",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.14.1",
     "cloudinary": "^2.7.0",
     "node-fetch": "^3.3.2",
+    "point-dog": "github:mikeusry/mothership#main",
     "tailwindcss": "^4.1.13"
   }
 }

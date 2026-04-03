@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import AdminLayout from '../../layouts/AdminLayout.astro';
 
 const pages = [
   { name: 'Home', url: '/', status: 'completed' },
@@ -17,11 +17,7 @@ const pages = [
 ];
 ---
 
-<BaseLayout title="Admin - Page Review Checklist" noindex={true}>
-  <section class="py-20 bg-gray-50 min-h-screen">
-    <div class="max-w-5xl mx-auto px-6">
-      <h1 class="text-5xl font-heading font-bold text-brand-navy mb-4">Page Review Checklist</h1>
-      <p class="text-xl text-gray-600 mb-12">Track design progress for all pages</p>
+<AdminLayout title="Site Review" description="Track design progress for all pages">
 
       <div class="bg-white rounded-2xl shadow-xl p-12">
         <div class="mb-10">
@@ -102,15 +98,10 @@ const pages = [
         </div>
       </div>
 
-      <div class="mt-10 p-8 bg-blue-50 rounded-xl">
-        <h3 class="text-xl font-semibold text-blue-900 mb-3">💡 Note</h3>
-        <p class="text-blue-800 text-lg">
-          Check off pages as you review and approve them. Progress is saved in your browser's local storage.
-        </p>
+      <div class="note-box">
+        <strong>Note:</strong> Check off pages as you review and approve them. Progress is saved in your browser's local storage.
       </div>
-    </div>
-  </section>
-</BaseLayout>
+</AdminLayout>
 
 <script>
   // Load saved state from localStorage
@@ -210,5 +201,14 @@ const pages = [
   .page-checkbox:checked {
     background-color: #D1623C;
     border-color: #D1623C;
+  }
+
+  .note-box {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--admin-primary-light, #e8f4fc);
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text, #374151);
   }
 </style>

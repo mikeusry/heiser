@@ -1,0 +1,247 @@
+---
+// Admin dashboard — SSR (no prerender)
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { adminConfig } from '../../admin.config';
+import { ADMIN_ICONS } from '@pointdog/admin-core';
+import { fetchMothershipStatus } from '../../lib/mothership';
+
+// Fetch Mothership connection status
+let mothership: Awaited<ReturnType<typeof fetchMothershipStatus>> | null = null;
+try {
+  mothership = await fetchMothershipStatus();
+} catch {
+  // Mothership unavailable — dashboard still works
+}
+
+const modules = [
+  {
+    name: 'SEO Dashboard',
+    description: 'GSC data, keyword rankings, and content performance',
+    href: '/admin/seo',
+    icon: 'search',
+    enabled: adminConfig.modules.seoAudit,
+    status: 'active' as const,
+  },
+  {
+    name: 'Site Review',
+    description: 'Page review checklist and design progress tracker',
+    href: '/admin/site-review',
+    icon: 'check-square',
+    enabled: adminConfig.modules.siteReview,
+    status: 'active' as const,
+  },
+  {
+    name: 'Brand Guide',
+    description: 'Colors, typography, and component reference',
+    href: '/admin/brand',
+    icon: 'palette',
+    enabled: adminConfig.modules.brandGuide,
+    status: 'coming-soon' as const,
+  },
+];
+
+const enabledModules = modules.filter(m => m.enabled);
+
+function getIcon(name: string): string {
+  return ADMIN_ICONS[name as keyof typeof ADMIN_ICONS] || ADMIN_ICONS.file;
+}
+
+// Connection status indicators
+const connections = [
+  {
+    name: 'Mothership',
+    status: mothership?.brand ? 'connected' : 'disconnected',
+    detail: mothership?.brand ? `${mothership.brand.name} (${mothership.brand.status})` : 'Not connected',
+  },
+  {
+    name: 'GSC',
+    status: mothership?.site?.gsc_property ? 'connected' : 'disconnected',
+    detail: mothership?.site?.gsc_property ?? 'Not configured',
+  },
+  {
+    name: 'GA4',
+    status: mothership?.site?.ga4_property_id ? 'connected' : 'disconnected',
+    detail: mothership?.site?.ga4_property_id ?? 'Not configured',
+  },
+  {
+    name: 'CDP',
+    status: mothership?.cdp?.is_active ? 'connected' : 'disconnected',
+    detail: mothership?.cdp ? `${mothership.cdp.gcp_project_id}:${mothership.cdp.dataset_name}` : 'Not configured',
+  },
+];
+---
+
+<AdminLayout title="Dashboard" description="Overview of site health and management tools">
+  <!-- Connection Status -->
+  <div class="status-bar">
+    {connections.map((c) => (
+      <div class="status-item">
+        <span class={`status-dot ${c.status}`}></span>
+        <span class="status-name">{c.name}</span>
+        <span class="status-detail">{c.detail}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Module Cards -->
+  <div class="admin-grid-3" style="margin-bottom: 1.5rem;">
+    {enabledModules.map((mod) => (
+      <a
+        href={mod.status === 'active' ? mod.href : undefined}
+        class={`admin-card module-card ${mod.status === 'active' ? 'clickable' : 'disabled'}`}
+      >
+        <div class="module-header">
+          <div class="module-icon">
+            <Fragment set:html={getIcon(mod.icon)} />
+          </div>
+          {mod.status === 'coming-soon' && (
+            <span class="badge-soon">Coming Soon</span>
+          )}
+        </div>
+        <h2 class="module-name">{mod.name}</h2>
+        <p class="module-desc">{mod.description}</p>
+      </a>
+    ))}
+  </div>
+
+  <!-- Quick Links -->
+  <div class="admin-card">
+    <h3 class="quick-links-title">Quick Links</h3>
+    <div class="quick-links">
+      <a href="https://dash.cloudflare.com" target="_blank" rel="noopener">Cloudflare</a>
+      <a href="https://analytics.google.com" target="_blank" rel="noopener">Analytics</a>
+      <a href="https://search.google.com/search-console" target="_blank" rel="noopener">Search Console</a>
+      <a href="https://github.com/mikeusry/heiser" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</AdminLayout>
+
+<style>
+  /* Connection status bar */
+  .status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .status-dot.connected {
+    background: var(--success);
+    box-shadow: 0 0 4px var(--success);
+  }
+
+  .status-dot.disconnected {
+    background: var(--text-muted);
+    opacity: 0.4;
+  }
+
+  .status-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .status-detail {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+
+  /* Module cards */
+  .module-card {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .module-card.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .module-card.disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+
+  .module-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .module-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--admin-primary-light);
+    color: var(--admin-primary);
+  }
+
+  .badge-soon {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    background: var(--surface-alt);
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+  }
+
+  .module-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+  }
+
+  .module-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .quick-links-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .quick-links a {
+    color: var(--admin-accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  .quick-links a:hover {
+    text-decoration: underline;
+  }
+</style>

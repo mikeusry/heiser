@@ -1,0 +1,273 @@
+---
+// Brand Guide — SSR (no prerender)
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { adminConfig } from '../../admin.config';
+
+const colors = [
+  { name: 'Orange', hex: '#D1623C', usage: 'Primary CTAs, headings, accents, icons' },
+  { name: 'Navy', hex: '#1A2B3D', usage: 'Secondary elements, footer, depth/contrast' },
+  { name: 'Cream', hex: '#FDF5ED', usage: 'Alternating sections, testimonial backgrounds' },
+  { name: 'White', hex: '#FFFFFF', usage: 'Main backgrounds' },
+  { name: 'Text Gray', hex: '#4A4A4A', usage: 'Secondary text' },
+];
+
+const fonts = [
+  { name: 'Playfair Display', role: 'Logo', weight: '400–700', sample: 'The Heiser Group', css: "'Playfair Display', Georgia, serif" },
+  { name: 'Zilla Slab', role: 'Headings', weight: '600–700', sample: 'Professional Cleaning Services', css: "'Zilla Slab', 'Roboto Slab', serif" },
+  { name: 'Inter', role: 'Body', weight: '400–600', sample: 'Serving Lake County, Illinois since 1978 with commitment to quality and integrity.', css: "'Inter', system-ui, sans-serif" },
+];
+
+const components = [
+  { name: 'PageHero', path: 'src/components/PageHero.astro', desc: 'Full-width hero with gradient overlay and CTA' },
+  { name: 'ServiceCard', path: 'src/components/ServiceCard.astro', desc: 'Service listing card with icon and link' },
+  { name: 'FeatureCard', path: 'src/components/FeatureCard.astro', desc: 'Feature/benefit card with icon' },
+  { name: 'CTASection', path: 'src/components/CTASection.astro', desc: 'Call-to-action banner with phone + contact link' },
+  { name: 'TestimonialSection', path: 'src/components/TestimonialSection.astro', desc: 'Customer testimonial carousel/grid' },
+  { name: 'CoreValues', path: 'src/components/CoreValues.astro', desc: 'Company values display grid' },
+  { name: 'SectionHeader', path: 'src/components/SectionHeader.astro', desc: 'Section title with optional subtitle' },
+  { name: 'CloudinaryImage', path: 'src/components/CloudinaryImage.astro', desc: 'Optimized Cloudinary image with responsive sizing' },
+  { name: 'Navigation', path: 'src/components/Navigation.astro', desc: 'Main site navigation with mobile menu' },
+  { name: 'Footer', path: 'src/components/Footer.astro', desc: 'Site footer with links, contact, social' },
+  { name: 'FAQItem', path: 'src/components/FAQItem.astro', desc: 'Expandable FAQ accordion item' },
+  { name: 'StatCard', path: 'src/components/StatCard.astro', desc: 'Stat/metric display card' },
+  { name: 'Button', path: 'src/components/Button.astro', desc: 'Styled button component' },
+];
+---
+
+<AdminLayout title="Brand Guide" description="Heiser Group visual identity and component reference">
+
+  <!-- Colors -->
+  <div class="admin-card" style="margin-bottom: 1.5rem;">
+    <h2 class="section-title">Color Palette</h2>
+    <div class="color-grid">
+      {colors.map(c => (
+        <div class="color-card">
+          <div class="color-swatch" style={`background: ${c.hex};`}></div>
+          <div class="color-info">
+            <strong>{c.name}</strong>
+            <code>{c.hex}</code>
+            <span class="color-usage">{c.usage}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="admin-card" style="margin-bottom: 1.5rem;">
+    <h2 class="section-title">Typography</h2>
+    <div class="type-stack">
+      {fonts.map(f => (
+        <div class="type-row">
+          <div class="type-meta">
+            <strong>{f.name}</strong>
+            <span class="type-role">{f.role}</span>
+            <code class="type-weight">{f.weight}</code>
+          </div>
+          <div class="type-sample" style={`font-family: ${f.css};`}>
+            {f.role === 'Logo' ? (
+              <span style="font-size: 1.75rem; font-weight: 600;">{f.sample}</span>
+            ) : f.role === 'Headings' ? (
+              <span style="font-size: 1.5rem; font-weight: 700;">{f.sample}</span>
+            ) : (
+              <span style="font-size: 1rem; font-weight: 400; line-height: 1.6;">{f.sample}</span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Type Scale -->
+  <div class="admin-card" style="margin-bottom: 1.5rem;">
+    <h2 class="section-title">Type Scale</h2>
+    <div class="scale-stack">
+      <div class="scale-row" style="font-family: 'Zilla Slab', serif; font-size: 3rem; font-weight: 700;">H1 — Hero Headlines</div>
+      <div class="scale-row" style="font-family: 'Zilla Slab', serif; font-size: 2.25rem; font-weight: 700;">H2 — Section Titles</div>
+      <div class="scale-row" style="font-family: 'Zilla Slab', serif; font-size: 1.5rem; font-weight: 600;">H3 — Card Titles</div>
+      <div class="scale-row" style="font-family: 'Zilla Slab', serif; font-size: 1.25rem; font-weight: 600;">H4 — Subsections</div>
+      <div class="scale-row" style="font-family: 'Inter', sans-serif; font-size: 1rem;">Body — Regular paragraph text at 16px base</div>
+      <div class="scale-row" style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--text-muted);">Small — Supporting text, captions, metadata</div>
+    </div>
+  </div>
+
+  <!-- Components -->
+  <div class="admin-card">
+    <h2 class="section-title">Components ({components.length})</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Description</th>
+            <th>Path</th>
+          </tr>
+        </thead>
+        <tbody>
+          {components.map(c => (
+            <tr>
+              <td><strong>{c.name}</strong></td>
+              <td class="td-desc">{c.desc}</td>
+              <td><code class="path-code">{c.path}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</AdminLayout>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  .section-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  /* Colors */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .color-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .color-swatch {
+    height: 80px;
+  }
+
+  .color-info {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .color-info code {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .color-usage {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* Typography */
+  .type-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .type-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .type-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .type-meta strong {
+    font-size: 0.875rem;
+  }
+
+  .type-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .type-weight {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+  }
+
+  /* Scale */
+  .scale-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .scale-row {
+    line-height: 1.2;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .scale-row:last-child { border-bottom: none; }
+
+  /* Components table */
+  .table-wrapper { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+  }
+
+  th {
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0.5rem 0.625rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  td {
+    padding: 0.5rem 0.625rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .td-desc {
+    color: var(--text-muted);
+    max-width: 350px;
+  }
+
+  .path-code {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  tr:hover { background: var(--surface-alt); }
+
+  @media (max-width: 600px) {
+    .type-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .color-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

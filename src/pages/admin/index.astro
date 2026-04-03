@@ -20,7 +20,6 @@ const modules = [
     href: '/admin/seo',
     icon: 'search',
     enabled: adminConfig.modules.seoAudit,
-    status: 'active' as const,
   },
   {
     name: 'Site Review',
@@ -28,7 +27,6 @@ const modules = [
     href: '/admin/site-review',
     icon: 'check-square',
     enabled: adminConfig.modules.siteReview,
-    status: 'active' as const,
   },
   {
     name: 'Brand Guide',
@@ -36,7 +34,6 @@ const modules = [
     href: '/admin/brand',
     icon: 'palette',
     enabled: adminConfig.modules.brandGuide,
-    status: 'coming-soon' as const,
   },
 ];
 
@@ -87,16 +84,13 @@ const connections = [
   <div class="admin-grid-3" style="margin-bottom: 1.5rem;">
     {enabledModules.map((mod) => (
       <a
-        href={mod.status === 'active' ? mod.href : undefined}
-        class={`admin-card module-card ${mod.status === 'active' ? 'clickable' : 'disabled'}`}
+        href={mod.href}
+        class="admin-card module-card clickable"
       >
         <div class="module-header">
           <div class="module-icon">
             <Fragment set:html={getIcon(mod.icon)} />
           </div>
-          {mod.status === 'coming-soon' && (
-            <span class="badge-soon">Coming Soon</span>
-          )}
         </div>
         <h2 class="module-name">{mod.name}</h2>
         <p class="module-desc">{mod.description}</p>

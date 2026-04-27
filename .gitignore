@@ -26,3 +26,6 @@ heiser-service-account.json
 
 # Claude Code cache
 .claude/
+
+# Wrangler local dev state (KV / D1 / R2 caches)
+.wrangler/

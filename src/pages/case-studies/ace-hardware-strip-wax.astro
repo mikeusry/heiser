@@ -1,0 +1,317 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const title = "Case Study: Ace Hardware Strip & Wax | The Heiser Group";
+const description = "Commercial floor strip and wax case study from a Lake County Ace Hardware. See how we restored worn VCT tile to a high-gloss finish, plus a four-coat vs one-coat comparison.";
+
+const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/upload";
+const aceFolder = "Heiser/heiser/case-studies/ace-hardware";
+const floorFolder = "Heiser/heiser/case-studies/floor-coats";
+
+// Five matched before/after pairs from Ace Hardware
+const aceImagePairs = [
+  {
+    label: "Main Aisle",
+    description: { before: "Years of foot traffic, scuffs, and dulled surface", after: "High-gloss reflective finish" },
+    before: "ace-before-1",
+    after: "ace-after-1",
+  },
+  {
+    label: "Cleaning Products Aisle",
+    description: { before: "Worn finish with dirt embedded in tile seams", after: "Like-new shine, sealed and protected" },
+    before: "ace-before-2",
+    after: "ace-after-2",
+  },
+  {
+    label: "Display End-Cap",
+    description: { before: "Heavy traffic wear at the aisle endpoint", after: "Even, mirror-like reflectivity" },
+    before: "ace-before-3",
+    after: "ace-after-3",
+  },
+  {
+    label: "Center Walkway",
+    description: { before: "Hazy buildup hiding the original tile color", after: "Restored color and uniform sheen" },
+    before: "ace-before-4",
+    after: "ace-after-4",
+  },
+  {
+    label: "Side Aisle",
+    description: { before: "Dirt-caked grout and dull, lifeless tile", after: "Clean grout, four-coat protective wax" },
+    before: "ace-before-5",
+    after: "ace-after-5",
+  },
+];
+
+// Case study data
+const caseStudy = {
+  title: "The Ace Hardware Strip & Wax",
+  tagline: "From dull and worn to high-gloss reflective in a single overnight job",
+
+  client: {
+    name: "Ace Hardware",
+    role: "Retail Hardware Store",
+    location: "Lake County, IL",
+  },
+
+  property: {
+    type: "Retail / VCT Tile Floor",
+    condition: "Years of foot traffic, scuffed and dulled finish",
+    timeline: "Single overnight crew — no business interruption",
+  },
+
+  challenge: `
+Vinyl composition tile (VCT) in a busy retail environment takes a beating. After years of cart traffic,
+spills, salt in winter, and routine mopping, even well-maintained floors end up with that unmistakable
+"tired" look — hazy, scratched, and dulled in the high-traffic lanes.
+
+The Ace Hardware team needed their sales floor to look as professional as the products on the shelves.
+A standard mop-and-buff couldn't get there. The old wax had to come up — all of it — before a fresh
+finish could go down. And it had to happen overnight, with the store fully reset and dry by opening.
+  `,
+
+  solution: `
+A full strip and wax is one of the highest-impact things you can do for a commercial space. Done right,
+it makes a 10-year-old floor look like the day it was installed.
+
+We mobilized after close: cordoned the work zone, removed any movable displays, and applied a
+heavy-duty stripping solution to break down years of accumulated wax buildup. A floor machine with
+a stripping pad lifted the old finish, then we wet-vacuumed and rinsed the tile back to bare,
+revealing the original tile color underneath. After a clean rinse and full dry, we laid down four
+thin coats of commercial-grade floor finish, allowing each coat to cure between applications.
+
+The result is the high-gloss, reflective finish you see in the after photos — a fully sealed surface
+that's easier to maintain, more resistant to scuffs and stains, and looks dramatically more professional.
+  `,
+
+  process: [
+    { step: "1", label: "Strip", desc: "Heavy-duty solution + machine pad lifts years of old wax" },
+    { step: "2", label: "Rinse", desc: "Wet-vac and clean-water rinse back to bare tile" },
+    { step: "3", label: "Dry", desc: "Full dry time before any finish goes down" },
+    { step: "4", label: "Wax (×4)", desc: "Four thin coats with cure time between each" },
+  ],
+
+  results: [
+    { metric: "1 night", label: "Total job time" },
+    { metric: "0", label: "Hours of business closure" },
+    { metric: "4", label: "Coats of commercial finish" },
+    { metric: "100%", label: "Floor restored to like-new" },
+  ],
+};
+
+// Schema markup
+const caseStudySchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": caseStudy.title,
+  "description": description,
+  "author": { "@type": "Organization", "name": "The Heiser Group" },
+  "publisher": { "@type": "Organization", "name": "The Heiser Group" },
+  "image": `${cloudinaryBase}/w_1200,q_auto,f_auto/${aceFolder}/ace-after-1`,
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
+
+  <!-- Hero -->
+  <section class="bg-brand-navy text-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study</p>
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
+        {caseStudy.title}
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8">
+        {caseStudy.tagline}
+      </p>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <span class="text-gray-400">Client:</span>
+          <span class="ml-2">{caseStudy.client.name}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Location:</span>
+          <span class="ml-2">{caseStudy.client.location}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Service:</span>
+          <span class="ml-2">Strip &amp; Wax — VCT Tile</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Banner -->
+  <section class="bg-brand-orange py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        {caseStudy.results.map(result => (
+          <div>
+            <p class="text-4xl font-bold">{result.metric}</p>
+            <p class="text-sm opacity-90">{result.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Challenge -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">The Challenge</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.challenge}
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Gallery -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="The Transformation" subtitle="Five before-and-after pairs from across the sales floor" />
+
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        {aceImagePairs.map(pair => (
+          <>
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+              <div class="aspect-[3/4] bg-gray-200 relative">
+                <img
+                  src={`${cloudinaryBase}/w_800,q_auto,f_auto/${aceFolder}/${pair.before}`}
+                  alt={`${pair.label} before strip and wax`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <span class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Before</span>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900">{pair.label}</h3>
+                <p class="text-sm text-gray-500">{pair.description.before}</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+              <div class="aspect-[3/4] bg-gray-200 relative">
+                <img
+                  src={`${cloudinaryBase}/w_800,q_auto,f_auto/${aceFolder}/${pair.after}`}
+                  alt={`${pair.label} after strip and wax`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <span class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">After</span>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900">{pair.label}</h3>
+                <p class="text-sm text-gray-500">{pair.description.after}</p>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">Our Approach</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.solution}
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {caseStudy.process.map(p => (
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="text-3xl font-bold text-brand-orange mb-2">{p.step}</div>
+            <div class="font-semibold text-brand-navy mb-1">{p.label}</div>
+            <p class="text-sm text-gray-600">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Four Coats? -->
+  <section class="py-20 bg-brand-cream">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="Why Four Coats?" subtitle="The difference between a standard wax and a true commercial finish" />
+
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+          <div class="aspect-[3/4] bg-gray-200 relative">
+            <img
+              src={`${cloudinaryBase}/w_800,q_auto,f_auto/${floorFolder}/floor-1-coat`}
+              alt="Floor with one coat of wax"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-4 left-4 bg-brand-navy text-white px-3 py-1 rounded-full text-sm font-semibold">1 Coat</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-bold text-xl text-brand-navy mb-2">Single-Coat Finish</h3>
+            <p class="text-gray-600">A single coat closes the surface and adds shine, but leaves the floor under-protected against scuffs, stains, and traffic wear.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+          <div class="aspect-[3/4] bg-gray-200 relative">
+            <img
+              src={`${cloudinaryBase}/w_800,q_auto,f_auto/${floorFolder}/floor-4-coats`}
+              alt="Floor with four coats of wax"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-4 left-4 bg-brand-orange text-white px-3 py-1 rounded-full text-sm font-semibold">4 Coats</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading font-bold text-xl text-brand-navy mb-2">Four-Coat Commercial Finish</h3>
+            <p class="text-gray-600">Four thin coats build a deep, mirror-like gloss that reflects light, resists scuffs, simplifies daily maintenance, and lasts dramatically longer between strip cycles.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 bg-white rounded-xl p-8 max-w-3xl mx-auto">
+        <p class="text-gray-700 text-lg leading-relaxed">
+          <strong class="text-brand-navy">The bottom line:</strong> a four-coat finish costs more upfront, but it pays back through lower maintenance time, longer intervals between expensive strip-and-wax jobs, and a sales floor that consistently looks professional.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+        Need Your Floors Restored?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Strip and wax, deep tile and grout cleaning, hardwood refinishing — we do it all, and we do it after hours so your business never closes. Let's get you a quote.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+        >
+          Get a Quote
+        </a>
+        <a
+          href="/commercial-cleaning"
+          class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+        >
+          Commercial Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back link -->
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-gray-500">
+        <a href="/specialty-cleaning" class="text-brand-orange hover:underline">← Back to Specialty Cleaning Services</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

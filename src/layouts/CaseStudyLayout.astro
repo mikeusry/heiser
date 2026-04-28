@@ -1,0 +1,106 @@
+---
+/**
+ * CaseStudyLayout
+ *
+ * Wraps BaseLayout with:
+ * - Custom OG image generated from a Cloudinary public_id (1200×630 at the right aspect)
+ * - Article-grade schema markup (datePublished, dateModified, image array, publisher logo, mainEntityOfPage)
+ * - Type-safe props for case study metadata
+ *
+ * Pass `ogImagePublicId` for case-study specific share cards.
+ */
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Cloudinary public_id to use for OG/Twitter card image (e.g. "Heiser/heiser/case-studies/ace-hardware/ace-after-1") */
+  ogImagePublicId: string;
+  /** ISO date the case study was first published */
+  datePublished: string;
+  /** ISO date the case study was last updated (defaults to datePublished) */
+  dateModified?: string;
+  /** Schema headline (defaults to title minus the " | The Heiser Group" suffix) */
+  headline?: string;
+  /** Topical Service references for schema `about` field */
+  about?: string[];
+}
+
+const {
+  title,
+  description,
+  ogImagePublicId,
+  datePublished,
+  dateModified = datePublished,
+  headline,
+  about = [],
+} = Astro.props;
+
+const CLOUDINARY_BASE = 'https://res.cloudinary.com/southland-organics/image/upload';
+const SITE_ORIGIN = 'https://heisergroup.com';
+
+// Encode spaces and other special chars in public_id path segments
+const encodedPublicId = ogImagePublicId.split('/').map(encodeURIComponent).join('/');
+
+// 1200×630 OG-optimized image (Facebook, LinkedIn, Slack, iMessage)
+const ogImage = `${CLOUDINARY_BASE}/w_1200,h_630,c_fill,g_auto,q_auto,f_auto/${encodedPublicId}`;
+
+// Multi-aspect image array for schema (Google rich results favors 1x1, 4x3, 16x9)
+const schemaImages = [
+  `${CLOUDINARY_BASE}/w_1200,h_1200,c_fill,g_auto,q_auto,f_auto/${encodedPublicId}`,
+  `${CLOUDINARY_BASE}/w_1200,h_900,c_fill,g_auto,q_auto,f_auto/${encodedPublicId}`,
+  `${CLOUDINARY_BASE}/w_1200,h_675,c_fill,g_auto,q_auto,f_auto/${encodedPublicId}`,
+];
+
+const canonicalURL = `${SITE_ORIGIN}${Astro.url.pathname}`;
+const cleanHeadline = headline ?? title.replace(/\s*\|\s*The Heiser Group\s*$/, '');
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: cleanHeadline,
+  description,
+  image: schemaImages,
+  datePublished,
+  dateModified,
+  author: {
+    '@type': 'Organization',
+    name: 'The Heiser Group',
+    url: SITE_ORIGIN,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Heiser Group',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${CLOUDINARY_BASE}/w_600,q_auto,f_auto/Heiser/heiser/heiser-logo`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL,
+  },
+  ...(about.length > 0 && {
+    about: about.map((name) => ({
+      '@type': 'Service',
+      name,
+      provider: {
+        '@type': 'Organization',
+        name: 'The Heiser Group',
+      },
+    })),
+  }),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={ogImage}
+  type="article"
+  pubDate={new Date(datePublished)}
+  modifiedDate={new Date(dateModified)}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <slot />
+</BaseLayout>

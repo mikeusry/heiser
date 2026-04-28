@@ -1,9 +1,8 @@
 ---
 export const prerender = true;
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
-import CTASection from '../../components/CTASection.astro';
 
 const title = "Case Study: Highland Park Property Turnover | The Heiser Group";
 const description = "How we transformed a neglected rental property into a show-ready listing in under 24 hours. Real estate cleaning case study from Lake County IL.";
@@ -113,24 +112,16 @@ const caseStudy = {
 };
 
 // Schema markup
-const caseStudySchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": caseStudy.title,
-  "description": description,
-  "author": {
-    "@type": "Organization",
-    "name": "The Heiser Group"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Heiser Group"
-  }
-};
 ---
 
-<BaseLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
+<CaseStudyLayout
+  title={title}
+  description={description}
+  ogImagePublicId="Heiser/Realty Rachel/Job 11.12/Afters/fridge"
+  datePublished="2025-12-01"
+  headline={caseStudy.title}
+  about={["Realty Cleaning", "Property Turnover", "Move-in Move-out Cleaning"]}
+>
 
   <!-- Hero -->
   <section class="bg-brand-navy text-white py-20">
@@ -308,4 +299,4 @@ const caseStudySchema = {
       </p>
     </div>
   </section>
-</BaseLayout>
+</CaseStudyLayout>

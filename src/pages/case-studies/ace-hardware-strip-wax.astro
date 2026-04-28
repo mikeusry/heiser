@@ -1,9 +1,8 @@
 ---
 export const prerender = true;
 
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
-import CTASection from '../../components/CTASection.astro';
 
 const title = "Case Study: Ace Hardware Strip & Wax | The Heiser Group";
 const description = "Commercial floor strip and wax case study from a Lake County Ace Hardware. See how we restored worn VCT tile to a high-gloss finish, plus a four-coat vs one-coat comparison.";
@@ -102,20 +101,16 @@ that's easier to maintain, more resistant to scuffs and stains, and looks dramat
   ],
 };
 
-// Schema markup
-const caseStudySchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": caseStudy.title,
-  "description": description,
-  "author": { "@type": "Organization", "name": "The Heiser Group" },
-  "publisher": { "@type": "Organization", "name": "The Heiser Group" },
-  "image": `${cloudinaryBase}/w_1200,q_auto,f_auto/${aceFolder}/ace-after-1`,
-};
 ---
 
-<BaseLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(caseStudySchema)} />
+<CaseStudyLayout
+  title={title}
+  description={description}
+  ogImagePublicId={`${aceFolder}/ace-after-1`}
+  datePublished="2026-04-28"
+  headline={caseStudy.title}
+  about={["Commercial Cleaning", "Strip and Wax", "VCT Tile Floor Care"]}
+>
 
   <!-- Hero -->
   <section class="bg-brand-navy text-white py-20">
@@ -314,4 +309,4 @@ const caseStudySchema = {
       </p>
     </div>
   </section>
-</BaseLayout>
+</CaseStudyLayout>

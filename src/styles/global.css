@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Google Fonts loaded via <link> in BaseLayout.astro to avoid PostCSS @import order warnings */
 
 /* Base Typography */
 body {

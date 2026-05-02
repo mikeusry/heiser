@@ -11,6 +11,11 @@
  */
 import BaseLayout from './BaseLayout.astro';
 
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -24,6 +29,8 @@ interface Props {
   headline?: string;
   /** Topical Service references for schema `about` field */
   about?: string[];
+  /** Optional FAQs to render as FAQPage schema (no visible markup — page handles its own rendering) */
+  faqs?: FAQ[];
 }
 
 const {
@@ -34,6 +41,7 @@ const {
   dateModified = datePublished,
   headline,
   about = [],
+  faqs = [],
 } = Astro.props;
 
 const CLOUDINARY_BASE = 'https://res.cloudinary.com/southland-organics/image/upload';
@@ -91,6 +99,19 @@ const articleSchema = {
     })),
   }),
 };
+
+const faqSchema = faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.answer,
+    },
+  })),
+} : null;
 ---
 
 <BaseLayout
@@ -102,5 +123,6 @@ const articleSchema = {
   modifiedDate={new Date(dateModified)}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  {faqSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
   <slot />
 </BaseLayout>

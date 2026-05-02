@@ -125,6 +125,29 @@ treatment. It's preventive maintenance for your floor.
     { metric: "0", label: "Strip & wax cycles needed" },
   ],
 };
+
+const faqs = [
+  {
+    question: "How often should a bar or restaurant floor be machine scrubbed?",
+    answer: "For most bars and restaurants, quarterly is the sweet spot. Nightly mopping handles surface debris, but it can't remove the embedded grime that accumulates in tile texture and grout lines. A quarterly machine scrub resets the floor before the buildup becomes permanent. High-volume venues sometimes go monthly; low-traffic spaces can stretch to twice a year.",
+  },
+  {
+    question: "What's a CRB cylindrical scrubber and why do you use it?",
+    answer: "A CRB (Counter Rotating Brush) cylindrical scrubber uses two brushes that spin in opposite directions to mechanically agitate grime out of grout lines and tile texture. Flat-pad rotary machines and mops physically can't reach into grout — they just push grime around. The CRB design is what makes restored grout color possible.",
+  },
+  {
+    question: "Can you do this during business hours?",
+    answer: "Almost always after hours. The cleaner needs ~10 minutes of dwell time, the floor stays wet through the scrub-and-extract phase, and customers can't walk on it until it's mopped clean. We schedule for after close so the bar opens the next day with a fully dry, fully restored floor and zero customer impact.",
+  },
+  {
+    question: "Why is quarterly maintenance cheaper than waiting?",
+    answer: "Without regular service, grout permanently darkens within 12–18 months and the floor eventually needs an expensive full strip-and-restoration cycle that disrupts business and costs many times more than a quarterly scrub. Quarterly cadence is preventive maintenance — it costs a fraction of restoration and your floor never has to look 'tired' in the meantime.",
+  },
+  {
+    question: "Do you serve restaurants and bars outside Libertyville?",
+    answer: "Yes — we work with restaurants, bars, retail spaces, and offices throughout Lake County, IL including Vernon Hills, Mundelein, Grayslake, Highland Park, Lake Forest, Waukegan, Buffalo Grove, Deerfield, Lake Bluff, Gurnee, and Lincolnshire. We also offer monthly and custom-cadence floor care contracts depending on your traffic.",
+  },
+];
 ---
 
 <CaseStudyLayout
@@ -134,12 +157,13 @@ treatment. It's preventive maintenance for your floor.
   datePublished="2026-05-02"
   headline={caseStudy.title}
   about={["Commercial Cleaning", "Restaurant and Bar Cleaning", "Machine Floor Scrubbing", "Tile and Grout Cleaning"]}
+  faqs={faqs}
 >
 
   <!-- Hero -->
   <section class="bg-brand-navy text-white py-20">
     <div class="max-w-4xl mx-auto px-6">
-      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study</p>
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study · Published May 2, 2026</p>
       <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
         {caseStudy.title}
       </h1>
@@ -353,6 +377,76 @@ treatment. It's preventive maintenance for your floor.
           class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
         >
           Commercial Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <details class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200">
+            <summary class="cursor-pointer p-6 font-heading font-bold text-brand-navy text-lg list-none flex items-center justify-between">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Case Studies -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-navy mb-8 text-center">More Case Studies</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/case-studies/ace-hardware-strip-wax" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/heiser/case-studies/ace-hardware/ace-after-1"
+              alt="Ace Hardware aisle after strip and wax"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Ace Hardware Strip &amp; Wax</h3>
+            <p class="text-gray-600 mb-3">Worn VCT tile to high-gloss finish in a single overnight job. Four-coat commercial finish.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/case-studies/highland-park-turnover" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/Realty%20Rachel/Job%2011.12/Afters/microwave"
+              alt="Highland Park property after cleaning"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Highland Park Property Turnover</h3>
+            <p class="text-gray-600 mb-3">Neglected rental restored to show-ready in 24 hours. Three offers, $12K over asking price.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
         </a>
       </div>
     </div>

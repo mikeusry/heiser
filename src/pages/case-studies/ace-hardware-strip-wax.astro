@@ -47,7 +47,7 @@ const aceImagePairs = [
 
 // Case study data
 const caseStudy = {
-  title: "The Ace Hardware Strip & Wax",
+  title: "Ace Hardware Strip & Wax — Lake County, IL",
   tagline: "From dull and worn to high-gloss reflective in a single overnight job",
 
   client: {
@@ -101,6 +101,25 @@ that's easier to maintain, more resistant to scuffs and stains, and looks dramat
   ],
 };
 
+const faqs = [
+  {
+    question: "How long does a strip and wax finish last?",
+    answer: "On a properly maintained commercial floor, a four-coat strip and wax typically lasts 12–24 months between full strip cycles. With routine daily maintenance (auto-scrubbing or damp mopping with neutral pH cleaner), some clients go even longer. High-traffic retail spaces like Ace Hardware usually plan a refresh annually.",
+  },
+  {
+    question: "Can you do a strip and wax during business hours?",
+    answer: "We strongly recommend overnight or after-hours service. The stripping chemicals require dwell time, the floor must be completely dry between coats, and walking on a curing finish ruins it. For Ace Hardware we worked overnight — they opened the next morning with zero closure and a fully restored floor.",
+  },
+  {
+    question: "Why four coats instead of one?",
+    answer: "A single coat closes the surface and adds shine but leaves the floor under-protected. Four thin coats build a deep, mirror-like finish that resists scuffs, simplifies daily maintenance, and lasts dramatically longer between strip cycles. The upfront cost difference is small; the maintenance savings over time are substantial.",
+  },
+  {
+    question: "Do you service all of Lake County, Illinois?",
+    answer: "Yes — The Heiser Group serves commercial and retail clients throughout Lake County, IL including Libertyville, Vernon Hills, Mundelein, Grayslake, Highland Park, Lake Forest, Waukegan, Buffalo Grove, Deerfield, Lake Bluff, Gurnee, and Lincolnshire. Strip and wax service is available for any commercial space with VCT, vinyl, linoleum, or similar hard tile flooring.",
+  },
+];
+
 ---
 
 <CaseStudyLayout
@@ -110,12 +129,13 @@ that's easier to maintain, more resistant to scuffs and stains, and looks dramat
   datePublished="2026-04-28"
   headline={caseStudy.title}
   about={["Commercial Cleaning", "Strip and Wax", "VCT Tile Floor Care"]}
+  faqs={faqs}
 >
 
   <!-- Hero -->
   <section class="bg-brand-navy text-white py-20">
     <div class="max-w-4xl mx-auto px-6">
-      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study</p>
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study · Published April 28, 2026</p>
       <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
         {caseStudy.title}
       </h1>
@@ -296,6 +316,76 @@ that's easier to maintain, more resistant to scuffs and stains, and looks dramat
           class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
         >
           Commercial Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <details class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200">
+            <summary class="cursor-pointer p-6 font-heading font-bold text-brand-navy text-lg list-none flex items-center justify-between">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Case Studies -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-navy mb-8 text-center">More Case Studies</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/case-studies/morgans-bar-floor-scrubbing" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/heiser/case-studies/morgans-bar/bar-after-1"
+              alt="Morgan's Bar after machine scrubbing"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Morgan's Bar Quarterly Scrubbing</h3>
+            <p class="text-gray-600 mb-3">CRB cylindrical machine scrub on tile &amp; grout. Recurring quarterly service in Libertyville.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/case-studies/highland-park-turnover" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/Realty%20Rachel/Job%2011.12/Afters/microwave"
+              alt="Highland Park property after cleaning"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Highland Park Property Turnover</h3>
+            <p class="text-gray-600 mb-3">Neglected rental restored to show-ready in 24 hours. Three offers, $12K over asking price.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
         </a>
       </div>
     </div>

@@ -257,6 +257,37 @@ const description = `Trusted house cleaning in ${city.name}, IL since 1978. Same
 const pubDate = new Date('2025-01-15');
 const modifiedDate = new Date('2025-01-26');
 
+// Case studies: city-specific first, then general Lake County work.
+// Ordered so the broadest commercial work (Ace) surfaces first in the
+// "general" list — most cities don't have a city-specific match.
+const allCaseStudies = [
+	{
+		slug: "ace-hardware-strip-wax",
+		title: "Ace Hardware Strip & Wax",
+		blurb: "Worn VCT tile restored to high-gloss finish overnight at a Lake County hardware store.",
+		image: "Heiser/heiser/case-studies/ace-hardware/ace-after-1",
+		cities: [], // Lake County general
+	},
+	{
+		slug: "morgans-bar-floor-scrubbing",
+		title: "Morgan's Bar Quarterly Scrubbing",
+		blurb: "Recurring quarterly machine scrub keeps a Libertyville bar floor looking professional year-round.",
+		image: "Heiser/heiser/case-studies/morgans-bar/bar-after-1",
+		cities: ["libertyville"],
+	},
+	{
+		slug: "highland-park-turnover",
+		title: "Highland Park Property Turnover",
+		blurb: "Neglected rental restored to show-ready in 24 hours. Three offers, $12K over asking.",
+		image: "Heiser/Realty Rachel/Job 11.12/Afters/microwave",
+		cities: ["highland-park"],
+	},
+];
+
+const cityCaseStudies = allCaseStudies.filter(cs => cs.cities.includes(city.slug));
+const otherCaseStudies = allCaseStudies.filter(cs => !cs.cities.includes(city.slug));
+const featuredCaseStudies = [...cityCaseStudies, ...otherCaseStudies].slice(0, 2);
+
 const services = [
 	{
 		title: "Residential Cleaning",
@@ -459,6 +490,40 @@ const faqSchema = {
 	</section>
 
 	<!-- FAQ Section -->
+	{featuredCaseStudies.length > 0 && (
+		<section class="py-16 bg-gray-50">
+			<div class="max-w-6xl mx-auto px-6">
+				<SectionHeader
+					title={cityCaseStudies.length > 0 ? `Recent Work in ${city.name}` : `Recent Work in Lake County`}
+				/>
+				<div class="grid md:grid-cols-2 gap-8 mt-12">
+					{featuredCaseStudies.map(cs => (
+						<a href={`/case-studies/${cs.slug}`} class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+							<div class="aspect-[16/10] bg-gray-200 relative">
+								<img
+									src={`https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/${cs.image.split('/').map(s => encodeURIComponent(s)).join('/')}`}
+									alt={cs.title}
+									class="w-full h-full object-cover"
+									loading="lazy"
+								/>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-heading font-bold text-brand-navy mb-2">{cs.title}</h3>
+								<p class="text-gray-600 mb-3">{cs.blurb}</p>
+								<span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+									Read the case study
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+									</svg>
+								</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
 	<section class="py-16 bg-white">
 		<div class="max-w-4xl mx-auto px-6">
 			<SectionHeader

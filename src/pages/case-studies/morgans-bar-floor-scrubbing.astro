@@ -1,0 +1,369 @@
+---
+export const prerender = true;
+
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+
+const title = "Case Study: Morgan's Bar Quarterly Floor Scrubbing | The Heiser Group";
+const description = "Quarterly machine floor scrubbing keeps Morgan's Bar in Libertyville looking professional year-round. See the dramatic before/after of restored grout color and learn the CRB cylindrical scrubber process.";
+
+const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/upload";
+const folder = "Heiser/heiser/case-studies/morgans-bar";
+
+// Five matched before/after pairs
+const imagePairs = [
+  {
+    label: "Bar Service Area",
+    description: { before: "Grout darkened by months of bar traffic and spills", after: "Original tile color restored, grout lines defined" },
+    before: "bar-before-1",
+    after: "bar-after-1",
+  },
+  {
+    label: "Behind the Bar",
+    description: { before: "Heavy buildup in high-traffic prep zone", after: "Clean and sanitary work surface underfoot" },
+    before: "bar-before-2",
+    after: "bar-after-2",
+  },
+  {
+    label: "Dining Floor",
+    description: { before: "Dingy and uneven, hiding the original color", after: "Bright, even, professional appearance" },
+    before: "bar-before-3",
+    after: "bar-after-3",
+  },
+  {
+    label: "Walkway",
+    description: { before: "Foot-traffic grime embedded in tile texture", after: "Like-new finish across the high-traffic lane" },
+    before: "bar-before-4",
+    after: "bar-after-4",
+  },
+  {
+    label: "Tile Detail",
+    description: { before: "Dark, sticky residue and discolored grout", after: "Tile color back, grout visibly cleaner" },
+    before: "bar-before-5",
+    after: "bar-after-5",
+  },
+];
+
+const caseStudy = {
+  title: "Morgan's Bar — Quarterly Floor Scrubbing",
+  tagline: "How a recurring quarterly service keeps a busy Libertyville bar looking professional year-round",
+
+  client: {
+    name: "Morgan's Bar",
+    role: "Restaurant & Bar",
+    location: "Libertyville, IL",
+  },
+
+  service: {
+    type: "Recurring Quarterly Service",
+    cadence: "Every 3 months",
+    scope: "Machine floor scrubbing + bathroom detail clean",
+  },
+
+  challenge: `
+A busy bar floor takes constant abuse. Spilled drinks, food residue, foot traffic, and the
+inevitable cleaning shortcuts of a fast-paced service environment add up fast. Within weeks,
+grout lines start to darken. Within months, the entire floor takes on a hazy, sticky character
+that no amount of nightly mopping can fix.
+
+The bar's nightly staff does what they can, but nightly mopping just spreads thinned-out grime
+around — it can't lift the embedded buildup that accumulates in tile texture and grout lines.
+That's where a quarterly deep scrub comes in.
+  `,
+
+  solution: `
+Every three months, our team comes in after close and runs a full mechanical floor scrub. The
+process pulls embedded grime out of the tile and grout that nightly mopping physically can't reach.
+
+The result is a floor that looks fresh again — original tile color visible, grout lines clean and
+defined. By the time customers walk in for the next service, the floor reads as well-maintained
+and professional. Then the cycle starts over: nightly maintenance holds the line for three months,
+and we come back to reset.
+
+This is fundamentally different from a one-time deep clean. Quarterly cadence means the floor
+never gets so neglected that it requires the more expensive (and disruptive) full strip-and-wax
+treatment. It's preventive maintenance for your floor.
+  `,
+
+  process: [
+    {
+      step: "1",
+      label: "Vacuum",
+      desc: "Dry-vacuum the floor to remove loose debris before any chemical goes down",
+    },
+    {
+      step: "2",
+      label: "Apply Cleaner",
+      desc: "Lay down a commercial-grade tile cleaner / degreaser to break down embedded grime",
+    },
+    {
+      step: "3",
+      label: "10-Min Dwell",
+      desc: "Allow the cleaner to dwell for ~10 minutes — chemistry does the heavy lifting",
+    },
+    {
+      step: "4",
+      label: "Machine Scrub",
+      desc: "Run the CRB cylindrical floor scrubber to mechanically agitate and lift the loosened grime",
+    },
+    {
+      step: "5",
+      label: "Squeegee + Vac",
+      desc: "Squeegee dirty water into a wet-vacuum — grime leaves the building, not back into the grout",
+    },
+    {
+      step: "6",
+      label: "Final Rinse",
+      desc: "Clean-water mop pass to leave the floor neutral pH and residue-free",
+    },
+  ],
+
+  results: [
+    { metric: "4×/yr", label: "Quarterly cadence" },
+    { metric: "After hours", label: "Zero customer impact" },
+    { metric: "100%", label: "Grout color restored" },
+    { metric: "0", label: "Strip & wax cycles needed" },
+  ],
+};
+---
+
+<CaseStudyLayout
+  title={title}
+  description={description}
+  ogImagePublicId={`${folder}/bar-after-1`}
+  datePublished="2026-05-02"
+  headline={caseStudy.title}
+  about={["Commercial Cleaning", "Restaurant and Bar Cleaning", "Machine Floor Scrubbing", "Tile and Grout Cleaning"]}
+>
+
+  <!-- Hero -->
+  <section class="bg-brand-navy text-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study</p>
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
+        {caseStudy.title}
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8">
+        {caseStudy.tagline}
+      </p>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <span class="text-gray-400">Client:</span>
+          <span class="ml-2">{caseStudy.client.name}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Location:</span>
+          <span class="ml-2">{caseStudy.client.location}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Service:</span>
+          <span class="ml-2">{caseStudy.service.type}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Banner -->
+  <section class="bg-brand-orange py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        {caseStudy.results.map(result => (
+          <div>
+            <p class="text-4xl font-bold">{result.metric}</p>
+            <p class="text-sm opacity-90">{result.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Challenge -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">The Challenge</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.challenge}
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Gallery -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="The Transformation" subtitle="Five before-and-after pairs from across the bar floor" />
+
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        {imagePairs.map(pair => (
+          <>
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+              <div class="aspect-[3/4] bg-gray-200 relative">
+                <img
+                  src={`${cloudinaryBase}/w_800,q_auto,f_auto/${folder}/${pair.before}`}
+                  alt={`${pair.label} before machine scrubbing`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <span class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Before</span>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900">{pair.label}</h3>
+                <p class="text-sm text-gray-500">{pair.description.before}</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+              <div class="aspect-[3/4] bg-gray-200 relative">
+                <img
+                  src={`${cloudinaryBase}/w_800,q_auto,f_auto/${folder}/${pair.after}`}
+                  alt={`${pair.label} after machine scrubbing`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <span class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">After</span>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900">{pair.label}</h3>
+                <p class="text-sm text-gray-500">{pair.description.after}</p>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Do It -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="How We Do It" subtitle="A six-step process that does what nightly mopping can't" />
+
+      <div class="grid md:grid-cols-2 gap-12 items-center mt-12">
+        <!-- Equipment shot -->
+        <div>
+          <div class="rounded-2xl overflow-hidden shadow-2xl">
+            <img
+              src={`${cloudinaryBase}/w_800,q_auto,f_auto/${folder}/crb-scrubber-action`}
+              alt="CRB cylindrical floor scrubber in action at Morgan's Bar"
+              class="w-full h-auto"
+              loading="lazy"
+            />
+          </div>
+          <div class="mt-4 p-4 bg-brand-cream rounded-lg">
+            <p class="text-sm text-gray-700">
+              <strong class="text-brand-navy">Equipment:</strong> CRB cylindrical floor scrubber. Counter-rotating brushes mechanically agitate grime out of grout and tile texture — something flat-pad rotary machines and mops physically cannot do.
+            </p>
+          </div>
+        </div>
+
+        <!-- 6-step process -->
+        <div class="space-y-4">
+          {caseStudy.process.map(p => (
+            <div class="flex gap-4 items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-lg">
+                {p.step}
+              </div>
+              <div>
+                <h3 class="font-heading font-bold text-brand-navy text-lg">{p.label}</h3>
+                <p class="text-gray-600 text-sm">{p.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Quarterly? -->
+  <section class="py-20 bg-brand-cream">
+    <div class="max-w-4xl mx-auto px-6">
+      <SectionHeader title="Why Quarterly?" subtitle="Preventive maintenance is dramatically cheaper than restoration" />
+
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+          <h3 class="font-heading font-bold text-xl text-brand-navy mb-3">Without quarterly service</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 font-bold flex-shrink-0">•</span>
+              <span>Grime accumulates faster than nightly mopping can remove</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 font-bold flex-shrink-0">•</span>
+              <span>Grout permanently darkens within 12–18 months</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 font-bold flex-shrink-0">•</span>
+              <span>Eventually requires expensive full strip & restoration</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-red-500 font-bold flex-shrink-0">•</span>
+              <span>Customer perception suffers — floor reads as "old" or "neglected"</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-lg border-2 border-brand-orange">
+          <h3 class="font-heading font-bold text-xl text-brand-navy mb-3">With Heiser quarterly service</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+              <span>Floor consistently looks fresh and professional</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+              <span>Grout color preserved year after year</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+              <span>Avoids the disruption and cost of full restoration</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+              <span>After hours — your customers never see us, only the result</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-10 bg-white rounded-xl p-8 max-w-3xl mx-auto">
+        <p class="text-gray-700 text-lg leading-relaxed">
+          <strong class="text-brand-navy">The bottom line:</strong> a quarterly maintenance contract costs a fraction of what an emergency strip-and-restore job costs — and your floor never has to look "tired" in the meantime.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+        Want Your Floors on a Maintenance Schedule?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        We work with restaurants, bars, retail spaces, and offices throughout Lake County on quarterly, monthly, or custom-cadence floor care contracts. Let's talk about what makes sense for your space.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+        >
+          Get a Quote
+        </a>
+        <a
+          href="/commercial-cleaning"
+          class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+        >
+          Commercial Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back link -->
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-gray-500">
+        <a href="/commercial-cleaning" class="text-brand-orange hover:underline">← Back to Commercial Cleaning Services</a>
+      </p>
+    </div>
+  </section>
+</CaseStudyLayout>

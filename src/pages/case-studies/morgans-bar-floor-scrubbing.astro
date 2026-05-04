@@ -11,30 +11,36 @@ const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/uplo
 const folder = "Heiser/heiser/case-studies/morgans-bar";
 
 // Five matched before/after pairs
+// Pair mapping confirmed by client (Morgan's Bar):
+//   1st before → 4th after
+//   2nd before → 3rd after
+//   3rd before → 1st after
+//   4th before → 2nd after
+//   5th before → 5th after (unchanged)
 const imagePairs = [
   {
     label: "Bar Service Area",
     description: { before: "Grout darkened by months of bar traffic and spills", after: "Original tile color restored, grout lines defined" },
     before: "bar-before-1",
-    after: "bar-after-1",
+    after: "bar-after-4",
   },
   {
     label: "Behind the Bar",
     description: { before: "Heavy buildup in high-traffic prep zone", after: "Clean and sanitary work surface underfoot" },
     before: "bar-before-2",
-    after: "bar-after-2",
+    after: "bar-after-3",
   },
   {
     label: "Dining Floor",
     description: { before: "Dingy and uneven, hiding the original color", after: "Bright, even, professional appearance" },
     before: "bar-before-3",
-    after: "bar-after-3",
+    after: "bar-after-1",
   },
   {
     label: "Walkway",
     description: { before: "Foot-traffic grime embedded in tile texture", after: "Like-new finish across the high-traffic lane" },
     before: "bar-before-4",
-    after: "bar-after-4",
+    after: "bar-after-2",
   },
   {
     label: "Tile Detail",

@@ -773,6 +773,7 @@ function generateCareersNotificationEmailHtml(data: CareersFormData, leadId: str
 
 function formatPosition(position: string): string {
   const positionMap: Record<string, string> = {
+    'scrub-crew-lead': 'Scrub Crew Lead',
     'part-time-janitor': 'Part-Time Janitor',
     'full-time-janitor': 'Full-Time Janitor',
     'day-porter': 'Day Porter',

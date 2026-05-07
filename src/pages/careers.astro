@@ -63,6 +63,7 @@ const requirements = [
 ];
 
 const positionOptions = [
+	{ value: "scrub-crew-lead", label: "Scrub Crew Lead ($25–$32/hr)" },
 	{ value: "part-time-janitor", label: "Part-Time Janitor Position" },
 	{ value: "full-time-janitor", label: "Full-Time Janitor Position" },
 	{ value: "day-porter", label: "Day Porter Position" },
@@ -148,7 +149,7 @@ const positionOptions = [
 	</section>
 
 	<!-- Application Form Section -->
-	<section class="py-20 bg-white">
+	<section id="apply" class="py-20 bg-white">
 		<div class="max-w-2xl mx-auto px-6">
 			<SectionHeader
 				title="Apply Now"
@@ -240,6 +241,16 @@ const positionOptions = [
 <script>
 	const form = document.getElementById('careers-form') as HTMLFormElement;
 	const formMessage = document.getElementById('form-message');
+
+	// Pre-select position from ?position= query param (e.g. linked from /careers/scrub-crew-lead)
+	const params = new URLSearchParams(window.location.search);
+	const presetPosition = params.get('position');
+	if (presetPosition) {
+		const positionSelect = document.getElementById('position') as HTMLSelectElement | null;
+		if (positionSelect && [...positionSelect.options].some(o => o.value === presetPosition)) {
+			positionSelect.value = presetPosition;
+		}
+	}
 
 	form?.addEventListener('submit', async (e) => {
 		e.preventDefault();

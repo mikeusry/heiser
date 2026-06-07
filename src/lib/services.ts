@@ -51,6 +51,15 @@ export const services: Service[] = [
     category: "main",
   },
   {
+    id: "one-time-deep-clean",
+    name: "One-Time Deep Clean",
+    shortName: "One-Time Deep Clean",
+    url: "/one-time-deep-clean",
+    description: "One-time deep cleaning services in Lake County, IL. Perfect for moving, seasonal refresh, pre-event prep, or anytime you need a full top-to-bottom clean. No recurring commitment.",
+    shortDescription: "Top-to-bottom cleaning when you need it — no recurring commitment",
+    category: "frequency",
+  },
+  {
     id: "bi-weekly",
     name: "Bi-Weekly Cleaning",
     shortName: "Bi-Weekly",

@@ -55,33 +55,30 @@ const imagePairs = [
 // Case study data
 const caseStudy = {
   title: "The Highland Park Turnover",
-  tagline: "From 'unsellable' to 'under contract' in one weekend",
+  tagline: "From neglected rental to showing-ready in 24 hours",
 
   client: {
-    name: "Sarah Mitchell",
-    role: "Realtor, Coldwell Banker",
+    role: "Listing Agent",
     location: "Highland Park, IL"
   },
 
   property: {
-    type: "3BR/2BA Single Family",
-    sqft: "2,400",
+    type: "Single Family Rental",
     condition: "Severe neglect after long-term tenant",
     timeline: "Listed Monday, needed showing-ready by Saturday open house"
   },
 
   challenge: `
-    Sarah called us on a Thursday afternoon with a problem. She'd just listed a Highland Park property
-    that had been a rental for 8 years. The previous tenant had left it in rough shape—grease buildup
-    in the kitchen, soap scum caked on bathroom tile, carpet stains throughout, and a general layer
-    of grime that made the home feel neglected.
+    A Highland Park rental property had just gone on the market. After years as a rental, it was
+    in rough shape — grease buildup in the kitchen, soap scum caked on bathroom tile, carpet
+    stains throughout, and a general layer of grime that made the home feel neglected.
 
-    "I couldn't even take listing photos," Sarah told us. "The sellers were embarrassed, and I had
-    an open house scheduled for Saturday. I needed a miracle."
+    The listing agent had an open house scheduled for Saturday and couldn't even take listing photos.
+    The sellers were embarrassed. They needed the property restored fast.
   `,
 
   solution: `
-    We had a 3-person team on-site by 8am Friday. This wasn't a standard cleaning—it was a full
+    We had a 3-person team on-site by 8am Friday. This wasn't a standard cleaning — it was a full
     property restoration. We brought in our deep-cleaning equipment: commercial steamers,
     professional-grade degreasers, and tile restoration tools.
 
@@ -93,15 +90,9 @@ const caseStudy = {
   results: [
     { metric: "18", label: "Hours to complete" },
     { metric: "100%", label: "Showing-ready for Saturday" },
-    { metric: "3", label: "Offers received opening weekend" },
-    { metric: "$12K", label: "Over asking price" }
+    { metric: "3-person", label: "On-site crew" },
+    { metric: "Same week", label: "Listed to open house" }
   ],
-
-  quote: {
-    text: "I've worked with a lot of cleaning services. Most of them would have taken one look at this place and said 'call someone else.' David's team didn't flinch. They showed up, they worked until it was done, and they made me look like a hero to my sellers. This is the only cleaning company I recommend now.",
-    author: "Sarah Mitchell",
-    title: "Realtor, Coldwell Banker Highland Park"
-  },
 
   beforeAfterPairs: [
     { id: "kitchen", label: "Kitchen", before: "Before/kitchen-before", after: "After/kitchen-after" },
@@ -246,22 +237,6 @@ const caseStudy = {
           <p class="text-gray-600">Final walkthrough complete</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Quote Section -->
-  <section class="py-20 bg-brand-navy">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <svg class="w-12 h-12 text-brand-orange mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-      </svg>
-      <blockquote class="text-2xl md:text-3xl text-white font-light italic leading-relaxed mb-8">
-        "{caseStudy.quote.text}"
-      </blockquote>
-      <cite class="not-italic">
-        <span class="text-white font-semibold block">{caseStudy.quote.author}</span>
-        <span class="text-gray-400">{caseStudy.quote.title}</span>
-      </cite>
     </div>
   </section>
 

@@ -1,0 +1,77 @@
+============================================================
+EMAIL 1 — WELCOME (sent when the job is booked)
+Use case: David sends this the week Matt sets up a one-time
+or routine residential job. Replaces the printed welcome packet.
+============================================================
+
+SUBJECT:
+Welcome to The Heiser Group family — your cleaning is set for [DATE]
+
+────────────────────────────────────────────────────────────
+
+Hi [FIRST_NAME],
+
+Welcome to The Heiser Group family! We're thrilled to have you as a
+new customer, and we're looking forward to taking care of your home
+on [DATE].
+
+Our mission is simple: to give you a clean, comfortable, and
+refreshing home environment with every visit. Whether you've booked
+a one-time deep clean or you're getting set up for routine service,
+we're here to make sure your space shines.
+
+Here's what to expect on your appointment day:
+
+  •  Confirmation — we'll send you a reminder the day before
+     with the time and any details we need.
+  •  Arrival — our cleaning team arrives on time, fully equipped
+     with everything they need.
+  •  Walkthrough — our executive team will perform a walkthrough
+     before cleaning begins to make sure every area on the schedule
+     is handled the way it should be.
+  •  Cleaning — our team starts cleaning based on the services
+     you've requested.
+  •  Final Check — when we're done, we do a quick inspection to
+     make sure everything is spotless.
+  •  Feedback — your feedback is valuable. Let us know how we did
+     so we can keep improving.
+
+────────────────
+PAYMENT
+────────────────
+
+Payment is due upon completion of services. We accept:
+
+  •  Zelle — 773-559-8168 or david@heisergroup.com
+  •  Check — give to our team on-site, or mail to:
+     The Heiser Group
+     1567 Barclay Boulevard
+     Buffalo Grove, IL 60089
+
+────────────────
+OUR GUARANTEE
+────────────────
+
+We're committed to delivering the highest quality cleaning. If for
+any reason you're not completely satisfied, just let us know and
+we'll come back and make it right — at no additional cost.
+
+────────────────
+QUESTIONS? REACH OUT DIRECTLY.
+────────────────
+
+David Heiser — Owner
+Office: 773-545-5200  ·  Cell: 773-559-8168
+david@heisergroup.com
+
+Matthew Lystila — General Manager
+Office: 773-545-5200  ·  Cell: 773-396-0858
+matthew@heisergroup.com
+
+Office: 773-545-5200  ·  info@heisergroup.com  ·  heisergroup.com
+
+We appreciate your business, and we're excited to get started.
+
+David Heiser & Matthew Lystila
+The Heiser Group
+Professional cleaning since 1978

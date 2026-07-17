@@ -1,0 +1,34 @@
+============================================================
+EMAIL 2 — DAY-BEFORE REMINDER
+Use case: David sends this 1 day before the cleaning
+appointment. Short, warm, builds the "we care about you"
+feeling David mentioned on the call.
+============================================================
+
+SUBJECT:
+Quick reminder — we'll see you tomorrow at [TIME]
+
+────────────────────────────────────────────────────────────
+
+Hi [FIRST_NAME],
+
+Just a quick note to confirm we'll see you tomorrow, [DAY OF WEEK]
+[DATE], at [TIME]. Our team will arrive on time and fully equipped —
+all you need to do is unlock the door (or let us know how you'd like
+us to enter).
+
+A few quick things:
+
+  •  If you need to push the appointment or any details have
+     changed, just reply to this email or give me a call.
+  •  Please let us know about any pets we should know about, or
+     any areas you'd like us to skip or focus on extra.
+  •  Payment is due upon completion — Zelle (773-559-8168) or
+     check on-site works.
+
+We're looking forward to taking care of your home tomorrow.
+
+David Heiser
+The Heiser Group
+773-559-8168 (cell)  ·  david@heisergroup.com
+heisergroup.com

@@ -1,0 +1,86 @@
+============================================================
+EMAIL 3 — POST-SERVICE THANK-YOU + GOOGLE REVIEW
+Use case: David sends this after the cleaning is complete
+to selected customers (his choice — not automatic).
+TWO VERSIONS BELOW.
+============================================================
+
+============================================================
+VERSION A — for customers who already said they want to
+leave a review (e.g. the "old friend" David mentioned).
+The link does the work.
+============================================================
+
+SUBJECT:
+Thank you — and the link you asked for
+
+────────────────────────────────────────────────────────────
+
+Hi [FIRST_NAME],
+
+Thank you so much for letting us take care of your home this week.
+It was a pleasure being back in your space, and the team really
+enjoyed the job.
+
+You mentioned you'd be willing to leave us a Google review — that
+means more to a small family business like ours than you might
+realize. Here's the direct link, one click and you're there:
+
+https://g.page/r/CTmOQluuw6abEAE/review
+
+Whatever you'd like to write, big or small, we appreciate it.
+
+Thank you again — and please don't hesitate to reach out anytime
+you need us.
+
+David Heiser
+The Heiser Group
+773-559-8168 (cell)  ·  david@heisergroup.com
+heisergroup.com
+
+
+============================================================
+VERSION B — for general post-service customers who haven't
+specifically offered to review. Softer ask.
+============================================================
+
+SUBJECT:
+Thank you from The Heiser Group
+
+────────────────────────────────────────────────────────────
+
+Hi [FIRST_NAME],
+
+I just wanted to send a quick thank-you for trusting us with your
+home this week. Our team really enjoyed the job, and we hope you're
+loving the results.
+
+If everything met your expectations, we'd be incredibly grateful
+if you'd take a minute to share a quick Google review. Reviews are
+how small family businesses like ours stay visible — and a single
+sentence from you would mean a lot.
+
+Here's the direct link:
+
+https://g.page/r/CTmOQluuw6abEAE/review
+
+And of course, if anything wasn't perfect, please reply to this
+email or give me a call directly. Our guarantee is that we'll come
+back and make it right.
+
+Thank you again.
+
+David Heiser
+The Heiser Group
+773-559-8168 (cell)  ·  david@heisergroup.com
+heisergroup.com
+
+
+============================================================
+Google review link verified:
+  https://g.page/r/CTmOQluuw6abEAE/review
+
+This is The Heiser Group's official Google Business Profile
+review URL — one click takes the customer straight to the
+"Write a review" form for the business.
+============================================================

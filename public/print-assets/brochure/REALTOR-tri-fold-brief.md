@@ -20,8 +20,11 @@ and swaps in the copy blocks below panel-by-panel.
 
 ## Fold Direction & Panel Map
 
-The existing brochure is a **right-fold tri-fold** (8.5" × 11" landscape,
-folded into three ~3.67" panels).
+The existing brochure is a **right-fold / letter-fold / C-fold**
+(8.5" × 11" landscape). Panels are **not** equal. The flap that
+tucks in is 1/16" narrower so the piece sits flat. Measurements
+from the printer templates `B_11x8.5 outside.pdf` /
+`B_11x8.5 inside.pdf`:
 
 ### Front PDF (OUTSIDE — what the recipient sees first)
 
@@ -361,11 +364,21 @@ photo swaps are needed for the realtor version:
 
 ## Print Specs
 
-Same as the existing brochure the designer already has set up:
-- 8.5" × 11" landscape, tri-fold (right-fold)
+- 8.5" × 11" landscape, letter-fold (right-fold / C-fold)
 - Two-sided (outside + inside)
 - 0.125" bleed all sides
+- 0.125" safety from trim **and** from each fold
 - CMYK for print, or check with printer
+
+**Do not use three equal 3.667" columns.** That is why the proof
+folds were off. Lock columns to the printer templates:
+
+| Side | Fold 1 (from left trim) | Fold 2 | Panels L→R |
+|---|---|---|---|
+| **Outside (Front)** | 3.6246" (260.97 pt) | 7.3103" (526.34 pt) | 3.625" flap \| 3.686" back \| 3.690" cover |
+| **Inside (Back)** | 3.6871" (265.47 pt) | 7.3733" (530.88 pt) | 3.687" left \| 3.686" center \| 3.627" right (flap) |
+
+Templates live in OneDrive `2026 Heiser Trifold/printer-templates/`.
 
 ---
 

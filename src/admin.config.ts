@@ -1,9 +1,5 @@
-import { createAdminConfig } from '@pointdog/admin-core';
-
-export const adminConfig = createAdminConfig({
+export const adminConfig = {
   siteName: 'Heiser Group',
-  siteSlug: 'heiser-group',
-  brandId: '93d518a1-723e-4371-be06-0d1e662a2aa5',
   siteUrl: 'https://heisergroup.com',
   modules: {
     dashboard: true,
@@ -22,4 +18,8 @@ export const adminConfig = createAdminConfig({
     light: '#FDF5ED',        // Cream (brand)
     primaryText: '#ffffff',
   },
-});
+  typography: {
+    headingFont: 'system-ui, -apple-system, sans-serif',
+    bodyFont: 'system-ui, -apple-system, sans-serif',
+  },
+};

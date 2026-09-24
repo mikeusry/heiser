@@ -2,16 +2,7 @@
 // Admin dashboard — SSR (no prerender)
 import AdminLayout from '../../layouts/AdminLayout.astro';
 import { adminConfig } from '../../admin.config';
-import { ADMIN_ICONS } from '@pointdog/admin-core';
-import { fetchMothershipStatus } from '../../lib/mothership';
-
-// Fetch Mothership connection status
-let mothership: Awaited<ReturnType<typeof fetchMothershipStatus>> | null = null;
-try {
-  mothership = await fetchMothershipStatus();
-} catch {
-  // Mothership unavailable — dashboard still works
-}
+import { ADMIN_ICONS } from '../../admin-icons';
 
 const modules = [
   {
@@ -42,44 +33,9 @@ const enabledModules = modules.filter(m => m.enabled);
 function getIcon(name: string): string {
   return ADMIN_ICONS[name as keyof typeof ADMIN_ICONS] || ADMIN_ICONS.file;
 }
-
-// Connection status indicators
-const connections = [
-  {
-    name: 'Mothership',
-    status: mothership?.brand ? 'connected' : 'disconnected',
-    detail: mothership?.brand ? `${mothership.brand.name} (${mothership.brand.status})` : 'Not connected',
-  },
-  {
-    name: 'GSC',
-    status: mothership?.site?.gsc_property ? 'connected' : 'disconnected',
-    detail: mothership?.site?.gsc_property ?? 'Not configured',
-  },
-  {
-    name: 'GA4',
-    status: mothership?.site?.ga4_property_id ? 'connected' : 'disconnected',
-    detail: mothership?.site?.ga4_property_id ?? 'Not configured',
-  },
-  {
-    name: 'CDP',
-    status: mothership?.cdp?.is_active ? 'connected' : 'disconnected',
-    detail: mothership?.cdp ? `${mothership.cdp.gcp_project_id}:${mothership.cdp.dataset_name}` : 'Not configured',
-  },
-];
 ---
 
 <AdminLayout title="Dashboard" description="Overview of site health and management tools">
-  <!-- Connection Status -->
-  <div class="status-bar">
-    {connections.map((c) => (
-      <div class="status-item">
-        <span class={`status-dot ${c.status}`}></span>
-        <span class="status-name">{c.name}</span>
-        <span class="status-detail">{c.detail}</span>
-      </div>
-    ))}
-  </div>
-
   <!-- Module Cards -->
   <div class="admin-grid-3" style="margin-bottom: 1.5rem;">
     {enabledModules.map((mod) => (
@@ -111,52 +67,6 @@ const connections = [
 </AdminLayout>
 
 <style>
-  /* Connection status bar */
-  .status-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding: 1rem 1.25rem;
-    background: var(--surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-
-  .status-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8125rem;
-  }
-
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .status-dot.connected {
-    background: var(--success);
-    box-shadow: 0 0 4px var(--success);
-  }
-
-  .status-dot.disconnected {
-    background: var(--text-muted);
-    opacity: 0.4;
-  }
-
-  .status-name {
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .status-detail {
-    color: var(--text-muted);
-    font-size: 0.75rem;
-  }
-
   /* Module cards */
   .module-card {
     text-decoration: none;

@@ -9,6 +9,10 @@ FROM_EMAIL = "forms@point.dog"
 FROM_NAME = "point.dog Forms"
 REDIRECT_URL = "https://heisergroup.com/thank-you"
 
+# Keeps "Spam rejected" logs searchable in the dashboard for false-positive checks
+[observability]
+enabled = true
+
 # Secrets (set via wrangler secret put):
 # - SENDGRID_API_KEY
 # - GCP_SERVICE_ACCOUNT_JSON

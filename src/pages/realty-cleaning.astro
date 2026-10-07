@@ -8,28 +8,28 @@ import FeatureCard from '../components/FeatureCard.astro';
 import CTASection from '../components/CTASection.astro';
 import { contact, company } from '../lib/contact';
 
-const title = "Realty Cleaning Services - Move-In & Move-Out | The Heiser Group";
-const description = "Professional move-in/move-out cleaning for real estate agents, property managers, and homeowners in Lake County IL. Same-day availability.";
+const title = "Realtor & Real Estate Cleaning Services | Lake County IL | The Heiser Group";
+const description = "Realtor and real estate cleaning in Lake County IL: move-out, pre-listing, and tenant turnover cleaning, showing-ready in 48–72 hours. Free walkthrough and honest quote.";
 
 const services = [
 	{
 		title: "Pre-Listing Cleaning",
-		description: "Get properties photo-ready with a thorough cleaning that makes every room shine for showings and listing photos.",
+		description: "Cleaning a house before selling it pays off in the listing photos. We detail every room so the home is photo-ready and showing-ready.",
 		icon: "sparkle" as const
 	},
 	{
 		title: "Move-Out Cleaning",
-		description: "Help sellers fulfill their contractual obligations. We handle the deep clean so closings go smoothly.",
+		description: "Help sellers meet their move-out obligations. We handle the deep clean of the empty house so the closing goes smoothly.",
 		icon: "check" as const
 	},
 	{
 		title: "Move-In Ready",
-		description: "Ensure buyers walk into a spotless home. A clean start makes for happy clients and great referrals.",
+		description: "Make sure buyers walk into a spotless home. A clean start makes for happy clients and great referrals.",
 		icon: "star" as const
 	},
 	{
 		title: "Tenant Turnovers",
-		description: "Property managers trust us for fast, thorough turnover cleaning between tenants. Minimize vacancy time.",
+		description: "Real estate turnover cleaning for landlords and property management companies. Thorough cleaning between tenants to cut vacancy time.",
 		icon: "calendar" as const
 	}
 ];
@@ -37,22 +37,22 @@ const services = [
 const audiences = [
 	{
 		title: "Real Estate Agents",
-		description: "Priority scheduling and flexible billing for your closings. Join our Realtor Partner Program."
+		description: "Realtor cleaning built around your listing and closing dates, with priority scheduling and flexible billing."
 	},
 	{
 		title: "Property Managers",
-		description: "Fast turnover cleaning to minimize vacancy time. Consistent quality across all your properties."
+		description: "Turnover cleaning for property management, with consistent quality across every unit and rental house you manage."
 	},
 	{
-		title: "Homeowners",
-		description: "Moving in or out? We handle the cleaning so you can focus on your move."
+		title: "Homeowners Selling a House",
+		description: "Selling or moving? We handle the house cleaning before the sale so you can focus on the move."
 	}
 ];
 
 const whyPartner = [
 	{
-		title: "Fast Turnaround When You Need It",
-		description: "Text us by 10am, we'll do everything we can to be there that afternoon. Closing tomorrow? We prioritize realtor deadlines."
+		title: "Showing-Ready in 48–72 Hours",
+		description: "Most homes are showing-ready within 48–72 hours of our walkthrough. Closing date coming up? Realtor partners get priority on our schedule."
 	},
 	{
 		title: "Consistent Quality Every Time",
@@ -70,24 +70,32 @@ const whyPartner = [
 
 const faqs = [
 	{
-		question: "How fast can you turn around a property?",
-		answer: "We offer same-day and next-day availability for our realtor partners. Call us in the morning, we can often be there that afternoon."
+		question: "What does a real estate cleaning service include?",
+		answer: "Real estate cleaning, often called realtor cleaning, is a top-to-bottom clean of a home being listed, sold, or turned over between tenants: kitchens and appliances, bathrooms, floors, baseboards, window sills, and every room detailed for listing photos and showings. The Heiser Group handles pre-listing, move-out, move-in, and tenant turnover cleaning in Lake County, IL."
 	},
 	{
-		question: "Do you offer volume pricing?",
-		answer: "Yes. Real estate professionals who refer regularly receive priority scheduling and preferred rates. Ask about our Realtor Partner Program."
+		question: "Should you clean a house before selling it?",
+		answer: "Yes. A clean house photographs better and shows better, and buyers notice grime, odors, and neglected kitchens and bathrooms first. A professional pre-listing clean gets the home showing-ready before photos and the first open house."
+	},
+	{
+		question: "Does the realtor pay for cleaning before a house sale?",
+		answer: "It depends on the deal. The seller usually pays for cleaning before listing or after moving out, and some agents cover it for their clients. We can bill the agent, bill the homeowner, or invoice at closing."
+	},
+	{
+		question: "How fast can you get a property showing-ready?",
+		answer: "Most properties are showing-ready within 48–72 hours of our walkthrough. Realtor partners get priority scheduling when a listing or closing deadline is tight."
+	},
+	{
+		question: "Do you offer volume pricing for realtors and property managers?",
+		answer: "Yes. Real estate agents and property management companies who send us regular work get priority scheduling and preferred rates. Ask about our Realtor Partner Program."
 	},
 	{
 		question: "What if the property is in really bad shape?",
-		answer: "We handle everything from standard move-out cleaning to disaster recovery. Just let us know what you're dealing with and we'll quote it."
-	},
-	{
-		question: "How do I get billed?",
-		answer: "Flexible options: We can invoice at closing, bill you directly, or bill the client. Whatever works for your deal."
+		answer: "Neglected rentals and heavy move-out cleans are routine for us. Our Highland Park turnover took a neglected rental to showing-ready in 24 hours. Tell us what you're dealing with and we'll walk through it and give you an honest quote."
 	},
 	{
 		question: "What areas do you serve?",
-		answer: "Lake County IL, Chicago North Shore, and Kenosha WI. Highland Park, Lake Forest, Libertyville, Northbrook, Vernon Hills, Gurnee, and surrounding areas."
+		answer: "Lake County IL, the Chicago North Shore, and Kenosha WI, including Buffalo Grove, Highland Park, Lake Forest, Libertyville, Northbrook, Vernon Hills, Gurnee, and surrounding areas."
 	}
 ];
 
@@ -108,21 +116,25 @@ const faqSchema = {
 const serviceSchema = {
 	"@context": "https://schema.org",
 	"@type": "Service",
-	"name": "Move-In & Move-Out Cleaning",
-	"description": "Professional move-in/move-out cleaning for real estate agents, property managers, and homeowners in Lake County IL.",
+	"name": "Realtor & Real Estate Cleaning",
+	"description": "Real estate cleaning for realtors, property managers, and homeowners selling a house in Lake County IL: pre-listing, move-out, move-in, and tenant turnover cleaning.",
 	"provider": {
 		"@type": "LocalBusiness",
+		"@id": "https://heisergroup.com/#localbusiness",
 		"name": company.name,
 		"telephone": contact.phone.display,
 		"address": {
 			"@type": "PostalAddress",
-			"addressLocality": "Grayslake",
-			"addressRegion": "IL",
+			"streetAddress": contact.address.street,
+			"addressLocality": contact.address.city,
+			"addressRegion": contact.address.state,
+			"postalCode": contact.address.zip,
 			"addressCountry": "US"
 		}
 	},
 	"areaServed": [
 		{ "@type": "County", "name": "Lake County", "containedIn": "Illinois" },
+		{ "@type": "City", "name": "Buffalo Grove", "containedIn": "Illinois" },
 		{ "@type": "City", "name": "Highland Park", "containedIn": "Illinois" },
 		{ "@type": "City", "name": "Lake Forest", "containedIn": "Illinois" },
 		{ "@type": "City", "name": "Libertyville", "containedIn": "Illinois" },
@@ -131,7 +143,7 @@ const serviceSchema = {
 		{ "@type": "City", "name": "Gurnee", "containedIn": "Illinois" },
 		{ "@type": "City", "name": "Kenosha", "containedIn": "Wisconsin" }
 	],
-	"serviceType": ["Pre-Listing Cleaning", "Move-Out Cleaning", "Move-In Cleaning", "Tenant Turnover Cleaning"]
+	"serviceType": ["Real Estate Cleaning", "Pre-Listing Cleaning", "Move-Out Cleaning", "Move-In Cleaning", "Tenant Turnover Cleaning"]
 };
 ---
 
@@ -140,9 +152,9 @@ const serviceSchema = {
 	<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
 
 	<PageHero
-		eyebrow="REALTY CLEANING"
-		title="24-48 Hour Turnaround for Real Estate Professionals"
-		subtitle="Call in the morning, cleaned by closing. We make you look good when timing is tight."
+		eyebrow="REALTOR & REAL ESTATE CLEANING"
+		title="Same-Week Turnovers. Showing-Ready Homes."
+		subtitle="A reliable real estate cleaning partner for realtors, property managers, and homeowners, for the deadlines that don't move."
 	/>
 
 	<!-- Who We Serve -->
@@ -164,7 +176,7 @@ const serviceSchema = {
 	<section class="py-20 bg-brand-cream">
 		<div class="max-w-6xl mx-auto px-6">
 			<SectionHeader
-				title="Our Realty Cleaning Services"
+				title="Our Real Estate Cleaning Services"
 				subtitle="From pre-listing prep to post-closing turnovers"
 			/>
 			<div class="grid md:grid-cols-2 gap-8">
@@ -179,6 +191,9 @@ const serviceSchema = {
 					</div>
 				))}
 			</div>
+			<p class="text-center text-gray-700 mt-10 max-w-3xl mx-auto">
+				Need more than a turnover? Pair it with a <a href="/one-time-deep-clean/" class="text-brand-orange font-semibold hover:underline">one-time deep clean</a> for post-construction or a seasonal reset, or add <a href="/specialty-cleaning/" class="text-brand-orange font-semibold hover:underline">carpet shampooing, tile, and hardwood floor care</a>.
+			</p>
 		</div>
 	</section>
 
@@ -190,7 +205,7 @@ const serviceSchema = {
 					A Cleaning Partner, Not Just a Vendor
 				</h2>
 				<p class="text-xl text-gray-600">
-					You've built a network of reliable vendors—photographers, stagers, inspectors. We're here to be your cleaning partner. One call, one less thing to coordinate.
+					You've built a network of reliable vendors—photographers, stagers, inspectors. We're the cleaning company for real estate agents who need the house clean before the photographer arrives. One call, one less thing to coordinate.
 				</p>
 			</div>
 
@@ -222,8 +237,8 @@ const serviceSchema = {
 					</p>
 					<div class="grid grid-cols-2 gap-4 mb-8">
 						<div class="bg-white p-4 rounded-lg">
-							<p class="text-2xl font-bold text-brand-orange">18 hrs</p>
-							<p class="text-sm text-gray-500">To complete</p>
+							<p class="text-2xl font-bold text-brand-orange">24 hrs</p>
+							<p class="text-sm text-gray-500">Neglected to showing-ready</p>
 						</div>
 						<div class="bg-white p-4 rounded-lg">
 							<p class="text-2xl font-bold text-brand-orange">3-person</p>
@@ -266,16 +281,16 @@ const serviceSchema = {
 		<div class="max-w-6xl mx-auto px-6">
 			<div class="grid md:grid-cols-3 gap-8 text-center">
 				<div>
-					<p class="text-5xl font-bold text-brand-orange mb-2">45+</p>
-					<p class="text-xl">Years Serving Lake County</p>
+					<p class="text-5xl font-bold text-brand-orange mb-2">{company.founded}</p>
+					<p class="text-xl">Family-Owned Since</p>
 				</div>
 				<div>
-					<p class="text-5xl font-bold text-brand-orange mb-2">1000+</p>
-					<p class="text-xl">Properties Cleaned</p>
+					<p class="text-5xl font-bold text-brand-orange mb-2">3</p>
+					<p class="text-xl">Generations of Heisers</p>
 				</div>
 				<div>
-					<p class="text-5xl font-bold text-brand-orange mb-2">24hr</p>
-					<p class="text-xl">Typical Turnaround</p>
+					<p class="text-5xl font-bold text-brand-orange mb-2">48–72hr</p>
+					<p class="text-xl">To Showing-Ready</p>
 				</div>
 			</div>
 		</div>
@@ -312,7 +327,7 @@ const serviceSchema = {
 				</li>
 				<li class="flex items-center gap-2">
 					<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-					<span><strong>Same-day priority</strong> when you're in a pinch</span>
+					<span><strong>Priority scheduling</strong> for listing and closing deadlines</span>
 				</li>
 				<li class="flex items-center gap-2">
 					<svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -342,9 +357,9 @@ const serviceSchema = {
 
 	<!-- Final CTA -->
 	<CTASection
-		title="Ready to Get Your Property Move-In Ready?"
-		subtitle="Let's talk about how The Heiser Group can handle your realty cleaning needs."
-		buttonText="Get a Quote"
+		title="Free Walkthrough. Honest Quote."
+		subtitle="No pressure, no sales pitch. We look at the property, listen to what you need, and give you a real number."
+		buttonText="Book a Free Walkthrough"
 		buttonLink="/contact"
 	/>
 </BaseLayout>

@@ -189,8 +189,10 @@ const serviceSchema = {
 		"telephone": contact.phone.display,
 		"address": {
 			"@type": "PostalAddress",
-			"addressLocality": "Grayslake",
-			"addressRegion": "IL",
+			"streetAddress": contact.address.street,
+			"addressLocality": contact.address.city,
+			"addressRegion": contact.address.state,
+			"postalCode": contact.address.zip,
 			"addressCountry": "US"
 		}
 	},

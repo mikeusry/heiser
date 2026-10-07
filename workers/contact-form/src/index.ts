@@ -5,6 +5,8 @@
  * Supports contact and careers form types
  */
 
+import { careersSpamReason, contactSpamReason, originSpamReason } from './spam';
+
 interface Env {
   SENDGRID_API_KEY: string;
   GCP_SERVICE_ACCOUNT_JSON: string;
@@ -66,9 +68,12 @@ export default {
       // Honeypot spam check - reject if filled
       const honeypot = formData.get('website') as string || '';
       if (honeypot) {
-        // Silently reject spam but return success to not alert bots
-        console.log('Honeypot triggered - spam rejected');
-        return jsonResponse({ success: true, message: 'Thank you for your submission' });
+        return rejectSpam(request, env, 'honeypot filled', formData);
+      }
+
+      const originReason = originSpamReason(request);
+      if (originReason) {
+        return rejectSpam(request, env, originReason, formData);
       }
 
       const formType = formData.get('form_type') as string || 'contact';
@@ -101,6 +106,11 @@ export default {
         // Validate required fields
         if (!data.name || !data.email || !data.phone || !data.position) {
           return jsonResponse({ success: false, error: 'Missing required fields' }, 400);
+        }
+
+        const spamReason = careersSpamReason(data, new Set(Object.keys(POSITION_LABELS)));
+        if (spamReason) {
+          return rejectSpam(request, env, spamReason, formData);
         }
 
         // Log to CDP
@@ -137,6 +147,11 @@ export default {
           return jsonResponse({ success: false, error: 'Missing required fields' }, 400);
         }
 
+        const spamReason = contactSpamReason(data);
+        if (spamReason) {
+          return rejectSpam(request, env, spamReason, formData);
+        }
+
         // Log lead to CDP
         const cdpPromise = logContactLeadToCDP(env, data, leadId).catch(err => {
           console.error('CDP logging failed:', err);
@@ -154,14 +169,7 @@ export default {
         await cdpPromise;
       }
 
-      // Check if request wants JSON response (AJAX) or redirect (form submission)
-      const acceptHeader = request.headers.get('Accept') || '';
-      if (acceptHeader.includes('application/json')) {
-        return jsonResponse({ success: true, leadId });
-      }
-
-      // Redirect to thank you page
-      return Response.redirect(env.REDIRECT_URL, 302);
+      return acceptedResponse(request, env, leadId);
 
     } catch (error) {
       console.error('Form processing error:', error);
@@ -169,6 +177,27 @@ export default {
     }
   },
 };
+
+// JSON for the page's fetch() submit, redirect for a plain form POST
+function acceptedResponse(request: Request, env: Env, leadId?: string): Response {
+  const acceptHeader = request.headers.get('Accept') || '';
+  if (acceptHeader.includes('application/json')) {
+    return jsonResponse({ success: true, ...(leadId ? { leadId } : {}) });
+  }
+  return Response.redirect(env.REDIRECT_URL, 302);
+}
+
+// Spam gets the same response as a real submission so bots can't tell they were filtered
+function rejectSpam(request: Request, env: Env, reason: string, formData: globalThis.FormData): Response {
+  console.warn('Spam rejected', JSON.stringify({
+    reason,
+    formType: formData.get('form_type') || 'contact',
+    email: formData.get('email'),
+    origin: request.headers.get('Origin'),
+    ip: request.headers.get('CF-Connecting-IP'),
+  }));
+  return acceptedResponse(request, env);
+}
 
 // ============================================
 // Contact Form Emails
@@ -528,10 +557,6 @@ function generateContactConfirmationEmailHtml(data: ContactFormData): string {
               <p style="margin: 0 0 24px; color: #333; font-size: 16px; line-height: 1.6;">
                 We've received your request for <strong>${escapeHtml(data.serviceType)}</strong> and will get back to you within 24 hours (usually much sooner).
               </p>
-              <div style="background-color: #f8f9fa; border-radius: 8px; padding: 24px; margin-bottom: 24px;">
-                <h3 style="margin: 0 0 16px; color: #1A2B3D; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Your Message</h3>
-                <p style="margin: 0; color: #555; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(data.message)}</p>
-              </div>
               <h3 style="margin: 0 0 16px; color: #1A2B3D; font-size: 18px; font-weight: 600;">What happens next?</h3>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
                 <tr><td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;"><table cellpadding="0" cellspacing="0"><tr><td style="width: 32px; vertical-align: top;"><span style="display: inline-block; width: 24px; height: 24px; background-color: #D1623C; color: #fff; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px; font-weight: 600;">1</span></td><td style="color: #333; font-size: 15px;">We'll review your request and any specific details you've shared.</td></tr></table></td></tr>
@@ -665,7 +690,6 @@ function generateCareersConfirmationEmailHtml(data: CareersFormData): string {
                 <h3 style="margin: 0 0 16px; color: #1A2B3D; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Your Application</h3>
                 <p style="margin: 0 0 8px; color: #555; font-size: 15px;"><strong>Position:</strong> ${escapeHtml(formatPosition(data.position))}</p>
                 <p style="margin: 0 0 8px; color: #555; font-size: 15px;"><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
-                ${data.message ? `<p style="margin: 16px 0 0; color: #555; font-size: 15px;"><strong>Your message:</strong></p><p style="margin: 8px 0 0; color: #555; font-size: 15px; white-space: pre-wrap;">${escapeHtml(data.message)}</p>` : ''}
               </div>
               <h3 style="margin: 0 0 16px; color: #1A2B3D; font-size: 18px; font-weight: 600;">What happens next?</h3>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
@@ -771,15 +795,17 @@ function generateCareersNotificationEmailHtml(data: CareersFormData, leadId: str
 `;
 }
 
+// Keep in sync with positionOptions in src/pages/careers.astro
+const POSITION_LABELS: Record<string, string> = {
+  'scrub-crew-lead': 'Scrub Crew Lead',
+  'part-time-janitor': 'Part-Time Janitor',
+  'full-time-janitor': 'Full-Time Janitor',
+  'day-porter': 'Day Porter',
+  'residential-cleaning': 'Residential Cleaning Crew',
+};
+
 function formatPosition(position: string): string {
-  const positionMap: Record<string, string> = {
-    'scrub-crew-lead': 'Scrub Crew Lead',
-    'part-time-janitor': 'Part-Time Janitor',
-    'full-time-janitor': 'Full-Time Janitor',
-    'day-porter': 'Day Porter',
-    'residential-cleaning': 'Residential Cleaning Crew',
-  };
-  return positionMap[position] || position;
+  return POSITION_LABELS[position] || position;
 }
 
 function escapeHtml(text: string): string {

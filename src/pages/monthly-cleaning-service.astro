@@ -6,6 +6,7 @@ import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import CTASection from '../components/CTASection.astro';
 import { getServiceById } from '../lib/services';
+import { contact } from '../lib/contact';
 
 const service = getServiceById('monthly');
 
@@ -58,8 +59,10 @@ const serviceSchema = {
 		"name": "The Heiser Group",
 		"address": {
 			"@type": "PostalAddress",
-			"addressLocality": "Grayslake",
-			"addressRegion": "IL",
+			"streetAddress": contact.address.street,
+			"addressLocality": contact.address.city,
+			"addressRegion": contact.address.state,
+			"postalCode": contact.address.zip,
 			"addressCountry": "US"
 		},
 		"areaServed": [

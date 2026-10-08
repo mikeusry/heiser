@@ -21,11 +21,13 @@ POST https://heiser-contact-form.point-dog-digital.workers.dev
 Rejected submissions return the normal success response and log `Spam rejected` with a reason (Workers Logs in the Cloudflare dashboard). Rules:
 
 - Honeypot `website` field filled
-- `Origin`/`Referer` not heisergroup.com (or a `heiser*.point-dog-digital.workers.dev` preview)
 - Service or position not one of the site's options
 - Bot-style names (digits, repeated first/last, trailing two capitals like `CarlosnumZQ`)
 - Phone that isn't a valid US number
-- Link in a quote-request message, non-Latin script, or a message with no words
+- Link in name or message, non-Latin script (including Cyrillic), or a message with no words
+- Matching first and last name, or whitespace-only name parts after normalization
+
+`Origin`/`Referer` are not trusted for blocking (bots spoof them). Run `npm test` in this directory before deploy.
 
 ## Recipients
 

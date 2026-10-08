@@ -5,7 +5,8 @@ on:
     branches: [main]
     paths:
       - 'workers/contact-form/**'
-      # spam.ts validates serviceType against this list
+      # service-ids.ts must stay aligned with the site service list
+      - 'workers/contact-form/src/service-ids.ts'
       - 'src/lib/services.ts'
       - '.github/workflows/deploy-contact-form.yml'
   workflow_dispatch:
@@ -28,6 +29,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: workers/contact-form/package-lock.json
       - run: npm ci
+      - run: npm test
       - run: npx wrangler deploy --config wrangler.toml
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

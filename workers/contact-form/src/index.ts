@@ -5,7 +5,12 @@
  * Supports contact and careers form types
  */
 
-import { careersSpamReason, contactSpamReason, originSpamReason } from './spam';
+import {
+  careersSpamReason,
+  contactSpamReason,
+  normalizeFormField,
+  SPAM_FILTER_BUILD,
+} from './spam';
 
 interface Env {
   SENDGRID_API_KEY: string;
@@ -71,11 +76,6 @@ export default {
         return rejectSpam(request, env, 'honeypot filled', formData);
       }
 
-      const originReason = originSpamReason(request);
-      if (originReason) {
-        return rejectSpam(request, env, originReason, formData);
-      }
-
       const formType = formData.get('form_type') as string || 'contact';
 
       // Common tracking fields
@@ -95,11 +95,11 @@ export default {
         // Parse careers form
         const data: CareersFormData & typeof trackingData = {
           formType: 'careers',
-          name: formData.get('name') as string || '',
-          email: formData.get('email') as string || '',
-          phone: formData.get('phone') as string || '',
-          position: formData.get('position') as string || '',
-          message: formData.get('message') as string || '',
+          name: normalizeFormField(formData.get('name') as string || ''),
+          email: normalizeFormField(formData.get('email') as string || ''),
+          phone: normalizeFormField(formData.get('phone') as string || ''),
+          position: normalizeFormField(formData.get('position') as string || ''),
+          message: normalizeFormField(formData.get('message') as string || ''),
           ...trackingData,
         };
 
@@ -108,7 +108,10 @@ export default {
           return jsonResponse({ success: false, error: 'Missing required fields' }, 400);
         }
 
-        const spamReason = careersSpamReason(data, new Set(Object.keys(POSITION_LABELS)));
+        const spamReason = careersSpamReason(
+          { ...data, email: data.email },
+          new Set(Object.keys(POSITION_LABELS)),
+        );
         if (spamReason) {
           return rejectSpam(request, env, spamReason, formData);
         }
@@ -133,12 +136,12 @@ export default {
         // Parse contact form (default)
         const data: ContactFormData & typeof trackingData = {
           formType: 'contact',
-          firstName: formData.get('firstName') as string || '',
-          lastName: formData.get('lastName') as string || '',
-          email: formData.get('email') as string || '',
-          phone: formData.get('phone') as string || '',
-          serviceType: formData.get('serviceType') as string || '',
-          message: formData.get('message') as string || '',
+          firstName: normalizeFormField(formData.get('firstName') as string || ''),
+          lastName: normalizeFormField(formData.get('lastName') as string || ''),
+          email: normalizeFormField(formData.get('email') as string || ''),
+          phone: normalizeFormField(formData.get('phone') as string || ''),
+          serviceType: normalizeFormField(formData.get('serviceType') as string || ''),
+          message: normalizeFormField(formData.get('message') as string || ''),
           ...trackingData,
         };
 
@@ -191,6 +194,7 @@ function acceptedResponse(request: Request, env: Env, leadId?: string): Response
 function rejectSpam(request: Request, env: Env, reason: string, formData: globalThis.FormData): Response {
   console.warn('Spam rejected', JSON.stringify({
     reason,
+    filterBuild: SPAM_FILTER_BUILD,
     formType: formData.get('form_type') || 'contact',
     email: formData.get('email'),
     origin: request.headers.get('Origin'),

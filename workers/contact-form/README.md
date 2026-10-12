@@ -54,27 +54,23 @@ Set via `wrangler secret put <NAME>`:
 
 ## Turnstile Setup
 
-To enable Turnstile spam protection:
+Turnstile spam protection is **already configured**:
+- The Turnstile widget (site key `0x4AAAAAAFUdamJArF6SI61g`) is hardcoded in the Astro component
+- The worker secret `TURNSTILE_SECRET_KEY` is already set in the worker
 
-1. **Create a Turnstile widget** in the Cloudflare dashboard:
-   - Go to Cloudflare Dashboard → Turnstile → Add Widget
-   - Add hostnames: `heisergroup.com`, `www.heisergroup.com`, `localhost`
-   - Widget mode: Managed (recommended)
-   - Copy the Site Key and Secret Key
+The widget always renders on the form. The worker skips Turnstile verification (and logs once) when the secret is not set, so deploying the site before the worker won't break the form.
 
-2. **Set the worker secret**:
+### Deploy Order
+
+When deploying changes that affect both the site and worker:
+
+1. **Build and deploy the Pages site first**:
    ```bash
-   cd workers/contact-form
-   wrangler secret put TURNSTILE_SECRET_KEY
-   # Paste the secret key when prompted
+   npm run build
+   wrangler pages deploy dist --project-name=heiser
    ```
 
-3. **Set the site key in Vercel** (for the Astro site):
-   - Go to Vercel Dashboard → heisergroup → Settings → Environment Variables
-   - Add `PUBLIC_TURNSTILE_SITE_KEY` with the Site Key value
-   - Redeploy the site
-
-The form widget renders automatically when the site key is set. The worker skips Turnstile verification (and logs once) when the secret is not set, so deploying before keys exist won't break the form.
+2. **Then merge to main** — this triggers `deploy-contact-form.yml` which auto-deploys the worker and turns on Turnstile enforcement.
 
 ## Deployment
 

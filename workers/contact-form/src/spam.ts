@@ -9,30 +9,49 @@
 
 import { services } from '../../../src/lib/services';
 
-const ALLOWED_ORIGIN_HOSTS = new Set(['heisergroup.com', 'www.heisergroup.com', 'localhost', '127.0.0.1']);
+const DEFAULT_ALLOWED_ORIGIN_HOSTS = ['heisergroup.com', 'www.heisergroup.com', 'localhost', '127.0.0.1'];
 const SERVICE_IDS = new Set<string>(services.map(s => s.id));
 
 const URL_PATTERN = /https?:\/\/|www\.|\b[a-z0-9-]+\.[a-z]{2,}\/\S/i;
 const NON_LATIN_LETTER = /(?=\p{L})\P{Script=Latin}/u;
 const ANY_LETTER = /\p{L}/u;
-// Digits, or a lowercase letter followed by exactly two trailing capitals ("CarlosnumZQ", "JackfitIpGM")
 const BOT_NAME_PART = /\d|[a-z][A-Z]{2}$/;
 const MAX_NAME_LENGTH = 60;
 
-export function originSpamReason(request: Request): string | null {
+export function getAllowedOriginHosts(envAllowedOrigins?: string): Set<string> {
+  if (envAllowedOrigins && envAllowedOrigins.trim()) {
+    const hosts = envAllowedOrigins.split(',').map(h => h.trim()).filter(Boolean);
+    return new Set([...hosts, 'localhost', '127.0.0.1']);
+  }
+  return new Set(DEFAULT_ALLOWED_ORIGIN_HOSTS);
+}
+
+export interface OriginCheckResult {
+  blocked: boolean;
+  reason: string | null;
+  source: string | null;
+}
+
+export function checkOrigin(request: Request, allowedHosts: Set<string>): OriginCheckResult {
   const source = request.headers.get('Origin') || request.headers.get('Referer');
-  if (!source) return 'missing origin';
+  
+  if (!source) {
+    return { blocked: true, reason: 'missing', source: null };
+  }
 
   let host: string;
   try {
     host = new URL(source).hostname;
   } catch {
-    return `invalid origin ${source}`;
+    return { blocked: true, reason: 'invalid', source };
   }
 
   const isSitePreview = host.endsWith('.point-dog-digital.workers.dev') && host.includes('heiser');
-  if (ALLOWED_ORIGIN_HOSTS.has(host) || isSitePreview) return null;
-  return `foreign origin ${host}`;
+  if (allowedHosts.has(host) || isSitePreview) {
+    return { blocked: false, reason: null, source };
+  }
+  
+  return { blocked: true, reason: 'foreign', source };
 }
 
 export function contactSpamReason(data: {

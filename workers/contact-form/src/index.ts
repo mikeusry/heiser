@@ -5,15 +5,37 @@
  * Supports contact and careers form types
  */
 
-import { careersSpamReason, contactSpamReason, originSpamReason } from './spam';
+import { careersSpamReason, contactSpamReason, checkOrigin, getAllowedOriginHosts } from './spam';
+
+async function verifyTurnstile(token: string, secretKey: string, request: Request): Promise<boolean> {
+  try {
+    const ip = request.headers.get('CF-Connecting-IP') || '';
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret: secretKey,
+        response: token,
+        remoteip: ip,
+      }),
+    });
+    const result = await response.json() as { success: boolean };
+    return result.success === true;
+  } catch (error) {
+    console.error('Turnstile verification error:', error);
+    return false;
+  }
+}
 
 interface Env {
   SENDGRID_API_KEY: string;
   GCP_SERVICE_ACCOUNT_JSON: string;
-  RECIPIENT_EMAILS: string; // Comma-separated list of recipients
+  RECIPIENT_EMAILS: string;
   FROM_EMAIL: string;
   FROM_NAME: string;
   REDIRECT_URL: string;
+  ALLOWED_ORIGINS?: string;
+  TURNSTILE_SECRET_KEY?: string;
 }
 
 interface ContactFormData {
@@ -44,6 +66,8 @@ type FormData = (ContactFormData | CareersFormData) & {
   utmCampaign?: string;
 };
 
+let turnstileSkipLogged = false;
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // Handle CORS preflight
@@ -62,6 +86,14 @@ export default {
     }
 
     try {
+      // Check origin/referer first (before parsing form data)
+      const allowedHosts = getAllowedOriginHosts(env.ALLOWED_ORIGINS);
+      const originCheck = checkOrigin(request, allowedHosts);
+      if (originCheck.blocked) {
+        console.warn('Blocked origin', originCheck.source || '(none)');
+        return Response.redirect(env.REDIRECT_URL, 302);
+      }
+
       // Parse form data
       const formData = await request.formData();
 
@@ -71,9 +103,19 @@ export default {
         return rejectSpam(request, env, 'honeypot filled', formData);
       }
 
-      const originReason = originSpamReason(request);
-      if (originReason) {
-        return rejectSpam(request, env, originReason, formData);
+      // Turnstile verification (if configured)
+      if (env.TURNSTILE_SECRET_KEY) {
+        const turnstileToken = formData.get('cf-turnstile-response') as string || '';
+        if (!turnstileToken) {
+          return rejectSpam(request, env, 'missing turnstile token', formData);
+        }
+        const turnstileValid = await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, request);
+        if (!turnstileValid) {
+          return rejectSpam(request, env, 'failed turnstile verification', formData);
+        }
+      } else if (!turnstileSkipLogged) {
+        console.log('Turnstile verification skipped (TURNSTILE_SECRET_KEY not set)');
+        turnstileSkipLogged = true;
       }
 
       const formType = formData.get('form_type') as string || 'contact';
@@ -228,6 +270,11 @@ async function sendContactNotificationEmail(env: Env, data: ContactFormData, lea
     console.error(`SendGrid error: ${response.status} - ${await response.text()}`);
     return false;
   }
+  console.log('Lead sent', {
+    formType: 'contact',
+    timestamp: new Date().toISOString(),
+    sendGridStatus: response.status,
+  });
   return true;
 }
 
@@ -288,6 +335,11 @@ async function sendCareersNotificationEmail(env: Env, data: CareersFormData, lea
     console.error(`SendGrid error: ${response.status} - ${await response.text()}`);
     return false;
   }
+  console.log('Lead sent', {
+    formType: 'careers',
+    timestamp: new Date().toISOString(),
+    sendGridStatus: response.status,
+  });
   return true;
 }
 

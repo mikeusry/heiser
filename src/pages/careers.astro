@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import TurnstileWidget from '../components/TurnstileWidget.astro';
 
 // JobPosting Schema
 const jobPostingSchema = {
@@ -223,6 +224,8 @@ const positionOptions = [
 							placeholder="Tell us a bit about yourself..."
 						></textarea>
 					</div>
+
+					<TurnstileWidget />
 
 					<button
 						type="submit"

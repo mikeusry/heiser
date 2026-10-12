@@ -4,6 +4,7 @@ export const prerender = true;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import TurnstileWidget from '../components/TurnstileWidget.astro';
 import { contact } from '../lib/contact';
 import { serviceOptions } from '../lib/services';
 import { serviceAreaText, serviceAreas } from '../lib/serviceAreas';
@@ -134,6 +135,8 @@ const contactPageSchema = {
 								placeholder="Tell us about your cleaning needs..."
 							></textarea>
 						</div>
+
+						<TurnstileWidget />
 
 						<button
 							type="submit"

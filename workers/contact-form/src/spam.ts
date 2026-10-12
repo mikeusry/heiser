@@ -7,11 +7,10 @@
  * is spam, or null when it looks legitimate.
  */
 
+import { services } from '../../../src/lib/services';
+
 const DEFAULT_ALLOWED_ORIGIN_HOSTS = ['heisergroup.com', 'www.heisergroup.com', 'localhost', '127.0.0.1'];
-const SERVICE_IDS = new Set<string>([
-  'residential', 'commercial', 'realty', 'specialty',
-  'one-time-deep-clean', 'bi-weekly', 'monthly',
-]);
+const SERVICE_IDS = new Set<string>(services.map(s => s.id));
 
 const URL_PATTERN = /https?:\/\/|www\.|\b[a-z0-9-]+\.[a-z]{2,}\/\S/i;
 const NON_LATIN_LETTER = /(?=\p{L})\P{Script=Latin}/u;

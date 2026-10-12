@@ -1,6 +1,7 @@
 name = "heiser-contact-form"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
+# Required by @cloudflare/vitest-pool-workers for unit tests
 compatibility_flags = ["nodejs_compat"]
 account_id = "07f1d3224d68222be7b6f97190608b80"
 

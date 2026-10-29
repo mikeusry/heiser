@@ -48,10 +48,10 @@ jobs:
           MOTHERSHIP_READ_TOKEN: ${{ secrets.MOTHERSHIP_READ_TOKEN }}
         run: |
           set -euo pipefail
-          git config --global url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "https://github.com/mikeusry/mothership"
-          git config --global url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "ssh://git@github.com/mikeusry/mothership"
-          git config --global url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "git@github.com:mikeusry/mothership"
-          git config --global url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "git+ssh://git@github.com/mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "https://github.com/mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "ssh://git@github.com/mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "git@github.com:mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "git+ssh://git@github.com/mikeusry/mothership"
           rm -rf "${GITHUB_WORKSPACE}/../Mothership"
           git clone --depth 1 --branch main https://github.com/mikeusry/mothership.git "${GITHUB_WORKSPACE}/../Mothership"
           test -f "${GITHUB_WORKSPACE}/../Mothership/packages/admin-core/package.json"

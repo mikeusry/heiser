@@ -52,15 +52,9 @@ Heiser/
 
 ## Deployment
 
-```bash
-# Build
-npm run build
+Cloudflare Pages project `heiser` deploys only from GitHub `main` via `.github/workflows/deploy-site.yml`. `npm run deploy` refuses unless `CI=true`.
 
-# Deploy to Cloudflare Pages (manual)
-npx wrangler pages deploy dist --project-name=heiser
-```
-
-Note: Cloudflare Pages is not connected to Git. Deploys are manual.
+Required repository secrets: `CLOUDFLARE_PAGES_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, and `MOTHERSHIP_READ_TOKEN` (must be added; read access to `mikeusry/mothership`). See `.claude-context.md`.
 
 ## Environment Variables
 

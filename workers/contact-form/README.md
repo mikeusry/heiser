@@ -64,22 +64,14 @@ The widget always renders on the form. The worker skips Turnstile verification (
 
 When deploying changes that affect both the site and worker:
 
-1. **Build and deploy the Pages site first**:
-   ```bash
-   npm run build
-   wrangler pages deploy dist --project-name=heiser
-   ```
-
-2. **Then merge to main** — this triggers `deploy-contact-form.yml` which auto-deploys the worker and turns on Turnstile enforcement.
+1. **Merge the site to main first.** `.github/workflows/deploy-site.yml` deploys Pages project `heiser`. Do not deploy the site from a laptop.
+2. **The worker follows its own workflow.** `deploy-contact-form.yml` deploys the worker when its paths change on `main`. A commit that changes both the site and `workers/contact-form/` runs both workflows.
 
 ## Deployment
 
-```bash
-cd workers/contact-form
-npm run deploy
-```
+Production deploys of this worker run from `.github/workflows/deploy-contact-form.yml` on push to `main`. Do not deploy it from a laptop.
 
-`--config wrangler.toml` is required: without it wrangler picks up the site's root `wrangler.jsonc` and fails.
+The workflow runs `npx wrangler deploy --config wrangler.toml` from `workers/contact-form`. The `--config` flag is required: without it, Wrangler picks up the site's root `wrangler.jsonc` and fails.
 
 ## Local Development
 

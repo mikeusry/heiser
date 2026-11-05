@@ -1,0 +1,330 @@
+---
+export const prerender = true;
+
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+
+const title = "Case Study: Residential Carpet 4-Step | The Heiser Group";
+const description = "Process documentation of Heiser's carpet 4-step — vacuuming, treating stains and agitating, shampooing, and bonneting — on stairs, two bedrooms, and bathroom carpet for a residential client in Chicagoland.";
+
+const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/upload";
+
+type ProcessPhoto = {
+  publicId: string;
+  file: string;
+  alt: string;
+};
+
+type RoomGallery = {
+  heading: string;
+  matthewNote: string;
+  photos: ProcessPhoto[];
+};
+
+const rooms: RoomGallery[] = [
+  {
+    heading: "Stairs",
+    matthewNote: "These are our 4-steps of vacuuming, treating stains/agitating carpet, shampooing and bonneting stairs",
+    photos: [
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/stairs/IMG_7341", file: "IMG_7341", alt: "Stair carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/stairs/IMG_7342", file: "IMG_7342", alt: "Stair carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/stairs/IMG_7344", file: "IMG_7344", alt: "Stair carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/stairs/IMG_7345", file: "IMG_7345", alt: "Stair carpet during 4-step work, residential client, Chicagoland" },
+    ],
+  },
+  {
+    heading: "Bedroom 1",
+    matthewNote: "Same 4-steps on bedroom 1",
+    photos: [
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom1/IMG_7323", file: "IMG_7323", alt: "Bedroom 1 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom1/IMG_7327", file: "IMG_7327", alt: "Bedroom 1 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom1/IMG_7332", file: "IMG_7332", alt: "Bedroom 1 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom1/IMG_7334", file: "IMG_7334", alt: "Bedroom 1 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom1/IMG_7338", file: "IMG_7338", alt: "Bedroom 1 carpet during 4-step work, residential client, Chicagoland" },
+    ],
+  },
+  {
+    heading: "Bedroom 2",
+    matthewNote: "Same 4-steps on bedroom 2",
+    photos: [
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom2/IMG_7324", file: "IMG_7324", alt: "Bedroom 2 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom2/IMG_7328", file: "IMG_7328", alt: "Bedroom 2 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom2/IMG_7335", file: "IMG_7335", alt: "Bedroom 2 carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bedroom2/IMG_7339", file: "IMG_7339", alt: "Bedroom 2 carpet during 4-step work, residential client, Chicagoland" },
+    ],
+  },
+  {
+    heading: "Bathroom carpet",
+    matthewNote: "Same 4-steps on bathroom carpet",
+    photos: [
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bathroom/IMG_7326", file: "IMG_7326", alt: "Bathroom carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bathroom/IMG_7331", file: "IMG_7331", alt: "Bathroom carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bathroom/IMG_7333", file: "IMG_7333", alt: "Bathroom carpet during 4-step work, residential client, Chicagoland" },
+      { publicId: "Heiser/gallery/Heiser/matthew-nov2026/bathroom/IMG_7337", file: "IMG_7337", alt: "Bathroom carpet during 4-step work, residential client, Chicagoland" },
+    ],
+  },
+];
+
+const photoCount = rooms.reduce((sum, room) => sum + room.photos.length, 0);
+
+const caseStudy = {
+  title: "Residential Carpet — 4-Step Process",
+  tagline: "Stairs, two bedrooms, and bathroom carpet on a residential job in Chicagoland",
+  client: {
+    name: "Residential client",
+    location: "Chicagoland",
+  },
+  service: {
+    type: "Carpet 4-step",
+  },
+  challenge: `
+Carpet in a lived-in home picks up soil in the places people actually walk — stair treads, bedroom doorways, and the path in and out of a bathroom. Surface vacuuming takes up loose dirt. It does not treat stains or lift what is already in the fiber.
+
+This page documents a November 2026 residential job. The photos are process shots from the work, not labeled before-and-after pairs.
+  `,
+  solution: `
+The crew ran the same four steps in each area: vacuuming, treating stains and agitating the carpet, shampooing, and bonneting. Matthew described the stair set that way, then the same 4-steps on bedroom 1, bedroom 2, and the bathroom carpet.
+
+That is the whole method on this job. We are not adding steps that were not written down.
+  `,
+  process: [
+    { step: "1", label: "Vacuuming", desc: "First pass: vacuuming." },
+    { step: "2", label: "Treat stains / agitate", desc: "Treating stains and agitating the carpet." },
+    { step: "3", label: "Shampooing", desc: "Shampooing." },
+    { step: "4", label: "Bonneting", desc: "Bonneting." },
+  ],
+  facts: [
+    { metric: "4", label: "Steps on every area" },
+    { metric: "4", label: "Areas in this house" },
+    { metric: String(photoCount), label: "Process photos" },
+    { metric: "Nov 2026", label: "Job date" },
+  ],
+};
+
+const faqs = [
+  {
+    question: "What is the carpet 4-step?",
+    answer: "On this job the sequence was vacuuming, treating stains and agitating the carpet, shampooing, and bonneting. That wording is from the crew, not a marketing rewrite.",
+  },
+  {
+    question: "Are these before-and-after photos?",
+    answer: "No. These are process shots from the work. We did not pair frames as before and after because the emails did not label them that way.",
+  },
+  {
+    question: "Do you clean carpet in bathrooms and on stairs?",
+    answer: "Yes. This job covered stairs, two bedrooms, and bathroom carpet in the same house.",
+  },
+  {
+    question: "Where do you do residential carpet work?",
+    answer: "We serve homes throughout Lake County and the Chicago suburbs. This client's exact town was not given, so we list it as Chicagoland.",
+  },
+];
+---
+
+<CaseStudyLayout
+  title={title}
+  description={description}
+  ogImagePublicId="Heiser/gallery/Heiser/matthew-nov2026/stairs/IMG_7345"
+  datePublished="2026-11-05"
+  headline={caseStudy.title}
+  about={["Residential Cleaning", "Carpet Cleaning", "Stair Shampooing"]}
+  faqs={faqs}
+>
+
+  <section class="bg-brand-navy text-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study · Published November 5, 2026</p>
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
+        {caseStudy.title}
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8">
+        {caseStudy.tagline}
+      </p>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <span class="text-gray-400">Client:</span>
+          <span class="ml-2">{caseStudy.client.name}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Location:</span>
+          <span class="ml-2">{caseStudy.client.location}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Service:</span>
+          <span class="ml-2">{caseStudy.service.type}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-orange py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        {caseStudy.facts.map(fact => (
+          <div>
+            <p class="text-4xl font-bold">{fact.metric}</p>
+            <p class="text-sm opacity-90">{fact.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">The Job</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.challenge}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="The 4-step" subtitle="Vacuuming, treating stains / agitating carpet, shampooing, and bonneting" />
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {caseStudy.process.map(p => (
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="text-3xl font-bold text-brand-orange mb-2">{p.step}</div>
+            <div class="font-semibold text-brand-navy mb-1">{p.label}</div>
+            <p class="text-sm text-gray-600">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line mt-12 max-w-4xl mx-auto">
+        {caseStudy.solution}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="Process photos" subtitle="In-progress shots from each area. Not labeled as before-and-after pairs." />
+
+      {rooms.map(room => (
+        <div class="mt-16">
+          <h3 class="text-2xl font-heading font-bold text-brand-navy mb-2">{room.heading}</h3>
+          <p class="text-gray-600 mb-8 max-w-3xl">“{room.matthewNote}”</p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {room.photos.map(photo => (
+              <figure class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
+                <div class="aspect-[3/4] bg-gray-200">
+                  <img
+                    src={`${cloudinaryBase}/w_800,q_auto,f_auto/${photo.publicId}`}
+                    alt={photo.alt}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    width="480"
+                    height="640"
+                  />
+                </div>
+                <figcaption class="p-4 text-sm text-gray-500">{photo.file} · process</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-20 bg-brand-cream">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+        Need Carpet Work in Your Home?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Stairs, bedrooms, bathroom carpet — we run the same 4-step. Ask for a quote.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+        >
+          Get a Quote
+        </a>
+        <a
+          href="/specialty-cleaning"
+          class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+        >
+          Specialty Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <details class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200">
+            <summary class="cursor-pointer p-6 font-heading font-bold text-brand-navy text-lg list-none flex items-center justify-between">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-navy mb-8 text-center">More Case Studies</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/case-studies/apartment-lobby-urine-stains" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src={`${cloudinaryBase}/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7108`}
+              alt="Apartment lobby carpet during urine-stain 4-step work"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Apartment Lobby Urine Stains</h3>
+            <p class="text-gray-600 mb-3">Same 4-step on urine stains in an apartment lobby. Process photos from November 2026.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/case-studies/highland-park-turnover" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/Realty%20Rachel/Job%2011.12/Afters/microwave"
+              alt="Highland Park property after cleaning"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Highland Park Property Turnover</h3>
+            <p class="text-gray-600 mb-3">Neglected rental restored to show-ready in 24 hours. 3-person crew, same week.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-gray-500">
+        <a href="/specialty-cleaning" class="text-brand-orange hover:underline">← Back to Specialty Cleaning Services</a>
+      </p>
+    </div>
+  </section>
+</CaseStudyLayout>

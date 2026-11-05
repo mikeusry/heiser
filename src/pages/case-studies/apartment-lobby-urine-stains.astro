@@ -1,0 +1,276 @@
+---
+export const prerender = true;
+
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+
+const title = "Case Study: Apartment Lobby Urine Stains | The Heiser Group";
+const description = "Process documentation of Heiser's carpet 4-step on urine stains in an apartment lobby. Vacuuming, treating stains and agitating, shampooing, and bonneting.";
+
+const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/upload";
+
+const photos = [
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7100", file: "IMG_7100" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7101", file: "IMG_7101" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7102", file: "IMG_7102" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7103", file: "IMG_7103" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7104", file: "IMG_7104" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7105", file: "IMG_7105" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7106", file: "IMG_7106" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7107", file: "IMG_7107" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7108", file: "IMG_7108" },
+];
+
+const matthewNote = "Same 4-steps on urine stains from an apartment lobby";
+
+const caseStudy = {
+  title: "Apartment Lobby — Urine Stain Work",
+  tagline: "The carpet 4-step on urine stains in an apartment lobby",
+  client: {
+    name: "Apartment lobby",
+    location: "Chicagoland",
+  },
+  service: {
+    type: "Carpet 4-step · urine stains",
+  },
+  challenge: `
+Urine in a lobby carpet is a specialty job, not a quick vacuum. The building name and town were not given. What we have is the work itself: the same four steps used on residential carpet, applied to urine stains in an apartment lobby.
+
+The photos are process shots. They are not labeled as before-and-after pairs.
+  `,
+  solution: `
+Matthew's note on this set: “same 4-steps on urine stains from an apartment lobby.” The sequence is vacuuming, treating stains and agitating the carpet, shampooing, and bonneting.
+
+That is the method we can stand behind. We are not inventing extra chemistry talk or a result percentage.
+  `,
+  process: [
+    { step: "1", label: "Vacuuming", desc: "First pass: vacuuming." },
+    { step: "2", label: "Treat stains / agitate", desc: "Treating stains and agitating the carpet." },
+    { step: "3", label: "Shampooing", desc: "Shampooing." },
+    { step: "4", label: "Bonneting", desc: "Bonneting." },
+  ],
+  facts: [
+    { metric: "4", label: "Steps on the lobby" },
+    { metric: "9", label: "Process photos" },
+    { metric: "Lobby", label: "Apartment common area" },
+    { metric: "Nov 2026", label: "Job date" },
+  ],
+};
+
+const faqs = [
+  {
+    question: "Do you treat urine in commercial or apartment carpet?",
+    answer: "Yes. This job was urine stains in an apartment lobby, using the same 4-step as the residential carpet work: vacuuming, treating stains and agitating, shampooing, and bonneting.",
+  },
+  {
+    question: "Are these before-and-after photos?",
+    answer: "No. These are process shots from the lobby job. The emails did not label matched before-and-after pairs.",
+  },
+  {
+    question: "Which building is this?",
+    answer: "The building name was not provided. We list it as an apartment lobby in Chicagoland.",
+  },
+];
+---
+
+<CaseStudyLayout
+  title={title}
+  description={description}
+  ogImagePublicId="Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7108"
+  datePublished="2026-11-05"
+  headline={caseStudy.title}
+  about={["Specialty Cleaning", "Carpet Cleaning", "Urine Stain Treatment"]}
+  faqs={faqs}
+>
+
+  <section class="bg-brand-navy text-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study · Published November 5, 2026</p>
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
+        {caseStudy.title}
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8">
+        {caseStudy.tagline}
+      </p>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <span class="text-gray-400">Client:</span>
+          <span class="ml-2">{caseStudy.client.name}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Location:</span>
+          <span class="ml-2">{caseStudy.client.location}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Service:</span>
+          <span class="ml-2">{caseStudy.service.type}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-orange py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        {caseStudy.facts.map(fact => (
+          <div>
+            <p class="text-4xl font-bold">{fact.metric}</p>
+            <p class="text-sm opacity-90">{fact.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">The Job</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.challenge}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="The 4-step" subtitle="Same sequence as the residential carpet job, on lobby urine stains" />
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {caseStudy.process.map(p => (
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="text-3xl font-bold text-brand-orange mb-2">{p.step}</div>
+            <div class="font-semibold text-brand-navy mb-1">{p.label}</div>
+            <p class="text-sm text-gray-600">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line mt-12 max-w-4xl mx-auto">
+        {caseStudy.solution}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="Process photos" subtitle="In-progress shots from the lobby. Not labeled as before-and-after pairs." />
+      <p class="text-gray-600 mt-8 max-w-3xl">“{matthewNote}”</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        {photos.map(photo => (
+          <figure class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
+            <div class="aspect-[3/4] bg-gray-200">
+              <img
+                src={`${cloudinaryBase}/w_800,q_auto,f_auto/${photo.publicId}`}
+                alt={`Apartment lobby carpet during urine-stain 4-step work, ${photo.file}`}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="480"
+                height="640"
+              />
+            </div>
+            <figcaption class="p-4 text-sm text-gray-500">{photo.file} · process</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-brand-cream">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+        Have a Lobby or Common-Area Carpet Problem?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Urine stains, traffic lanes, apartment hallways — ask for a quote. We will tell you what the 4-step can cover.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+        >
+          Get a Quote
+        </a>
+        <a
+          href="/commercial-cleaning"
+          class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+        >
+          Commercial Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <details class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200">
+            <summary class="cursor-pointer p-6 font-heading font-bold text-brand-navy text-lg list-none flex items-center justify-between">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-navy mb-8 text-center">More Case Studies</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/case-studies/residential-carpet-4-step" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src={`${cloudinaryBase}/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/gallery/Heiser/matthew-nov2026/stairs/IMG_7345`}
+              alt="Residential stair carpet during 4-step work"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Residential Carpet 4-Step</h3>
+            <p class="text-gray-600 mb-3">Stairs, two bedrooms, and bathroom carpet. Process photos from November 2026.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/case-studies/bar-bathroom-floor-scrub" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src={`${cloudinaryBase}/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/gallery/Heiser/matthew-nov2026/bar-floor/IMG_7033`}
+              alt="Bar bathroom floor, one side scrubbed and the other not yet"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Bar Bathroom Floor Scrub</h3>
+            <p class="text-gray-600 mb-3">Half-scrubbed bathroom floor at a bar, plus traffic-pattern carpet work.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-gray-500">
+        <a href="/commercial-cleaning" class="text-brand-orange hover:underline">← Back to Commercial Cleaning Services</a>
+      </p>
+    </div>
+  </section>
+</CaseStudyLayout>

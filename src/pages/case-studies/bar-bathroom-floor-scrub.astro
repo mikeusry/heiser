@@ -1,0 +1,296 @@
+---
+export const prerender = true;
+
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+
+const title = "Case Study: Bar Bathroom Floor Scrub | The Heiser Group";
+const description = "A bar bathroom floor mid-scrub — one side done, the other not yet — plus 4-step carpet work on a traffic pattern outside a client bathroom.";
+
+const cloudinaryBase = "https://res.cloudinary.com/southland-organics/image/upload";
+
+const barFloor = {
+  publicId: "Heiser/gallery/Heiser/matthew-nov2026/bar-floor/IMG_7033",
+  file: "IMG_7033",
+  matthewNote: "Scrubbing a floor at a bar, one side is scrubbed and other not scrubbed yet",
+};
+
+const trafficPhotos = [
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/traffic/IMG_6887", file: "IMG_6887" },
+  { publicId: "Heiser/gallery/Heiser/matthew-nov2026/traffic/IMG_6892", file: "IMG_6892" },
+];
+
+const trafficNote = "Same 4-steps on traffic pattern outside a client bathroom";
+
+const caseStudy = {
+  title: "Bar Bathroom Floor — Mid-Scrub",
+  tagline: "One side scrubbed, the other not yet, plus traffic-pattern carpet work outside a bathroom",
+  client: {
+    name: "Commercial client",
+    location: "Chicagoland",
+  },
+  service: {
+    type: "Floor scrub + carpet 4-step",
+  },
+  challenge: `
+Bar bathroom floors take spills, tracked-in soil, and constant foot traffic. Nightly mopping often leaves a film. A machine scrub is what actually lifts it.
+
+This page has two November 2026 sets. The first is a bathroom floor at a bar, photographed halfway through the scrub. The second is carpet 4-step work on a traffic pattern outside a client bathroom. The bar name and the second client's name were not given.
+  `,
+  solution: `
+Matthew's caption on the floor shot: “Scrubbing a floor at a bar, one side is scrubbed and other not scrubbed yet.” That single frame is a true half-and-half — scrubbed on one side, not yet on the other.
+
+The traffic-pattern photos are the carpet 4-step — vacuuming, treating stains and agitating, shampooing, and bonneting — on the lane outside a bathroom. Those two frames are process shots, not a labeled before-and-after pair.
+  `,
+  process: [
+    { step: "1", label: "Vacuuming", desc: "First pass on the carpet traffic lane: vacuuming." },
+    { step: "2", label: "Treat stains / agitate", desc: "Treating stains and agitating the carpet." },
+    { step: "3", label: "Shampooing", desc: "Shampooing." },
+    { step: "4", label: "Bonneting", desc: "Bonneting." },
+  ],
+  facts: [
+    { metric: "1", label: "Half-and-half floor shot" },
+    { metric: "2", label: "Traffic-lane process photos" },
+    { metric: "4-step", label: "Carpet sequence" },
+    { metric: "Nov 2026", label: "Job date" },
+  ],
+};
+
+const faqs = [
+  {
+    question: "Is the bar floor photo a before-and-after?",
+    answer: "It is a single frame taken mid-job. One side of the bathroom floor is scrubbed; the other side is not scrubbed yet. That is how the crew labeled it.",
+  },
+  {
+    question: "What about the traffic-pattern photos?",
+    answer: "Those are the carpet 4-step on a traffic pattern outside a client bathroom: vacuuming, treating stains and agitating, shampooing, and bonneting. They are process shots, not a labeled before-and-after pair.",
+  },
+  {
+    question: "Which bar is this?",
+    answer: "The bar name was not provided. We list it as a commercial client in Chicagoland.",
+  },
+  {
+    question: "Do you scrub restaurant and bar floors on a schedule?",
+    answer: "Yes. See the Morgan's Bar case study for a quarterly tile-and-grout machine scrub. This page is a different job — a bathroom floor caught halfway through a scrub, plus a carpet traffic lane.",
+  },
+];
+---
+
+<CaseStudyLayout
+  title={title}
+  description={description}
+  ogImagePublicId={barFloor.publicId}
+  datePublished="2026-11-05"
+  headline={caseStudy.title}
+  about={["Commercial Cleaning", "Restaurant and Bar Cleaning", "Machine Floor Scrubbing", "Carpet Cleaning"]}
+  faqs={faqs}
+>
+
+  <section class="bg-brand-navy text-white py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <p class="text-brand-orange font-semibold mb-4 uppercase tracking-wide">Case Study · Published November 5, 2026</p>
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">
+        {caseStudy.title}
+      </h1>
+      <p class="text-2xl text-gray-300 mb-8">
+        {caseStudy.tagline}
+      </p>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <span class="text-gray-400">Client:</span>
+          <span class="ml-2">{caseStudy.client.name}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Location:</span>
+          <span class="ml-2">{caseStudy.client.location}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Service:</span>
+          <span class="ml-2">{caseStudy.service.type}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-brand-orange py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+        {caseStudy.facts.map(fact => (
+          <div>
+            <p class="text-4xl font-bold">{fact.metric}</p>
+            <p class="text-sm opacity-90">{fact.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-heading font-bold text-brand-navy mb-6">The Job</h2>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line">
+        {caseStudy.challenge}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <SectionHeader title="Half scrubbed, half not" subtitle="One frame. A true mid-job before-and-after." />
+      <figure class="mt-12 bg-white rounded-xl overflow-hidden shadow-lg">
+        <div class="aspect-[3/4] bg-gray-200 relative max-w-lg mx-auto">
+          <img
+            src={`${cloudinaryBase}/w_800,q_auto,f_auto/${barFloor.publicId}`}
+            alt="Bar bathroom floor, one side scrubbed and the other not scrubbed yet"
+            class="w-full h-full object-cover"
+            loading="eager"
+            width="480"
+            height="640"
+          />
+          <span class="absolute top-4 left-4 bg-brand-navy text-white px-3 py-1 rounded-full text-sm font-semibold">Half scrubbed / half not</span>
+        </div>
+        <figcaption class="p-6 text-gray-700">
+          <p class="font-semibold text-brand-navy mb-2">{barFloor.file}</p>
+          <p>“{barFloor.matthewNote}”</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <SectionHeader title="Traffic pattern outside a bathroom" subtitle="Carpet 4-step process shots — not a labeled before-and-after pair" />
+      <p class="text-gray-600 mt-8 max-w-3xl">“{trafficNote}”</p>
+      <div class="grid md:grid-cols-2 gap-8 mt-8">
+        {trafficPhotos.map(photo => (
+          <figure class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
+            <div class="aspect-[3/4] bg-gray-200">
+              <img
+                src={`${cloudinaryBase}/w_800,q_auto,f_auto/${photo.publicId}`}
+                alt={`Traffic-pattern carpet during 4-step work outside a client bathroom, ${photo.file}`}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="480"
+                height="640"
+              />
+            </div>
+            <figcaption class="p-4 text-sm text-gray-500">{photo.file} · process</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        {caseStudy.process.map(p => (
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="text-3xl font-bold text-brand-orange mb-2">{p.step}</div>
+            <div class="font-semibold text-brand-navy mb-1">{p.label}</div>
+            <p class="text-sm text-gray-600">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="prose prose-lg text-gray-700 whitespace-pre-line mt-12 max-w-4xl mx-auto">
+        {caseStudy.solution}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-brand-cream">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-4">
+        Need a Bar or Restaurant Floor Scrubbed?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Bathroom floors, dining rooms, and the carpet lanes that take the traffic. Ask for a quote.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-block bg-brand-orange text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-brand-orange-dark transition-all"
+        >
+          Get a Quote
+        </a>
+        <a
+          href="/commercial-cleaning"
+          class="inline-block bg-white text-brand-navy px-8 py-4 rounded-lg font-semibold text-lg border-2 border-brand-navy hover:bg-brand-navy hover:text-white transition-all"
+        >
+          Commercial Cleaning Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-navy mb-10 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faqs.map(faq => (
+          <details class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200">
+            <summary class="cursor-pointer p-6 font-heading font-bold text-brand-navy text-lg list-none flex items-center justify-between">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 flex-shrink-0 ml-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-gray-700 leading-relaxed">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-heading font-bold text-brand-navy mb-8 text-center">More Case Studies</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/case-studies/morgans-bar-floor-scrubbing" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/heiser/case-studies/morgans-bar/bar-after-1"
+              alt="Morgan's Bar after machine scrubbing"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Morgan's Bar Quarterly Scrubbing</h3>
+            <p class="text-gray-600 mb-3">CRB cylindrical machine scrub on tile and grout. Recurring quarterly service in Libertyville.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/case-studies/apartment-lobby-urine-stains" class="block bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <div class="aspect-[16/10] relative">
+            <img
+              src={`${cloudinaryBase}/w_800,h_500,c_fill,g_auto,q_auto,f_auto/Heiser/gallery/Heiser/matthew-nov2026/urine/IMG_7108`}
+              alt="Apartment lobby carpet during urine-stain 4-step work"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-heading font-bold text-brand-navy mb-2">Apartment Lobby Urine Stains</h3>
+            <p class="text-gray-600 mb-3">Same 4-step on urine stains in an apartment lobby. Process photos from November 2026.</p>
+            <span class="text-brand-orange font-semibold inline-flex items-center gap-2">
+              Read case study
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-gray-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-gray-500">
+        <a href="/commercial-cleaning" class="text-brand-orange hover:underline">← Back to Commercial Cleaning Services</a>
+      </p>
+    </div>
+  </section>
+</CaseStudyLayout>

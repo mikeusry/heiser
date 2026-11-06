@@ -1,0 +1,69 @@
+# Deploys the Heiser Astro site to Cloudflare Pages project "heiser".
+# Runs only on main. Do not deploy this site with wrangler from a laptop.
+#
+# Repository secrets this workflow reads (none are created here):
+#   CLOUDFLARE_PAGES_TOKEN  -> CLOUDFLARE_API_TOKEN (Pages deploy; not the
+#                              contact-form workflow's CLOUDFLARE_API_TOKEN)
+#   CLOUDFLARE_ACCOUNT_ID   -> Cloudflare account 07f1d3224d68222be7b6f97190608b80
+#   MOTHERSHIP_READ_TOKEN   -> read mikeusry/mothership (must be added)
+
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+    # Site source does not import workers/contact-form. A push that only
+    # changes that worker skips this job. A push that also touches any other
+    # path still runs it. workflow_dispatch is not filtered.
+    paths-ignore:
+      - 'workers/contact-form/**'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # actions/checkout refuses a path outside GITHUB_WORKSPACE, and
+      # package.json resolves @pointdog/admin-core from ../Mothership.
+      # The same token lets npm ci fetch private point-dog (git+ssh in the lockfile).
+      - name: Checkout Mothership
+        env:
+          MOTHERSHIP_READ_TOKEN: ${{ secrets.MOTHERSHIP_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "https://github.com/mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "ssh://git@github.com/mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "git@github.com:mikeusry/mothership"
+          git config --global --add url."https://x-access-token:${MOTHERSHIP_READ_TOKEN}@github.com/mikeusry/mothership".insteadOf "git+ssh://git@github.com/mikeusry/mothership"
+          rm -rf "${GITHUB_WORKSPACE}/../Mothership"
+          git clone --depth 1 --branch main https://github.com/mikeusry/mothership.git "${GITHUB_WORKSPACE}/../Mothership"
+          test -f "${GITHUB_WORKSPACE}/../Mothership/packages/admin-core/package.json"
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --no-install wrangler pages deploy dist --project-name heiser --branch main --commit-hash "$GITHUB_SHA" --commit-dirty=false

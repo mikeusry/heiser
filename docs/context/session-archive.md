@@ -16,10 +16,7 @@
 - Schema types: LocalBusiness, BreadcrumbList, FAQPage, BlogPosting
 
 ### Deployment Note
-Cloudflare Pages is Direct Upload (not Git-connected). Deploy with:
-```bash
-npm run build && npx wrangler pages deploy dist --project-name=heiser
-```
+At the time, Cloudflare Pages was direct upload. That laptop path is retired. Deploys now run only from GitHub `main` via `.github/workflows/deploy-site.yml`.
 
 ---
 

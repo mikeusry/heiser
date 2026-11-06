@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "node scripts/deploy-site.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.13",
@@ -21,5 +22,8 @@
     "node-fetch": "^3.3.2",
     "point-dog": "github:mikeusry/mothership#main",
     "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "wrangler": "4.59.2"
   }
 }
